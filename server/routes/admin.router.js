@@ -36,13 +36,15 @@ router.get('/user/:id', rejectNotAdmin, (req, res) => {
  * Put route template
  */
 router.put('/user/:id', rejectNotAdmin, (req, res) => {
+    
+    console.log('body:', req.body)
     const queryText = `UPDATE "dependents"
-                    SET "$1" = $2
-                    WHERE "user_id" = $3;`
+                    SET ${req.body.column} = ${req.body.value}
+                    WHERE "user_id" = ${req.params.id};`
 
-    console.log('post request, user id:', req.params.id, 'to change:', req.params.id)
+    console.log('post request, user id:', req.params.id, 'to change:', req.body.column, req.body.value)
     if (req.isAuthenticated(queryText)) {
-        pool.query(queryText, [req.user.id, req.params.id])
+        pool.query(queryText  )
             .then((results) => {
                 res.send(results);
             }).catch((error) => {
