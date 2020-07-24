@@ -18,7 +18,7 @@ router.get('/', rejectNotAdmin, (req, res) => {
 });
 
 // GET ROUTE for selecting single user
-router.get('/user/:id', (req, res) => {
+router.get('/user/:id', rejectNotAdmin, (req, res) => {
     const queryText = `SELECT * FROM "user"
                         WHERE "id" = $1`;
     pool.query(queryText, [req.params.id])
@@ -35,12 +35,12 @@ router.get('/user/:id', (req, res) => {
 /**
  * Put route template
  */
-router.put('/user/:id', (req, res) => {
+router.put('/user/:id', rejectNotAdmin, (req, res) => {
     const queryText = `UPDATE "dependents"
-                    SET "$1" = null
-                    WHERE "user_id" = $1 AND "tea_id" = $2;`
+                    SET "$1" = $2
+                    WHERE "user_id" = $3;`
 
-    console.log('post request, user id:', req.user.id, 'tea_id:', req.params.id)
+    console.log('post request, user id:', req.params.id, 'to change:', req.params.id)
     if (req.isAuthenticated(queryText)) {
         pool.query(queryText, [req.user.id, req.params.id])
             .then((results) => {
