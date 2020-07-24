@@ -6,7 +6,7 @@ CREATE TABLE "user"
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "account_type" INT NOT NULL
+    "account_type" INT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE "dependents"
@@ -15,8 +15,6 @@ CREATE TABLE "dependents"
     "first_name" VARCHAR (200),
     "last_name" VARCHAR (200),
     "email_address" VARCHAR (200),
-    "first_name" VARCHAR (200),
-    "last_name" VARCHAR (200),
     "phone_number" VARCHAR (16),
     "date_of_birth" DATE,
     "annual_income" INT,
