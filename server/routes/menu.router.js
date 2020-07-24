@@ -2,10 +2,11 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+//simple get all items from the menu
 router.get('/', (req, res) => {
     sqlText=`
     SELECT *
-    FROM []
+    FROM menu
     `
     pool.query(sqlText)
     .then(result=>{
@@ -18,9 +19,14 @@ router.get('/', (req, res) => {
     })
 });
 
+//this plans on individual items being altered at a time. could change it to handling all changes at once if necessary.
 router.put('/', (req, res) => {
-    sqlText=``
-    values=[]
+    sqlText=`
+    UPDATE menu
+    SET description = $1
+    WHERE id = $2
+    `
+    values=[req.body.desc, req.body.id]
 
     pool.query(sqlText, values)
     .then(result=>{
