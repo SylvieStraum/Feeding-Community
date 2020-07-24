@@ -38,22 +38,22 @@ router.get('/user/:id', rejectNotAdmin, (req, res) => {
 router.put('/user/:id', rejectNotAdmin, (req, res) => {
     
     console.log('body:', req.body)
-    const queryText = `UPDATE "dependents"
-                    SET ${req.body.column} = ${req.body.value}
-                    WHERE "user_id" = ${req.params.id};`
+    const queryText = `UPDATE dependents
+                        SET  ("first_name", "last_name", "email_address", "date_of_birth", "annual_income",
+                        "building_address1", "building_address2", "zip_code", "county_id", "city", "meal_choice",
+                        "special_request", "dietary_restrictions", "approval_status", "days")
+                        = ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+                        WHERE "user_id" = $16;`;
 
-    console.log('post request, user id:', req.params.id, 'to change:', req.body.column, req.body.value)
-    if (req.isAuthenticated(queryText)) {
-        pool.query(queryText  )
-            .then((results) => {
-                res.send(results);
-            }).catch((error) => {
-                console.log(error);
-                res.sendStatus(500);
-            })
-    } else {
-        res.sendStatus(403);
-    }
+    const values = [req.body.first_name, req.body.last_name, req.body.email_address, req.body.date_of_birth, req.body.annual_income, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.meal_choice, req.body.special_request, req.body.dietary_restrictions, req.body.approval_status, req.body.days, req.params.id];
+    console.log('post request, values:', values)
+    pool.query(queryText, values)
+        .then((results) => {
+            res.send(results);
+        }).catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+    })
 });
 
 module.exports = router;
