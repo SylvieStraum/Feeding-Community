@@ -15,8 +15,6 @@ CREATE TABLE "user"
     "first_name" VARCHAR (200),
     "last_name" VARCHAR (200),
     "email_address" VARCHAR (200),
-    "first_name" VARCHAR (200),
-    "last_name" VARCHAR (200),
     "phone_number" VARCHAR (16),
     "date_of_birth" DATE,
     "annual_income" INT,
