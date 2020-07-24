@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     sqlText=`
     SELECT *
-    FROM dependant
+    FROM dependents
     WHERE user_id = $1`
     pool.query(sqlText, [req.user.id])
     .then(result=>{
@@ -23,9 +23,9 @@ router.get('/', (req, res) => {
 //send up the key/value pair with key as column to target and value as new value for the update
 router.put('/', (req, res) => {
 sqlText=`
-UPDATE dependant
+UPDATE dependents
 SET $1 =$2
-WHERE id = $3
+WHERE user_id = $3
 `
 values=[req.body.key, req.body.value, req.user.id]
 pool.query(sqlText,values)
