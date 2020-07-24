@@ -8,8 +8,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     sqlText=`
     SELECT *
-    FROM []
-    WHERE "user".id = $1`
+    FROM dependents
+    WHERE user_id = $1`
     pool.query(sqlText, [req.user.id])
     .then(result=>{
         console.log('in dependant get information')

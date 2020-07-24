@@ -1,17 +1,17 @@
 --DATABASE SET UP INSTRUCTIONS
 --CREATE A DATABASE CALLED "feeding_community"
 --COPY PASTE THE FOLLOWING INTO YOUR POSTICO, AND EXECUTE
-CREATE TABLE "account"
+CREATE TABLE "user"
 (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
-    "account_type" INT NOT NULL
+    "account_type" INT NOT NULL DEFAULT 1
 );
 
-CREATE TABLE "user"
+CREATE TABLE "dependents"
 (
-    "user_id" INT PRIMARY KEY UNIQUE NOT NULL REFERENCES "account"(id),
+    "user_id" INT PRIMARY KEY UNIQUE NOT NULL REFERENCES "user"(id),
     "first_name" VARCHAR (200),
     "last_name" VARCHAR (200),
     "email_address" VARCHAR (200),
@@ -34,7 +34,7 @@ CREATE TABLE "user"
 
 CREATE TABLE "admin"
 (
-    "admin_id" INT PRIMARY KEY NOT NULL REFERENCES "account"(id),
+    "admin_id" INT PRIMARY KEY NOT NULL REFERENCES "user"(id),
     "email_address" VARCHAR (200)
 );
 --"meal_choice" will be integer representing 1 for meat, 2 for veggies, 3 for special_request
@@ -55,13 +55,13 @@ CREATE TABLE "county"
 
 -- Below is how an insert into multiple tables will work
 -- WITH insert1 AS (
--- INSERT INTO "account"
+-- INSERT INTO "user"
 --     ("username", "password", "account_type")
 -- VALUES
 --     ('$1', '$2', 1)
 -- RETURNING id
 --    )
--- INSERT INTO "user"
+-- INSERT INTO "dependents"
 --     ("user_id", "first_name", "last_name", "days")
 -- SELECT insert1.id, '$3', '$4', '{"Monday": true, "Tuesday": false, "Wednesday": true , "Thursday": false, "Friday": true, "Saturday": false, "Sunday": true}'
 -- FROM insert1                      
