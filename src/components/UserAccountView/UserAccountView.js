@@ -8,10 +8,19 @@ class UserAccountView extends Component {
                 <div>
                     <h2>Your Account</h2>
                 </div>
-                <p>Name: </p>
-                <p>Email: </p>
-                
-
+                <div>
+                    <p>Name: </p>
+                    <p>Email: </p>
+                    <p>Phone Number: </p>
+                    <p>Address: </p>
+                    <p>City: </p>
+                    <p>County: </p>
+                    <p>Date Of Birth: </p>
+                    <p>Meal Choice: Meat/Veggie/Special Requests</p>
+                    <p>Dietary Restrictions: </p>
+                    <p>Special Requests: <textarea></textarea> </p>
+                    <button>Make Changes</button>
+                </div>
             </div>
         );//end return
     }//end render
