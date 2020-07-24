@@ -15,6 +15,9 @@ CREATE TABLE "user"
     "first_name" VARCHAR (200),
     "last_name" VARCHAR (200),
     "email_address" VARCHAR (200),
+    "first_name" VARCHAR (200),
+    "last_name" VARCHAR (200),
+    "phone_number" VARCHAR (16),
     "date_of_birth" DATE,
     "annual_income" INT,
     "building_address1" VARCHAR (300),
@@ -34,6 +37,9 @@ CREATE TABLE "admin"
     "admin_id" INT PRIMARY KEY NOT NULL REFERENCES "account"(id),
     "email_address" VARCHAR (200)
 );
+--"meal_choice" will be integer representing 1 for meat, 2 for veggies, 3 for special_request
+--"special_request" will store input for special request
+--"account_type" is our auth for user or admin, 1 for user, 2 for admin
 
 CREATE TABLE "menu"
 (
