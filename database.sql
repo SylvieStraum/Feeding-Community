@@ -51,6 +51,32 @@ CREATE TABLE "county"
     "county_name" VARCHAR (200)
 );
 
+INSERT INTO "county"
+("county_name")
+VALUES
+('Aitikin'),('Anoka'),('Becker'),('Beltrami'),('Benton'),
+('Big Stone'),('Blue Earth'),('Brown'),('Carlton'),('Carver'),
+('Cass'),('Chippewa'),('Chisago'),('Clay'),('Clearwater'),('Cook'),
+('Cottonwood'),('Crow Wing'),('Dakota'),('Dodge'),('Douglas'),('Faribault'),
+('Fillmore'),('Freeborn'),('Goodhue'),('Grant'),('Hennepin'),('Houston'),('Hubbard'),
+('Isanti'),('Itasca'),('Jackson'),('Kanabec'),('Kandiyohi'),('Kittson'),('Koochiching'),
+('Lac qui Parle'),('Lake'),('Lake of the Woods'),('Le Sueur'),('Lincoln'),('Lyon'),('McLeod'),
+('Mahnomen'),('Marshall'),('Martin'),('Meeker'),('Mille Lacs'),('Morrison'),('Mower'),('Murray'),
+('Nicollet'),('Nobles'),('Norman'),('Olmstead'),('Otter Tail'),('Pennington'),('Pine'),('Pipestone'),
+('Polk'),('Pope'),('Ramsey'),('Red Lake'),('Redwood'),('Renville'),('Rice'),('Rock'),('Roseau'),
+('Saint Louis'),('Scott'),('Sherburne'),('Sibley'),('Stearns'),('Steele'),('Stevens'),
+('Swift'),('Todd'),('Traverse'),('Wabasha'),('Wadena'),('Waseca'),('Washington'),
+('Watonwan'),('Wilkin'),('Winona'),('Wright'),('Yellow Medicine'),
+('N/A');
+
+INSERT INTO "menu"
+("description")
+VALUES
+('Meat Option'),
+('Second Meat Option'),
+('Veggie Option'),
+('Special Request');
+
 -- Below is how an insert into multiple tables will work
 -- WITH insert1 AS (
 -- INSERT INTO "user"
