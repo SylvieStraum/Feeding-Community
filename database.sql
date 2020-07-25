@@ -11,7 +11,7 @@ CREATE TABLE "user"
 
 CREATE TABLE "dependents"
 (
-    "user_id" INT UNIQUE NOT NULL REFERENCES "user"(id),
+    "user_id" INT PRIMARY KEY UNIQUE NOT NULL REFERENCES "user"(id),
     "first_name" VARCHAR (200),
     "last_name" VARCHAR (200),
     "email_address" VARCHAR (200),
@@ -26,19 +26,13 @@ CREATE TABLE "dependents"
     "special_request" VARCHAR (400),
     "dietary_restrictions" VARCHAR(1000),
     "approval_status" BOOLEAN DEFAULT FALSE,
-    "days" JSON,
-    CONSTRAINT fk_user_dependent
-      FOREIGN KEY(user_id) 
-	  REFERENCES "user"(id)
+    "days" JSON
 );
 
 CREATE TABLE "admin"
 (
-    "admin_id" INT UNIQUE NOT NULL REFERENCES "user"(id),
+    "admin_id" INT PRIMARY KEY UNIQUE NOT NULL REFERENCES "user"(id),
     "email_address" VARCHAR (200),
-    CONSTRAINT fk_user_admin
-      FOREIGN KEY(admin_id) 
-	  REFERENCES "user"(id)
 );
 
 CREATE TABLE "menu"
