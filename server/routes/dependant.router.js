@@ -21,50 +21,42 @@ router.get('/', (req, res) => {
 
 //this put plans on a modular approach to editing profile information. 
 //send up the key/value pair with key as column to target and value as new value for the update
-router.put('/', (req, res) => {
-    sqlText = `
-UPDATE dependents
-SET “first_name”=$1,
-“last_name”=$2,
- “email_address”=$3, 
- “date_of_birth”=$4, 
- “annual_income”=$5, 
- “building_address1"=$6, 
- “building_address2”=$7, 
- “zip_code”=$8, 
- “county_id”=$9, 
- “city”=$10, 
- “meal_choice”=$11, 
- “special_request”=$12, 
- “dietary_restrictions”=$13, 
- “approval_status”=$14, 
- “days”=$15
-WHERE user_id = $16 
-`
-    values = [ req.body.first_name, 
-        req.body.last_name, 
-        req.body.email_address, 
-        req.body.date_of_birth, 
-        req.user.annual_income,
-        req.user.building_address1,
-        req.user.building_address2,
-        req.user.zip_code,
-        req.user.county_id,
-        req.user.city,
-        req.user.meal_choice,
-        req.user.special_request,
-        req.user.dietary_restrictions,
-        req.user.approval_status,
-        req.user.days]
-    pool.query(sqlText, values)
-        .then(result => {
-            console.log('success with PUT')
-            res.sendStatus(200)
-        })
-        .catch(err => {
-            console.log('error in dependant PUT', err)
-            res.sendStatus(500)
-        })
+//ended up adopting cams query style as it made more sense 
+router.put('/user/:id', rejectNotAdmin, (req, res) => {
+    
+    console.log('body:', req.body)
+    const queryText = `UPDATE dependents
+                        SET  ("first_name", "last_name", "email_address", "date_of_birth", "annual_income", "phone_number",
+                        "building_address1", "building_address2", "zip_code", "county_id", "city", "meal_choice",
+                        "special_request", "dietary_restrictions", "approval_status", "days")
+                        = ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+                        WHERE "user_id" = $17;`;
+
+    const values = [req.body.first_name, 
+                    req.body.last_name, 
+                    req.body.email_address, 
+                    req.body.date_of_birth, 
+                    req.body.annual_income, 
+                    req.body.phone_number, 
+                    req.body.building_address1, 
+                    req.body.building_address2, 
+                    req.body.zip_code, 
+                    req.body.county_id, 
+                    req.body.city, 
+                    req.body.meal_choice, 
+                    req.body.special_request, 
+                    req.body.dietary_restrictions, 
+                    req.body.approval_status, 
+                    req.body.days, 
+                    req.params.id];
+    console.log('put request, values:', values)
+    pool.query(queryText, values)
+        .then((results) => {
+            res.send(results);
+        }).catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+    })
 });
 
 module.exports = router;
