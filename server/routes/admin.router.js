@@ -15,7 +15,7 @@ router.get('/', rejectNotAdmin, (req, res) => {
             console.log(`Error making GET Ratings for teas:`, error);
             res.sendStatus(500);
         });
-});
+});// END GET ROUTE
 
 // GET ROUTE for selecting single user info
 router.get('/user/:id', rejectNotAdmin, (req, res) => {
@@ -30,7 +30,33 @@ router.get('/user/:id', rejectNotAdmin, (req, res) => {
             console.log(`Error making GET Ratings for teas:`, error);
             res.sendStatus(500);
         });
-});
+});//END GET ROUTE
+
+//POST ROUTE to create new Admin account
+router.post('/register/', rejectNotAdmin, (req, res) => {
+
+    const username = req.body.username;
+    const password = encryptLib.encryptPassword(req.body.password);
+    const email_address = req.body.email_address;
+
+    const queryText = `WITH insert1 AS (
+                        INSERT INTO "user"
+                        ("username", "password", "account_type")
+                        VALUES
+                        ($1, $2, 1)
+                        RETURNING id )
+                        INSERT INTO "admin"
+                        ( "admin_id", "email_address")
+                        SELECT insert1.id, $3,
+                        FROM insert1                      
+                        ;`;
+    const values = [username, password, email_address]
+
+    pool.query(queryText, values)
+        .then(() => res.sendStatus(201))
+        .catch(() => res.sendStatus(500));
+});//END POST ROUTE to create account
+
 
 //PUT ROUTE to adjust all account info
 router.put('/user/:id', rejectNotAdmin, (req, res) => {
@@ -72,7 +98,7 @@ router.put('/approve/:id', rejectNotAdmin, (req, res) => {
             console.log(error);
             res.sendStatus(500);
         })
-});
+});//END PUT ROUTE
 
 //PUT ROUTE to change menu
 router.put('/menu/', rejectNotAdmin, (req, res) => {
@@ -94,6 +120,6 @@ router.put('/menu/', rejectNotAdmin, (req, res) => {
             console.log(error);
             res.sendStatus(500);
         })
-});
+}); //END PUT ROUTE
 
 module.exports = router;

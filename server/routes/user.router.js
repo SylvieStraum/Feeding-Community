@@ -17,7 +17,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {  
 
-  //Will implement CAMs post request in here for signup 
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const bod = req.body;
