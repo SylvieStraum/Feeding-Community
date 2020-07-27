@@ -17,6 +17,7 @@ CREATE TABLE "dependents"
     "email_address" VARCHAR (200),
     "date_of_birth" DATE,
     "annual_income" INT,
+    "phone_number" VARCHAR(30),
     "building_address1" VARCHAR (300),
     "building_address2" VARCHAR (100),
     "zip_code" INT,
