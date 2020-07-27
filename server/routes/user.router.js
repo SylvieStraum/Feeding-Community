@@ -28,13 +28,13 @@ router.post('/register', (req, res, next) => {
                         ($1, $2, 1)
                         RETURNING id )
                         INSERT INTO "dependents"
-                        ( "user_id", "first_name", "last_name", "email_address", "date_of_birth", "annual_income",
+                        ( "user_id", "first_name", "last_name", "email_address", "date_of_birth", "annual_income", "phone_number",
                           "building_address1", "building_address2", "zip_code", "county_id", "city", "meal_choice",
                           "special_request", "dietary_restrictions", "approval_status", "days")
-                        SELECT insert1.id, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, 'false', $16
+                        SELECT insert1.id, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, 'false', $17
                         FROM insert1                      
                         ;`;
-  const values = [username, password, bod.first_name, bod.last_name, bod.email_address, bod.date_of_birth, bod.annual_income, bod.building_address1, bod.building_address2, bod.zip_code, bod.county_id, bod.city, bod.meal_choice, bod.special_request, bod.dietary_restrictions, bod.days]
+  const values = [username, password, bod.first_name, bod.last_name, bod.email_address, bod.date_of_birth, bod.annual_income, bod.phone_number, bod.building_address1, bod.building_address2, bod.zip_code, bod.county_id, bod.city, bod.meal_choice, bod.special_request, bod.dietary_restrictions, bod.days]
   
   console.log('query:', queryText, "values:", values)
 
