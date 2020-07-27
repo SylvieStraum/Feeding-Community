@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectNotAdmin } = require('../modules/admin-authentication-middleware');
+const encryptLib = require('../modules/encryption');
 
 // GET ROUTE for selecting all users
 router.get('/', rejectNotAdmin, (req, res) => {
@@ -35,19 +36,24 @@ router.get('/user/:id', rejectNotAdmin, (req, res) => {
 //POST ROUTE to create new Admin account
 router.post('/register/', rejectNotAdmin, (req, res) => {
 
+
+    console.log(req.body)
+
     const username = req.body.username;
     const password = encryptLib.encryptPassword(req.body.password);
     const email_address = req.body.email_address;
+
+    console.log("username:", username, "password:", password, "email_addresss:", email_address)
 
     const queryText = `WITH insert1 AS (
                         INSERT INTO "user"
                         ("username", "password", "account_type")
                         VALUES
-                        ($1, $2, 1)
+                        ($1, $2, 2)
                         RETURNING id )
                         INSERT INTO "admin"
                         ( "admin_id", "email_address")
-                        SELECT insert1.id, $3,
+                        SELECT insert1.id, $3
                         FROM insert1                      
                         ;`;
     const values = [username, password, email_address]
