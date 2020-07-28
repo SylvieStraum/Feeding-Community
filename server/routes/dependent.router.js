@@ -34,7 +34,7 @@ router.get('/:id', rejectNotAdmin, (req, res) => {
 });//END GET ROUTE
 
 //POST ROUTE add new dependent
-router.post('/dependent/', rejectNotAdmin, (req, res) => {
+router.post('/', rejectNotAdmin, (req, res) => {
 
     console.log('body:', req.body)
     const queryText = `WITH insert1 AS (
@@ -74,7 +74,7 @@ router.post('/dependent/', rejectNotAdmin, (req, res) => {
 
 
 //PUT ROUTE to adjust all account info
-router.put('/dependent/:id', rejectNotAdmin, (req, res) => {
+router.put('/:id', rejectNotAdmin, (req, res) => {
     
     console.log('body:', req.body)
     const queryText = `UPDATE dependents
