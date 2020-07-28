@@ -32,6 +32,7 @@ function* getIndividual() {
 //     }
 // }
 
+// put request to alter dependent information
 function* alterDependent(action) {
     console.log(action.payload)
     try {
@@ -42,6 +43,7 @@ function* alterDependent(action) {
     }
 }
 
+//delete request to delete dependent from table, may not be needed.
 function* deleteDependent(action) {
     console.log(action.payload)
     try {
