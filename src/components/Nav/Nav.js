@@ -29,14 +29,11 @@ const Nav = (props) => (
       <Link className="nav-link" to="/about">
         About
       </Link>
-      <Link className="nav-link" to="/userAccount">
-        My Account
-      </Link>
       <Link className="nav-link" to="/dashboard">
         Dashboard
       </Link>
-      <Link className="nav-link" to="/userList">
-        User List
+      <Link className="nav-link" to="/accounts">
+        Uccounts
       </Link>
     </div>
   </div>

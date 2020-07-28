@@ -1,0 +1,17 @@
+/* .AdminDashboard{ */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* margin: 50px; */
+/* } */
+.dashboardItem{
+    margin-left: 40%;
+}
+.mealBox {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    width: 30%;
+    border-radius: 3px;
+    margin-left: 35%;
+    text-align: center;
+}

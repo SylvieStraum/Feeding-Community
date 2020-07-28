@@ -18,9 +18,8 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 
 import './App.css';
-import AdminList from '../AdminList/AdminList';
+import Accounts from '../Accounts/Accounts';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
-import UserAccountView from '../UserAccountView/UserAccountView';
 
 class App extends Component {
   componentDidMount() {
@@ -60,13 +59,8 @@ class App extends Component {
             />
             <Route
               exact
-              path="/userAccount"
-              component={UserAccountView}
-            />
-            <Route
-              exact
-              path="/userList"
-              component={AdminList}
+              path="/accounts"
+              component={Accounts}
             />
             <Route
               exact
