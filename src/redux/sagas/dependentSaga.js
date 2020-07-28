@@ -4,7 +4,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 //retrieves all dependents information
 function* getAllDependents() {
     try {
-        const responsePayload = yield axios.get(`/api/admin`);
+        const responsePayload = yield axios.get(`/api/dependent`);
         yield put({ type: 'SET_ALL_DEPENDENTS' , payload: responsePayload});
     } catch (error) {
         console.log('Get all saga error', error);
@@ -12,9 +12,9 @@ function* getAllDependents() {
 }
 //gets single dependent info 
 //potentially not needed
-function* getIndividual() {
+function* getIndividual(action) {
     try {
-        const responsePayload = yield axios.get(`/api/admin/${action.payload.id}`);
+        const responsePayload = yield axios.get(`/api/dependent/${action.payload.id}`);
         yield put({ type: 'SET_SPECIFIC_DEPENDENT' , payload: responsePayload});
     } catch (error) {
         console.log('Get individual error', error);
@@ -24,7 +24,7 @@ function* getIndividual() {
 // needs proper route to be created . url up to change
 function* newDependent(action) {
     try {
-       yield axios.post(`/api/admin/dependant`, action.payload);
+       yield axios.post(`/api/dependant`, action.payload);
 
         yield put({ type: 'GET_ALL_DEPENDENTS'  });
     } catch (error) {
@@ -36,7 +36,7 @@ function* newDependent(action) {
 function* alterDependent(action) {
     console.log(action.payload)
     try {
-        yield axios.put(`/api/admin/${action.payload.id}`, action.payload);
+        yield axios.put(`/api/dependent/${action.payload.id}`, action.payload);
         yield put({ type: 'GET_ALL_DEPENDENTS'});
     } catch (error) {
         console.log('put saga request failed', error);
@@ -47,7 +47,7 @@ function* alterDependent(action) {
 function* deleteDependent(action) {
     console.log(action.payload)
     try {
-        yield axios.delete(`/api/admin/dependent/${action.payload}`);
+        yield axios.delete(`/api/dependent/${action.payload}`);
         yield put({ type: 'GET_ALL_DEPENDENTS'});
     } catch (error) {
         console.log('put saga request failed', error);
