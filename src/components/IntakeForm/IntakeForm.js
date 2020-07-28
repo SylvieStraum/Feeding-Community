@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import "../IntakeForm/IntakeForm.css";
 
-class SignUp extends Component {
+
+class IntakeForm extends Component {
 
     render(){
         return(
             <>
+            <h1>Sign Up</h1>
+            <p>Enter client information form</p>
             <div>
                 <form>
                     <label></label>
@@ -64,12 +68,6 @@ class SignUp extends Component {
                         placeholder="County"
                         />
                         <br />
-
-                        <p>Are you 60 years of age or older?</p>
-                        <select>
-                            <option id="Yes">Yes</option>
-                            <option id="No">No</option>
-                        </select>
                         <label></label>
                     <input
                         required
@@ -77,26 +75,17 @@ class SignUp extends Component {
                         placeholder="Date of Birth"
                         />
                         <br />
-                        <p>Do you or someone in your household have an underlying health concern that makes it unsafe
-                            to leave your home?
+                        <p>Referral Organiztation
                         </p>
                         <select>
-                            <option id="Yes">Yes</option>
-                            <option id="No">No</option>
-                            <option id="Prefer not to answer">Prefer not to answer</option>
+                            <option id="Minneapolis Public Housing Agency">Minneapolis Public Housing Agency</option>
+                            <option id="Commonbond Communities">Commonbond Communities</option>
+                            <option id="Lakes Day Care">Lakes Day Care</option>
+                            <option id="Ebyan ADC">Ebyan ADC</option>
+                            <option id="MN Senior Center">MN Senior Center</option>
+                            <option id="Nurturing Hands Day Center">Nurturing Hands Day Center</option>
+                            <option id="Umatul Islam">Umatul Islam</option>
                         </select>
-                        <br />
-                        <label></label>
-                        <input 
-                            type="text"
-                            placeholder="If yes, please describe"
-                            />
-                        <br />
-                        <label></label>
-                        <input 
-                            type="text"
-                            placeholder="Referral Organiztation"
-                            />
                         <br />
                         <button className="Next Step" onClick={this.nextStep}>Next Step</button>
 
@@ -110,4 +99,4 @@ class SignUp extends Component {
     }
 }
 
-export default connect()(SignUp);
+export default connect()(IntakeForm);
