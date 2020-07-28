@@ -16,20 +16,12 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-<<<<<<< HEAD
 import IntakeForm from '../IntakeForm/IntakeForm';
-
-import './App.css';
-import AdminDataReview from '../AdminDataReview/AdminDataReview';
-
-=======
-import SignUp from '../SignUp/SignUp';
 
 import './App.css';
 import AdminList from '../AdminList/AdminList';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import UserAccountView from '../UserAccountView/UserAccountView';
->>>>>>> master
 
 class App extends Component {
   componentDidMount() {
