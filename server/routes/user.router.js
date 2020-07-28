@@ -18,24 +18,16 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // we might want to drop this route completely
 router.post('/register', (req, res, next) => {  
   
-  const username = req.body.username;
+  const email_address = req.body.email_address;
   const password = encryptLib.encryptPassword(req.body.password);
   const bod = req.body;
   console.log(bod);
-  const queryText = `WITH insert1 AS (
-                        INSERT INTO "user"
-                        ("username", "password", "account_type")
+  const queryText = `INSERT INTO "user"
+                        ("email_address", "password", "account_type")
                         VALUES
-                        ($1, $2, 1)
-                        RETURNING id )
-                        INSERT INTO "dependents"
-                        ( "id", "first_name", "last_name", "email_address", "date_of_birth", "annual_income", "phone_number",
-                          "building_address1", "building_address2", "zip_code", "county_id", "city", "meal_choice",
-                          "special_request", "dietary_restrictions", "approval_status", "days")
-                        SELECT insert1.id, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, 'false', $17
-                        FROM insert1                      
-                        ;`;
-  const values = [username, password, bod.first_name, bod.last_name, bod.email_address, bod.date_of_birth, bod.annual_income, bod.phone_number, bod.building_address1, bod.building_address2, bod.zip_code, bod.county_id, bod.city, bod.meal_choice, bod.special_request, bod.dietary_restrictions, bod.days]
+                        ($1, $2, 2)
+                      ;`;
+  const values = [email_address, password]
   
   console.log('query:', queryText, "values:", values)
 

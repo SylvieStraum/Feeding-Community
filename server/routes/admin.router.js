@@ -94,7 +94,7 @@ router.post('/dependent/', rejectNotAdmin, (req, res) => {
 
 
 //PUT ROUTE to adjust all account info
-router.put('/user/:id', rejectNotAdmin, (req, res) => {
+router.put('/dependent/:id', rejectNotAdmin, (req, res) => {
     
     console.log('body:', req.body)
     const queryText = `UPDATE dependents
