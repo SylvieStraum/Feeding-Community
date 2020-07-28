@@ -25,8 +25,7 @@ CREATE TABLE "dependents"
     "special_request" VARCHAR (400),
     "dietary_restrictions" VARCHAR(1000),
     "referral_id" INT,
-    "program_id" INT,
-    "current_meal_id" INT
+    "program_id" INT
 );
 
 -- should "number_of_meals" be tied to account or program?
@@ -68,24 +67,29 @@ CREATE TABLE "orders"
     "dependent_id" INT REFERENCES dependents("id")
 );
 
-INSERT INTO "county"
-    ("county_name")
-VALUES
-    ('Aitikin'),('Anoka'),('Becker'),('Beltrami'),('Benton'),
-    ('Big Stone'),('Blue Earth'),('Brown'),('Carlton'),('Carver'),
-    ('Cass'),('Chippewa'),('Chisago'),('Clay'),('Clearwater'),('Cook'),
-    ('Cottonwood'),('Crow Wing'),('Dakota'),('Dodge'),('Douglas'),('Faribault'),
-    ('Fillmore'),('Freeborn'),('Goodhue'),('Grant'),('Hennepin'),('Houston'),('Hubbard'),
-    ('Isanti'),('Itasca'),('Jackson'),('Kanabec'),('Kandiyohi'),('Kittson'),('Koochiching'),
-    ('Lac qui Parle'),('Lake'),('Lake of the Woods'),('Le Sueur'),('Lincoln'),('Lyon'),('McLeod'),
-    ('Mahnomen'),('Marshall'),('Martin'),('Meeker'),('Mille Lacs'),('Morrison'),('Mower'),('Murray'),
-    ('Nicollet'),('Nobles'),('Norman'),('Olmstead'),('Otter Tail'),('Pennington'),('Pine'),('Pipestone'),
-    ('Polk'),('Pope'),('Ramsey'),('Red Lake'),('Redwood'),('Renville'),('Rice'),('Rock'),('Roseau'),
-    ('Saint Louis'),('Scott'),('Sherburne'),('Sibley'),('Stearns'),('Steele'),('Stevens'),
-    ('Swift'),('Todd'),('Traverse'),('Wabasha'),('Wadena'),('Waseca'),('Washington'),
-    ('Watonwan'),('Wilkin'),('Winona'),('Wright'),('Yellow Medicine'),
-    ('N/A')
-;
+-- Insert for only the seven metro counties
+INSERT INTO "county"("county_name")
+VALUES ('Anoka'),('Carver'),('Dakota'),('Hennepin'),('Scott'),('Ramsay'),('Washington'),('N/A');
+
+-- Insert for all mn counties
+-- INSERT INTO "county"
+--     ("county_name")
+-- VALUES
+--     ('Aitikin'),('Anoka'),('Becker'),('Beltrami'),('Benton'),
+--     ('Big Stone'),('Blue Earth'),('Brown'),('Carlton'),('Carver'),
+--     ('Cass'),('Chippewa'),('Chisago'),('Clay'),('Clearwater'),('Cook'),
+--     ('Cottonwood'),('Crow Wing'),('Dakota'),('Dodge'),('Douglas'),('Faribault'),
+--     ('Fillmore'),('Freeborn'),('Goodhue'),('Grant'),('Hennepin'),('Houston'),('Hubbard'),
+--     ('Isanti'),('Itasca'),('Jackson'),('Kanabec'),('Kandiyohi'),('Kittson'),('Koochiching'),
+--     ('Lac qui Parle'),('Lake'),('Lake of the Woods'),('Le Sueur'),('Lincoln'),('Lyon'),('McLeod'),
+--     ('Mahnomen'),('Marshall'),('Martin'),('Meeker'),('Mille Lacs'),('Morrison'),('Mower'),('Murray'),
+--     ('Nicollet'),('Nobles'),('Norman'),('Olmstead'),('Otter Tail'),('Pennington'),('Pine'),('Pipestone'),
+--     ('Polk'),('Pope'),('Ramsey'),('Red Lake'),('Redwood'),('Renville'),('Rice'),('Rock'),('Roseau'),
+--     ('Saint Louis'),('Scott'),('Sherburne'),('Sibley'),('Stearns'),('Steele'),('Stevens'),
+--     ('Swift'),('Todd'),('Traverse'),('Wabasha'),('Wadena'),('Waseca'),('Washington'),
+--     ('Watonwan'),('Wilkin'),('Winona'),('Wright'),('Yellow Medicine'),
+--     ('N/A')
+-- ;
 
 INSERT INTO "menu"
     ("description")

@@ -15,8 +15,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
+// we might want to drop this route completely
 router.post('/register', (req, res, next) => {  
-
+  
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const bod = req.body;
@@ -28,7 +29,7 @@ router.post('/register', (req, res, next) => {
                         ($1, $2, 1)
                         RETURNING id )
                         INSERT INTO "dependents"
-                        ( "user_id", "first_name", "last_name", "email_address", "date_of_birth", "annual_income", "phone_number",
+                        ( "id", "first_name", "last_name", "email_address", "date_of_birth", "annual_income", "phone_number",
                           "building_address1", "building_address2", "zip_code", "county_id", "city", "meal_choice",
                           "special_request", "dietary_restrictions", "approval_status", "days")
                         SELECT insert1.id, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, 'false', $17
