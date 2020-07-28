@@ -15,3 +15,6 @@ h2 {
 .accountItems{
     margin-left: 5%;
 }
+.acctTable{
+    max-width: 100%;
+}

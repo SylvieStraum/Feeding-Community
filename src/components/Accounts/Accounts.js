@@ -11,7 +11,7 @@ class Accounts extends Component {
           <h2>ACCOUNTS</h2>
           <p>List of all accounts, you can edit within any row.</p>
         </div>
-        <div className="accountItems">
+        <div className="accountItems acctTable">
         <table>
           <caption>Accounts</caption>
           <tr>
@@ -33,18 +33,18 @@ class Accounts extends Component {
           <tr>
             {/* name td will return a concatenated string of first and last name */}
             <td>Mohamed Mohamed</td>
-            <td></td>
-            <td></td>
+            <td>612-867-5309</td>
+            <td>01/01/1960</td>
             {/* address td will be a concatenated string of building_address 1 and 2 */}
+            <td>4321 Afro Deli Lane, Apt 2</td>
+            <td>55413</td>
+            <td>Hennepin</td>
+            <td>Minneapolis</td>
+            <td>No meat</td>
+            <td>Veggie</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>MN Senior Center</td>
+            <td>Meals On Wheels</td>
             {/* this will conditionally render all information to inputs */}
             <td><button>Edit</button></td>
           </tr>
