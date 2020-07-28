@@ -124,27 +124,4 @@ router.put('/dependent/:id', rejectNotAdmin, (req, res) => {
     })
 });
 
-//PUT ROUTE to change menu
-router.put('/menu/', rejectNotAdmin, (req, res) => {
-
-    console.log('body:', req.body)
-    const queryText = `UPDATE "menu" AS m
-                            SET  "description" = c."description"
-                            FROM (VALUES
-                            (1, $1),(2, $2),(3, $3))
-                            AS c("id", "description")
-                            WHERE c."id" = m."id" ;`;
-
-    const values = [req.body.option1, req.body.option2, req.body.veggie];
-    console.log('put request, values:', values)
-    pool.query(queryText, values)
-        .then((results) => {
-            res.send(results);
-        }).catch((error) => {
-            console.log(error);
-            res.sendStatus(500);
-        })
-}); //END PUT ROUTE
-
-
 module.exports = router;
