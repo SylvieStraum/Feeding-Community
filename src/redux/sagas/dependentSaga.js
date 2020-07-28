@@ -12,7 +12,7 @@ function* getAllDependents() {
 }
 //gets single dependent info 
 //potentially not needed
-function* getIndividual() {
+function* getIndividual(action) {
     try {
         const responsePayload = yield axios.get(`/api/admin/${action.payload.id}`);
         yield put({ type: 'SET_SPECIFIC_DEPENDENT' , payload: responsePayload});

@@ -21,6 +21,12 @@ class IntakeForm extends Component {
         organization_submission: ''
     }
 
+    createDependant = (event) => {
+        event.preventDefault();
+        this.props.dispatch({type: 'POST_NEW_DEPENDENT', payload: this.state});
+
+    }
+
     handleInputs = (event, typeOf) => {
         this.setState({
             [typeOf]: event.target.value
@@ -33,7 +39,7 @@ class IntakeForm extends Component {
             <h1>Sign Up</h1>
             <p>Enter client information form</p>
             <div>
-                <form>
+                <form onSubmit={this.createDependant}>
                     <p>Please enter client information:</p>
                     <label></label>
                     <input
@@ -150,7 +156,7 @@ class IntakeForm extends Component {
                             <option value="Umatul Islam">Umatul Islam</option>
                         </select>
                         <br />
-                        <button className="Next Step" onClick={this.nextStep}>Next Step</button>
+                        <button className="Next Step" onClick={this.createDependant}>Next Step</button>
 
                     </form>
             </div>
