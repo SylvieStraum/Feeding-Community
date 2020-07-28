@@ -18,16 +18,16 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // we might want to drop this route completely
 router.post('/register', (req, res, next) => {  
   
-  const email_address = req.body.email_address;
+  const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const bod = req.body;
   console.log(bod);
   const queryText = `INSERT INTO "user"
-                        ("email_address", "password", "account_type")
+                        ("username", "password", "account_type")
                         VALUES
                         ($1, $2, 2)
                       ;`;
-  const values = [email_address, password]
+  const values = [username, password]
   
   console.log('query:', queryText, "values:", values)
 
@@ -44,6 +44,7 @@ router.post('/register', (req, res, next) => {
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
+  console.log(req.body);
   res.sendStatus(200);
 });
 

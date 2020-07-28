@@ -4,7 +4,7 @@
 CREATE TABLE "user"
 (
     "id" SERIAL PRIMARY KEY,
-    "email_address" VARCHAR (200) UNIQUE NOT NULL,
+    "username" VARCHAR (200) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "account_type" INT NOT NULL DEFAULT 1
 );
