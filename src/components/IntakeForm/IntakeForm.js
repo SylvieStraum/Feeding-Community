@@ -5,6 +5,28 @@ import "../IntakeForm/IntakeForm.css";
 
 class IntakeForm extends Component {
 
+    state = {
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        address1: '',
+        address2: '',
+        city: '',
+        zipCode: '',
+        county: '',
+        dateOfBirth: '',
+        specialRequests: '',
+        dietaryRestrictions: '',
+        meal_submission: '',
+        organization_submission: ''
+    }
+
+    handleInputs = (event, typeOf) => {
+        this.setState({
+            [typeOf]: event.target.value
+        })
+    }
+
     render(){
         return(
             <>
@@ -18,6 +40,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="First Name"
+                        onChange={(event) => this.handleInputs(event, "firstName")}
                         />
                         <br />
                     <label></label>
@@ -25,6 +48,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Last Name"
+                        onChange={(event) => this.handleInputs(event, "lastName")}
                         />
                         <br />
                     <label></label>
@@ -32,6 +56,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Phone Number"
+                        onChange={(event) => this.handleInputs(event, "phoneNumber")}
                         />
                         <br />
                     <label></label>
@@ -39,6 +64,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Address 1"
+                        onChange={(event) => this.handleInputs(event, "address1")}
                         />
                         <br />
                     <label></label>
@@ -46,6 +72,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Address 2"
+                        onChange={(event) => this.handleInputs(event, "address2")}
                         />
                         <br />
                     <label></label>
@@ -53,6 +80,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="City"
+                        onChange={(event) => this.handleInputs(event, "city")}
                         />
                         <br />
                     <label></label>
@@ -60,6 +88,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Zip Code"
+                        onChange={(event) => this.handleInputs(event, "zipCode")}
                         />
                         <br />
                     <label></label>
@@ -67,6 +96,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="County"
+                        onChange={(event) => this.handleInputs(event, "county")}
                         />
                         <br />
                     <label></label>
@@ -74,20 +104,26 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Date of Birth"
+                        onChange={(event) => this.handleInputs(event, "dateOfBirth")}
                         />
                         <br />
                         <p>Meal Type:</p>
-                        <select>
-                            <option id="Meat">Meat</option>
-                            <option id="2nd Meat">2nd Meat</option>
-                            <option id="Veggie">Veggie</option>
-                            <option id="Special Request">Special Request</option>
+                        <select
+                            type="dropdown"
+                            onChange={(event) => this.handleInputs(event, "meal_submission")
+                            
+                        }>
+                            <option value="Meat">Meat</option>
+                            <option value="2nd Meat">2nd Meat</option>
+                            <option value="Veggie">Veggie</option>
+                            <option value="Special Request">Special Request</option>
                         </select>
                     <label></label>
                     <input
                         required
                         type="text"
                         placeholder="Special Requests"
+                        onChange={(event) => this.handleInputs(event, "specialRequests")}
                         />
                         <br />
                     <label></label>
@@ -95,18 +131,23 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Dietary Restrictions"
+                        onChange={(event) => this.handleInputs(event, "dietaryRestrictions")}
                         />
                         <br />
                         <p>Referral Organiztation:
                         </p>
-                        <select>
-                            <option id="Minneapolis Public Housing Agency">Minneapolis Public Housing Agency</option>
-                            <option id="Commonbond Communities">Commonbond Communities</option>
-                            <option id="Lakes Day Care">Lakes Day Care</option>
-                            <option id="Ebyan ADC">Ebyan ADC</option>
-                            <option id="MN Senior Center">MN Senior Center</option>
-                            <option id="Nurturing Hands Day Center">Nurturing Hands Day Center</option>
-                            <option id="Umatul Islam">Umatul Islam</option>
+                        <select
+                            type="dropdown"
+                            onChange={(event) => 
+                            this.handleInputs(event, "organization_submission")
+                            }>
+                            <option value="Minneapolis Public Housing Agency">Minneapolis Public Housing Agency</option>
+                            <option value="Commonbond Communities">Commonbond Communities</option>
+                            <option value="Lakes Day Care">Lakes Day Care</option>
+                            <option value="Ebyan ADC">Ebyan ADC</option>
+                            <option value="MN Senior Center">MN Senior Center</option>
+                            <option value="Nurturing Hands Day Center">Nurturing Hands Day Center</option>
+                            <option value="Umatul Islam">Umatul Islam</option>
                         </select>
                         <br />
                         <button className="Next Step" onClick={this.nextStep}>Next Step</button>
