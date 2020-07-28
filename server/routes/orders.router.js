@@ -19,7 +19,7 @@ router.put('/save-day/', rejectNotAdmin, (req, res) => {
                        COMMIT;`;
 
     const values = [columnName, columnName];
-    console.log('put request, values:', values)
+    console.log('put request: values:', values)
     pool.query(queryText, values)
         .then((results) => {
             res.send(results);
