@@ -19,8 +19,8 @@ router.get('/', rejectNotAdmin, (req, res) => {
 });// END GET ROUTE
 
 // GET ROUTE for selecting single user info
-router.get('/user/:id', rejectNotAdmin, (req, res) => {
-    const queryText = `SELECT * FROM "user"
+router.get('/:id', rejectNotAdmin, (req, res) => {
+    const queryText = `SELECT * FROM "dependents"
                         WHERE "id" = $1`;
     pool.query(queryText, [req.params.id])
         .then((result) => {
@@ -36,14 +36,10 @@ router.get('/user/:id', rejectNotAdmin, (req, res) => {
 //POST ROUTE to create new Admin account
 router.post('/register/', rejectNotAdmin, (req, res) => {
 
-
-    console.log(req.body)
-
-    //const username = req.body.username;
     const password = encryptLib.encryptPassword(req.body.password);
     const email_address = req.body.email_address;
 
-    console.log("username:", username, "password:", password, "email_addresss:", email_address)
+    console.log("password:", password, "email_addresss:", email_address)
 
     const queryText = `INSERT INTO "user"
                             ("email_address", "password", "account_type")
