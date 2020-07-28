@@ -21,16 +21,16 @@ function* getIndividual() {
     }
 }
 //Adding new Dependant
-//needs proper route to be created . url up to change
-// function* newDependent(action) {
-//     try {
-//        yield axios.post(`/api/admin/dependant/`, action.payload);
+// needs proper route to be created . url up to change
+function* newDependent(action) {
+    try {
+       yield axios.post(`/api/admin/dependant`, action.payload);
 
-//         yield put({ type: 'GET_ALL_DEPENDENTS'  });
-//     } catch (error) {
-//         console.log('Post new dependent error', error);
-//     }
-// }
+        yield put({ type: 'GET_ALL_DEPENDENTS'  });
+    } catch (error) {
+        console.log('Post new dependent error', error);
+    }
+}
 
 // put request to alter dependent information
 function* alterDependent(action) {
@@ -57,7 +57,7 @@ function* deleteDependent(action) {
 function* dependentSaga() {
     yield takeEvery('GET_ALL_DEPENDENTS', getAllDependents);
     yield takeEvery('GET_SPECIFIC_DEPENDENT', getIndividual);
-    // yield takeEvery('POST_NEW_DEPENDENT', newDependent)
+    yield takeEvery('POST_NEW_DEPENDENT', newDependent)
     yield takeEvery('UPDATE_DEPENDENT', alterDependent)
     yield takeEvery('DELETE_DEPENDENT', deleteDependent)
 }
