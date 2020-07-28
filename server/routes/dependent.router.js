@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectNotAdmin } = require(`../modules/admin-authentication-middleware`);
 
 //get request where it gets user specific information.
 router.get('/', (req, res) => {
