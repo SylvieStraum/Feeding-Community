@@ -95,21 +95,15 @@ INSERT INTO "menu"
     ("description")
 VALUES
     ('Meat Option'),
-    ('Second Meat Option'),
+    ('Fish Option'),
     ('Veggie Option'),
     ('Special Request')
 ;
+-- Below is code for adding columns to orders table based on date 
+-- BEGIN;
+-- ALTER TABLE orders ADD COLUMN "2020-06-28" INT;
+-- UPDATE "orders"
+-- SET "2020-06-28" = "current_meal"."number_of_meals"
+-- FROM "current_meal" WHERE orders.dependent_id = current_meal.dependent_id;
+-- COMMIT;
 
--- Below is how an insert into multiple tables will work
--- WITH insert1 AS (
--- INSERT INTO "user"
---     ("username", "password", "account_type")
--- VALUES
---     ('$1', '$2', 1)
--- RETURNING id
---    )
--- INSERT INTO "dependents"
---     ("user_id", "first_name", "last_name", "days")
--- SELECT insert1.id, '$3', '$4', '{"Monday": true, "Tuesday": false, "Wednesday": true , "Thursday": false, "Friday": true, "Saturday": false, "Sunday": true}'
--- FROM insert1                      
--- ;
