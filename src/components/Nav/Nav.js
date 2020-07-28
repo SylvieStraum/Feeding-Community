@@ -32,6 +32,12 @@ const Nav = (props) => (
       <Link className="nav-link" to="/userAccount">
         My Account
       </Link>
+      <Link className="nav-link" to="/intake">
+        Intake Form
+      </Link>
+      <Link className="nav-link" to="/review">
+        Admin Review
+      </Link>
       <Link className="nav-link" to="/dashboard">
         Dashboard
       </Link>

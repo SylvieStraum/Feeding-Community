@@ -17,6 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import IntakeForm from '../IntakeForm/IntakeForm';
+import AdminDataReview from '../AdminDataReview/AdminDataReview';
 
 import './App.css';
 import AdminList from '../AdminList/AdminList';

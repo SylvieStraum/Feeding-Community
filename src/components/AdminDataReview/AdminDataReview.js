@@ -9,19 +9,19 @@ class AdminDataReview extends Component {
             <>
             <h1>Admin Data Review</h1>
             <h2>DELIVERIES</h2>
-            <tr>
+            {/* <tr>
                 <th>Menu</th>
             </tr>
             <p>OPTION 1:</p>
             <p>OPTION 2:</p>
             <p>VEGGIE:</p>
             <p>SPECIAL REQUESTS:</p>
-            <button className="Change Menu" onClick={this.nextStep}>Change Menu</button>
+            <button className="Change Menu" onClick={this.nextStep}>Change Menu</button> */}
             <table id="t01">
             <tr>
             <th>Location</th>
-            <th>OPT 1</th>
-            <th>OPT 2</th>
+            <th>MEAT</th>
+            <th>2nd Meat</th>
             <th>VEGGIE</th>
             <th>SPECIAL RQTS</th>
             <th>TOTAL QTY.</th>

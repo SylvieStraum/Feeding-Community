@@ -12,6 +12,7 @@ class IntakeForm extends Component {
             <p>Enter client information form</p>
             <div>
                 <form>
+                    <p>Please enter client information:</p>
                     <label></label>
                     <input
                         required
@@ -68,14 +69,35 @@ class IntakeForm extends Component {
                         placeholder="County"
                         />
                         <br />
-                        <label></label>
+                    <label></label>
                     <input
                         required
                         type="text"
                         placeholder="Date of Birth"
                         />
                         <br />
-                        <p>Referral Organiztation
+                        <p>Meal Type:</p>
+                        <select>
+                            <option id="Meat">Meat</option>
+                            <option id="2nd Meat">2nd Meat</option>
+                            <option id="Veggie">Veggie</option>
+                            <option id="Special Request">Special Request</option>
+                        </select>
+                    <label></label>
+                    <input
+                        required
+                        type="text"
+                        placeholder="Special Requests"
+                        />
+                        <br />
+                    <label></label>
+                    <input
+                        required
+                        type="text"
+                        placeholder="Dietary Restrictions"
+                        />
+                        <br />
+                        <p>Referral Organiztation:
                         </p>
                         <select>
                             <option id="Minneapolis Public Housing Agency">Minneapolis Public Housing Agency</option>
