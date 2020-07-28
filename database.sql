@@ -4,36 +4,43 @@
 CREATE TABLE "user"
 (
     "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
+    "email_address" VARCHAR (200) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL,
     "account_type" INT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE "dependents"
 (
-    "user_id" INT PRIMARY KEY UNIQUE NOT NULL REFERENCES "user"(id),
+    "id" SERIAL PRIMARY KEY,
     "first_name" VARCHAR (200),
     "last_name" VARCHAR (200),
-    "email_address" VARCHAR (200),
+    "phone_number" VARCHAR (30),
     "date_of_birth" DATE,
     "annual_income" INT,
-    "phone_number" VARCHAR(30),
     "building_address1" VARCHAR (300),
     "building_address2" VARCHAR (100),
     "zip_code" INT,
     "county_id" INT,
     "city" VARCHAR (200),
-    "meal_choice" INT,
     "special_request" VARCHAR (400),
     "dietary_restrictions" VARCHAR(1000),
-    "approval_status" BOOLEAN DEFAULT FALSE,
-    "days" JSON
+    "referral_id" INT,
+    "program_id" INT,
+    "current_meal_id" INT
 );
 
-CREATE TABLE "admin"
+-- should "number_of_meals" be tied to account or program?
+CREATE TABLE "program"
 (
-    "admin_id" INT PRIMARY KEY UNIQUE NOT NULL REFERENCES "user"(id),
-    "email_address" VARCHAR (200),
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR (400),
+    "document_signed" BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE "referral"
+(
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR (400)
 );
 
 CREATE TABLE "menu"
@@ -46,6 +53,19 @@ CREATE TABLE "county"
 (
     "id" SERIAL PRIMARY KEY,
     "county_name" VARCHAR (200)
+);
+
+CREATE TABLE "current_meal"
+(
+    "id" SERIAL PRIMARY KEY,
+    "number_of_meals" INT,
+    "meal_choice" INT
+);
+
+CREATE TABLE "orders"
+(
+    "id" SERIAL PRIMARY KEY,
+    "dependent_id" INT REFERENCES dependents("id")
 );
 
 INSERT INTO "county"
