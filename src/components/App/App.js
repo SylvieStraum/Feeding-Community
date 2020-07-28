@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -16,15 +16,24 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+<<<<<<< HEAD
 import IntakeForm from '../IntakeForm/IntakeForm';
 
 import './App.css';
 import AdminDataReview from '../AdminDataReview/AdminDataReview';
 
+=======
+import SignUp from '../SignUp/SignUp';
+
+import './App.css';
+import AdminList from '../AdminList/AdminList';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import UserAccountView from '../UserAccountView/UserAccountView';
+>>>>>>> master
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
@@ -68,13 +77,29 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
+            <Route
+              exact
+              path="/userAccount"
+              component={UserAccountView}
+            />
+            <Route
+              exact
+              path="/userList"
+              component={AdminList}
+            />
+            <Route
+              exact
+              path="/dashboard"
+              component={AdminDashboard}
+            />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
 export default connect()(App);
