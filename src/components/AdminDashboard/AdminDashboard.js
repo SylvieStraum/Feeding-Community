@@ -17,8 +17,6 @@ class AdminDashboard extends Component {
                     Special Requests: 10
                     Total: 110
                 </div>
-
-
             </div>
         );//end return
     }//end render
