@@ -69,7 +69,7 @@ class IntakeForm extends Component {
     render() {
         console.log(this.state)
         return (
-            <>
+            <div className="intakeForm">
                 <h1>Sign Up</h1>
                 <p>Enter client information form</p>
                 <div>
@@ -213,7 +213,7 @@ class IntakeForm extends Component {
                     </form>
                 </div>
 
-            </>
+            </div>
 
 
         )
