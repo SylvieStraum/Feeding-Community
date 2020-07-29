@@ -5,12 +5,13 @@ const { rejectNotAdmin } = require('../modules/admin-authentication-middleware')
 
 // GET ROUTE for selecting all users
 router.get('/', rejectNotAdmin, (req, res) => {
-    const queryText = `SELECT * FROM "dependents"
-                        JOIN "county" ON "dependents"."county_id" = "county"."id"
-                        JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
-                        JOIN "current_meal" ON "dependents"."id" = "current_meal"."dependent_id"
-                        JOIN "menu" ON "current_meal"."meal_choice" = "menu"."id"
-                        ;`;
+    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "date_of_birth", "annual_income", "phone_number", "building_address1", "building_address2", "zip_code", "county_id", "city","special_request", "dietary_restrictions", "referral_id", "program_id", "menu_description","referral_name", "program_name", "number_of_meals", "meal_choice", "menu_description" FROM "dependents"
+                                JOIN "county" ON "dependents"."county_id" = "county"."id"
+                                JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
+                                JOIN "program" ON "dependents"."program_id" = "program"."id"
+                                JOIN "current_meal" ON "dependents"."id" = "current_meal"."dependent_id"
+                                JOIN "menu" ON "current_meal"."meal_choice" = "menu"."id"
+                                ;`;
     pool.query(queryText)
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
@@ -23,8 +24,14 @@ router.get('/', rejectNotAdmin, (req, res) => {
 });// END GET ROUTE
 // GET ROUTE for selecting single user info
 router.get('/:id', rejectNotAdmin, (req, res) => {
-    const queryText = `SELECT * FROM "dependents"
-                        WHERE "id" = $1`;
+    console.log(req.params.id)
+    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "date_of_birth", "annual_income", "phone_number", "building_address1", "building_address2", "zip_code", "county_id", "city","special_request", "dietary_restrictions", "referral_id", "program_id", "menu_description","referral_name", "program_name", "number_of_meals", "meal_choice", "menu_description" FROM "dependents"
+                                JOIN "county" ON "dependents"."county_id" = "county"."id"
+                                JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
+                                JOIN "program" ON "dependents"."program_id" = "program"."id"
+                                JOIN "current_meal" ON "dependents"."id" = "current_meal"."dependent_id"
+                                JOIN "menu" ON "current_meal"."meal_choice" = "menu"."id"
+                        WHERE "dependents"."id" = $1`;
     pool.query(queryText, [req.params.id])
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
