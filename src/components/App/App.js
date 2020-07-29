@@ -16,6 +16,8 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import IntakeForm from '../IntakeForm/IntakeForm';
+import AdminDataReview from '../AdminDataReview/AdminDataReview';
 
 import './App.scss';
 import Accounts from '../Accounts/Accounts';
@@ -40,6 +42,16 @@ class App extends Component {
               exact
               path="/about"
               component={AboutPage}
+            />
+            <Route
+              exact
+              path="/intake"
+              component={IntakeForm}
+            />
+            <Route
+              exact
+              path="/review"
+              component={AdminDataReview}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
