@@ -96,9 +96,12 @@ class Accounts extends Component {
                 <td>{item.special_request}</td>
                 <td>Veggie</td>
                 <td></td>
-                <td>MN Senior Center</td>
-                <td>Meals On Wheels</td>
+                <td>{item.referral_name}</td>
+                <td>{item.program_name}</td>
                 {/* if program === ramsey county return a yes/no if else return empty */}
+                {/* if(program_name === 'ramsey'){
+                  return <td>Yes</td>
+                } */}
                 <td>Yes</td>
                 {/* this will conditionally render all information to inputs */}
                 <td><button onClick={this.editDependent}>Edit</button></td>
