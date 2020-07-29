@@ -1,0 +1,21 @@
+@import './src/index.scss';
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+th {
+    background-color: lightgrey;
+}
+h2 {
+    color: $secondary;
+}
+.accountItems{
+    margin-left: 5%;
+}
+.acctTable{
+    max-width: 90%;
+}
