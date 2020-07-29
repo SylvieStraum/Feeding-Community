@@ -51,24 +51,20 @@ router.post('/', rejectNotAdmin, (req, res) => {
                             "annual_income", "phone_number",
                             "building_address1", "building_address2", "zip_code", "county_id", "city",
                             "special_request", "dietary_restrictions",
-                            "referral_id", "program_id")
+                            "referral_id", "program_id", "document_signed")
                         VALUES
                         ( $1, $2, $3,
                         $4, $5,
                         $6, $7, $8, $9, $10,
                         $11, $12,
-                        $13, $14
+                        $13, $14, $15
                         )
-                        RETURNING id ), insert2 AS (
-                        INSERT INTO "orders" ("dependent_id")
-                        SELECT insert1.id
-                        FROM   insert1 
-                        )
+                        RETURNING id )
                         INSERT INTO "current_meal"
                         ( "dependent_id", "number_of_meals", "meal_choice")
-                        SELECT insert1.id, $15, $16
+                        SELECT insert1.id, $16, $17
                         FROM insert1;  `;
-    const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, req.body.number_of_meals, req.body.meal_choice];
+    const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, req.body.number_of_meals, req.body.meal_choice, req.body.document_signed];
     console.log('put request, values:', values)
     pool.query(queryText, values)
         .then((results) => {
@@ -78,6 +74,7 @@ router.post('/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         })
 });
+
 //PUT ROUTE to adjust all account info
 router.put('/:id', rejectNotAdmin, (req, res) => {
     console.log('body:', req.body)
@@ -86,17 +83,17 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
                                 "annual_income", "phone_number",
                                 "building_address1", "building_address2", "zip_code", "county_id", "city",
                                 "special_request", "dietary_restrictions",
-                                "referral_id", "program_id")
+                                "referral_id", "program_id", "document_signed")
                                 =
                                 ($1, $2, $3,
                                 $4, $5,
                                 $6, $7, $8, $9, $10,
                                 $11, $12,
-                                $13, $14
+                                $13, $14, $15
                                 )
-                        WHERE "id" = $15;
+                        WHERE "id" = $16;
                                 `;
-    const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, req.params.id];
+    const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, , req.body.document_signed, req.params.id];
     console.log('put request, values:', values)
     pool.query(queryText, values)
         .then((results) => {

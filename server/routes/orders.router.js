@@ -21,26 +21,28 @@ router.get('/', rejectNotAdmin, (req, res) => {
 
 
 // GET ROUTE to get total of today's orders
-router.get('/total/today/', rejectNotAdmin, (req, res) => {
+router.get('/today/', rejectNotAdmin, (req, res) => {
 
     let today = new Date();
     let date = '';
     if (today.getMonth() < 10) {
         if (today.getDate() < 10) {
-            date = 'orders' + '_' + today.getFullYear() + '_0' + (today.getMonth() + 1) + '_0' + today.getDate();
+            date = today.getFullYear() + '_0' + (today.getMonth() + 1) + '_0' + today.getDate();
         } else {
-            date = 'orders' + '_' + today.getFullYear() + '_0' + (today.getMonth() + 1) + '_' + today.getDate();
+            date = today.getFullYear() + '_0' + (today.getMonth() + 1) + '_' + today.getDate();
         }
     } else {
         if (today.getDate() < 10) {
-            date = 'orders' + '_' + today.getFullYear() + '_' + (today.getMonth() + 1) + '_0' + today.getDate();
+            date = today.getFullYear() + '_' + (today.getMonth() + 1) + '_0' + today.getDate();
         } else {
-            date = 'orders' + '_' + today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate();
+            date = today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate();
         }
     }
     console.log(date);
 
-    const queryText = `SELECT SUM( $1 ) AS total FROM "orders";`;
+    const queryText = `SELECT * FROM "orders"
+                        WHERE "date" = $1
+                        ;`;
     pool.query(queryText, [date])
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
@@ -73,5 +75,27 @@ router.put('/save-day/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         })
 }); //END PUT ROUTE
+
+//PUT ROUTE to save adust data in a day
+router.put('/edit/', rejectNotAdmin, (req, res) => {
+
+    const daily_orders = req.body.daily_orders;
+    const date = req.body.date;
+
+    const queryText = `UPDATE "orders" SET "daily_orders" = $1
+                        WHERE date = $2;
+                            ;`;
+
+
+    console.log('put request:,', queryText)
+    pool.query(queryText, [daily_orders, date])
+        .then((results) => {
+            res.send(results);
+        }).catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        })
+}); //END PUT ROUTE
+
 
 module.exports = router;
