@@ -25,27 +25,27 @@ CREATE TABLE "dependents"
     "special_request" VARCHAR (400),
     "dietary_restrictions" VARCHAR(1000),
     "referral_id" INT,
-    "program_id" INT
+    "program_id" INT,
+    "document_signed" BOOLEAN DEFAULT FALSE
 );
 
 -- should "number_of_meals" be tied to account or program?
 CREATE TABLE "program"
 (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (400),
-    "document_signed" BOOLEAN DEFAULT FALSE
+    "program_name" VARCHAR (400)
 );
 
 CREATE TABLE "referral"
 (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR (400)
+    "referral_name" VARCHAR (400)
 );
 
 CREATE TABLE "menu"
 (
     "id" SERIAL PRIMARY KEY,
-    "description" VARCHAR (200)
+    "menu_description" VARCHAR (200)
 );
 
 CREATE TABLE "county"
@@ -57,6 +57,7 @@ CREATE TABLE "county"
 CREATE TABLE "current_meal"
 (
     "id" SERIAL PRIMARY KEY,
+    "dependent_id" INT REFERENCES dependents("id"),
     "number_of_meals" INT,
     "meal_choice" INT
 );
@@ -70,6 +71,15 @@ CREATE TABLE "orders"
 -- Insert for only the seven metro counties
 INSERT INTO "county"("county_name")
 VALUES ('Anoka'),('Carver'),('Dakota'),('Hennepin'),('Scott'),('Ramsay'),('Washington'),('N/A');
+
+INSERT INTO "referral" ("referral_name")
+VALUES ('Feeding Communities'),('Minneapolis Public Housing Agency'),('Commonbond Communities'),('Lakes Day Care'),('Ebyan ADC'), ('MN Senior Center'), ('Nurturing Hands Day Center'), ('Umatul Islam');
+
+INSERT INTO "program" ("program_name")
+VALUES ('Ramsay County'),('Meals on Wheels');
+
+INSERT INTO "menu" ("menu_description")
+VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Request');
 
 -- Insert for all mn counties
 -- INSERT INTO "county"
@@ -91,19 +101,28 @@ VALUES ('Anoka'),('Carver'),('Dakota'),('Hennepin'),('Scott'),('Ramsay'),('Washi
 --     ('N/A')
 -- ;
 
-INSERT INTO "menu"
-    ("description")
-VALUES
-    ('Meat Option'),
-    ('Fish Option'),
-    ('Veggie Option'),
-    ('Special Request')
-;
--- Below is code for adding columns to orders table based on date 
--- BEGIN;
--- ALTER TABLE orders ADD COLUMN "2020-06-28" INT;
--- UPDATE "orders"
--- SET "2020-06-28" = "current_meal"."number_of_meals"
--- FROM "current_meal" WHERE orders.dependent_id = current_meal.dependent_id;
--- COMMIT;
-
+-- WITH insert1 AS (
+-- INSERT INTO "dependents"
+--     ( "first_name", "last_name", "date_of_birth",
+--     "annual_income", "phone_number",
+--     "building_address1", "building_address2", "zip_code", "county_id", "city",
+--     "special_request", "dietary_restrictions",
+--     "referral_id", "program_id")
+-- VALUES
+--     ( 'first name', 'last name', '06-02-2020',
+--         '25000', '(XXX) XXX-XXXX',
+--         'Building St.', 'Unit 6', '55408', '11', 'city',
+--         'special', 'restrict',
+--         1, 2
+-- )
+-- RETURNING id ), insert2 AS
+-- (
+-- INSERT INTO "orders"
+--     ("dependent_id")
+-- SELECT insert1.id
+-- FROM insert1
+-- )
+-- INSERT INTO "current_meal"
+--     ( "dependent_id", "number_of_meals", "meal_choice")
+-- SELECT insert1.id, 3, 4
+-- FROM insert1;  
