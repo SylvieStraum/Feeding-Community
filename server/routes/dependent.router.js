@@ -16,7 +16,6 @@ router.get('/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         });
 });// END GET ROUTE
-
 // GET ROUTE for selecting single user info
 router.get('/:id', rejectNotAdmin, (req, res) => {
     const queryText = `SELECT * FROM "dependents"
@@ -31,10 +30,8 @@ router.get('/:id', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         });
 });//END GET ROUTE
-
 //POST ROUTE add new dependent
 router.post('/', rejectNotAdmin, (req, res) => {
-
     console.log('body:', req.body)
     const queryText = `WITH insert1 AS (
                         INSERT INTO "dependents"
@@ -59,7 +56,6 @@ router.post('/', rejectNotAdmin, (req, res) => {
                         ( "dependent_id", "number_of_meals", "meal_choice")
                         SELECT insert1.id, $15, $16
                         FROM insert1;  `;
-
     const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, req.body.number_of_meals, req.body.meal_choice];
     console.log('put request, values:', values)
     pool.query(queryText, values)
@@ -70,11 +66,8 @@ router.post('/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         })
 });
-
-
 //PUT ROUTE to adjust all account info
 router.put('/:id', rejectNotAdmin, (req, res) => {
-    
     console.log('body:', req.body)
     const queryText = `UPDATE dependents
                         SET("first_name", "last_name", "date_of_birth",
@@ -91,7 +84,6 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
                                 )
                         WHERE "id" = $15;
                                 `;
-
     const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, req.params.id];
     console.log('put request, values:', values)
     pool.query(queryText, values)
@@ -102,5 +94,4 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
     })
 });
-
 module.exports = router;
