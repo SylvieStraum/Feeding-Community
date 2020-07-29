@@ -1,0 +1,15 @@
+#t01 {
+    width: 100%;
+    background-color: #f1f1c1;
+  }
+
+  table, th, tr, td {
+    border: 1px solid black;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  
+  
