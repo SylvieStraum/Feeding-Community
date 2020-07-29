@@ -2,7 +2,6 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectNotAdmin } = require('../modules/admin-authentication-middleware');
-const encryptLib = require('../modules/encryption');
 
 // GET ROUTE for selecting all users
 router.get('/', rejectNotAdmin, (req, res) => {
@@ -13,7 +12,7 @@ router.get('/', rejectNotAdmin, (req, res) => {
             res.send(result.rows);
         })
         .catch((error) => {
-            console.log(`Error making GET Ratings for teas:`, error);
+            console.log(`Error making GET Request:`, error);
             res.sendStatus(500);
         });
 });// END GET ROUTE
@@ -28,7 +27,7 @@ router.get('/:id', rejectNotAdmin, (req, res) => {
             res.send(result.rows);
         })
         .catch((error) => {
-            console.log(`Error making GET Ratings for teas:`, error);
+            console.log(`Error making GET Request:`, error);
             res.sendStatus(500);
         });
 });//END GET ROUTE

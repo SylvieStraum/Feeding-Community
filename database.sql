@@ -57,6 +57,7 @@ CREATE TABLE "county"
 CREATE TABLE "current_meal"
 (
     "id" SERIAL PRIMARY KEY,
+    "dependent_id" INT REFERENCES dependents("id"),
     "number_of_meals" INT,
     "meal_choice" INT
 );
