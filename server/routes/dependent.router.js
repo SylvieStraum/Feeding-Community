@@ -77,12 +77,14 @@ router.post('/', rejectNotAdmin, (req, res) => {
 });
 
 //PUT ROUTE to adjust all account info
-router.put('/:id', rejectNotAdmin, (req, res) => {
+router.put('/:id', rejectNotAdmin, async (req, res) => {
     const b = req.body;
     console.log('body:', req.body);
-    const queryText = `BEGIN;
-                        UPDATE dependents
-                        SET("first_name", "last_name", "date_of_birth",
+    const connection = await pool.connect();
+    try {
+        await connection.query('BEGIN;');
+        const sqlText1 = `UPDATE dependents
+                            SET("first_name", "last_name", "date_of_birth",
                                 "annual_income", "phone_number",
                                 "building_address1", "building_address2", "zip_code", "county_id", "city",
                                 "special_request", "dietary_restrictions",
@@ -94,20 +96,26 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
                                 $11, $12,
                                 $13, $14, $15
                                 )
-                        WHERE "id" = $16;
-                        UPDATE "current_meal"
-                        SET("number_of_meals", "meal_choice") = ($17, $18)
-                        WHERE "id" = $19;
-                        COMMIT;
-                                `;
-    const values = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.document_signed, req.params.id, b.number_of_meals, b.meal_choice, req.params.id];
-    console.log('put request, values:', values)
-    pool.query(queryText, values)
-        .then((results) => {
-            res.send(results);
-        }).catch((error) => {
-            console.log(error);
+                            WHERE "id" = $16;`
+        const values1 = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.document_signed, req.params.id];
+        const sqlText2 = `UPDATE "current_meal"
+                            SET("number_of_meals", "meal_choice") = ($1, $2)
+                            WHERE "id" = $3;
+                            `;
+        const values2 = [b.number_of_meals, b.meal_choice, req.params.id];
+        console.log(sqlText1, values1);
+        console.log(sqlText2, values2);
+        await connection.query(sqlText1, values1);
+        await connection.query(sqlText2, values2);
+        await connection.query('COMMIT;');
+        res.sendStatus(200);
+    }
+    catch (error) {
+            await connection.query('ROLLBACK;');
+            console.log('Error with updating dependent info', error)
             res.sendStatus(500);
-    })
+    } finally {
+            connection.release();
+    }
 });
 module.exports = router;
