@@ -76,7 +76,7 @@ INSERT INTO "referral" ("referral_name")
 VALUES ('Feeding Communities'),('Minneapolis Public Housing Agency'),('Commonbond Communities'),('Lakes Day Care'),('Ebyan ADC'), ('MN Senior Center'), ('Nurturing Hands Day Center'), ('Umatul Islam');
 
 INSERT INTO "program" ("program_name")
-VALUES ('Ramsay County'),('Meals on Wheels');
+VALUES ('Ramsey County'),('Meals on Wheels');
 
 INSERT INTO "menu" ("menu_description")
 VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Request');
