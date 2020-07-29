@@ -30,7 +30,11 @@ class Accounts extends Component {
 
   //GET request
   //PUT request
+  editDependent = () => {
+    console.log('edit dependent:', this.props.reduxState.allDependents) //this will target the specific dependent clicked
+  }
   render() {
+    console.log(this.props.reduxState.allDependents)
     return (
       <div className="Accounts">
         <div className="accountItems">
@@ -81,23 +85,23 @@ class Accounts extends Component {
             </tr>
             {this.props.reduxState.allDependents.map((item) => (
               <tr key={item.id}>
-                <td>{item.first_name}</td>
-                <td>Mohamed Mohamed</td>
-                <td>612-867-5309</td>
-                <td>01/01/1960</td>
+                <td>{item.first_name} {item.first_name}</td>
+                <td>{item.phone_number}</td>
+                <td>{item.date_of_birth}</td>
                 {/* address td will be a concatenated string of building_address 1 and 2 */}
-                <td>4321 Afro Deli Lane, Apt 2</td>
-                <td>55413</td>
-                <td>Hennepin</td>
-                <td>Minneapolis</td>
-                <td>No meat</td>
+                <td>{item.building_address1} {item.building_address2}</td>
+                <td>{item.zip_code}</td>
+                <td>{item.county_id}</td>
+                <td>{item.city}</td>
+                <td>{item.special_request}</td>
                 <td>Veggie</td>
                 <td></td>
                 <td>MN Senior Center</td>
                 <td>Meals On Wheels</td>
+                {/* if program === ramsey county return a yes/no if else return empty */}
                 <td>Yes</td>
                 {/* this will conditionally render all information to inputs */}
-                <td><button>Edit</button></td>
+                <td><button onClick={this.editDependent}>Edit</button></td>
               </tr>
             ))}
             </tbody>
