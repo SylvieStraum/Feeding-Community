@@ -76,12 +76,14 @@ INSERT INTO "referral" ("referral_name")
 VALUES ('Feeding Communities'),('Minneapolis Public Housing Agency'),('Commonbond Communities'),('Lakes Day Care'),('Ebyan ADC'), ('MN Senior Center'), ('Nurturing Hands Day Center'), ('Umatul Islam');
 
 INSERT INTO "program" ("program_name")
-VALUES ('Ramsay County'),('Meals on Wheels');
+VALUES ('Ramsey County'),('Meals on Wheels');
 
 INSERT INTO "menu" ("menu_description")
 VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Request');
 
--- Insert for all mn counties
+-- DO NOT INSERT UNLESS YOU WANT TO ADD ALL COUNTIES
+-- DO NOT INSERT IF YOU'VE ALREADAY INSERTED OTHER COUNTIES
+-- -- Insert for all mn counties
 -- INSERT INTO "county"
 --     ("county_name")
 -- VALUES
@@ -101,6 +103,8 @@ VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Reques
 --     ('N/A')
 -- ;
 
+
+-- -- Dummy Insert for testing
 -- WITH insert1 AS (
 -- INSERT INTO "dependents"
 --     ( "first_name", "last_name", "date_of_birth",
