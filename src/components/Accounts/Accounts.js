@@ -45,68 +45,76 @@ class Accounts extends Component {
           <table>
             <caption>Accounts</caption>
             <thead>
-            <tr>
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>Date of Birth</th>
-              <th>Address</th>
-              <th>Zip Code</th>
-              <th>County</th>
-              <th>City</th>
-              <th>Special Requests</th>
-              <th>Meal Type</th>
-              <th>Dietary Restrictions</th>
-              <th>Referral Organization</th>
-              <th>Qualified Program</th>
-              <th>Signed</th>
-              <th>Edit</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Date of Birth</th>
+                <th>Address</th>
+                <th>Zip Code</th>
+                <th>County</th>
+                <th>City</th>
+                <th>Special Requests</th>
+                <th>Meal Type</th>
+                <th>Dietary Restrictions</th>
+                <th>Referral Organization</th>
+                <th>Qualified Program</th>
+                <th>Signed</th>
+                <th>Edit</th>
+              </tr>
             </thead>
             <tbody>
-            {/* this table row and data below will eventually come from a .map of reduxState */}
-            <tr>
-              {/* name td will return a concatenated string of first and last name */}
-              <td>Mohamed Mohamed</td>
-              <td>612-867-5309</td>
-              <td>01/01/1960</td>
-              {/* address td will be a concatenated string of building_address 1 and 2 */}
-              <td>4321 Afro Deli Lane, Apt 2</td>
-              <td>55413</td>
-              <td>Hennepin</td>
-              <td>Minneapolis</td>
-              <td>No meat</td>
-              <td>Veggie</td>
-              <td></td>
-              <td>MN Senior Center</td>
-              <td>Meals On Wheels</td>
-              <td>Yes</td>
-              {/* this will conditionally render all information to inputs */}
-              <td><button>Edit</button></td>
-            </tr>
-            {this.props.reduxState.allDependents.map((item) => (
-              <tr key={item.id}>
-                <td>{item.first_name} {item.first_name}</td>
-                <td>{item.phone_number}</td>
-                <td>{item.date_of_birth}</td>
+              {/* this table row and data below will eventually come from a .map of reduxState */}
+              <tr>
+                {/* name td will return a concatenated string of first and last name */}
+                <td>Mohamed Mohamed</td>
+                <td>612-867-5309</td>
+                <td>01/01/1960</td>
                 {/* address td will be a concatenated string of building_address 1 and 2 */}
-                <td>{item.building_address1} {item.building_address2}</td>
-                <td>{item.zip_code}</td>
-                <td>{item.county_id}</td>
-                <td>{item.city}</td>
-                <td>{item.special_request}</td>
+                <td>4321 Afro Deli Lane, Apt 2</td>
+                <td>55413</td>
+                <td>Hennepin</td>
+                <td>Minneapolis</td>
+                <td>No meat</td>
                 <td>Veggie</td>
                 <td></td>
-                <td>{item.referral_name}</td>
-                <td>{item.program_name}</td>
-                {/* if program === ramsey county return a yes/no if else return empty */}
-                {/* if(program_name === 'ramsey'){
-                  return <td>Yes</td>
-                } */}
+                <td>MN Senior Center</td>
+                <td>Meals On Wheels</td>
                 <td>Yes</td>
                 {/* this will conditionally render all information to inputs */}
-                <td><button onClick={this.editDependent}>Edit</button></td>
+                <td><button>Edit</button></td>
               </tr>
-            ))}
+              {this.props.reduxState.allDependents.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.first_name} {item.first_name}</td>
+                  <td>{item.phone_number}</td>
+                  <td>{item.date_of_birth}</td>
+                  {/* address td will be a concatenated string of building_address 1 and 2 */}
+                  <td>{item.building_address1} {item.building_address2}</td>
+                  <td>{item.zip_code}</td>
+                  <td>{item.county_name}</td>
+                  <td>{item.city}</td>
+                  <td>{item.special_request}</td>
+                  <td>{item.menu_description}</td>
+                  <td>{item.dietary_restrictions}</td>
+                  <td>{item.referral_name}</td>
+                  <td>{item.program_name}</td>
+                  {/* if program === ramsey county return a yes/no if else return empty */}
+                  {/* <td>No</td> */}
+                  {/* {item.program_id === 1 && <td>YES/NO</td> ? : } */}
+
+                  {item.program_id === 1 ?
+                    <>
+                    <td>YES/NO</td>
+                    </>
+                    :
+                    <>
+                    <td>n/a</td>
+                    </>
+                  }
+                  {/* this will conditionally render all information to inputs */}
+                  <td><button onClick={this.editDependent}>Edit</button></td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
