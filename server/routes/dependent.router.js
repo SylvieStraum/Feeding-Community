@@ -5,7 +5,12 @@ const { rejectNotAdmin } = require('../modules/admin-authentication-middleware')
 
 // GET ROUTE for selecting all users
 router.get('/', rejectNotAdmin, (req, res) => {
-    const queryText = `SELECT * FROM "dependents"`;
+    const queryText = `SELECT * FROM "dependents"
+                        JOIN "county" ON "dependents"."county_id" = "county"."id"
+                        JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
+                        JOIN "current_meal" ON "dependents"."id" = "current_meal"."dependent_id"
+                        JOIN "menu" ON "current_meal"."meal_choice" = "menu"."id"
+                        ;`;
     pool.query(queryText)
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
