@@ -6,23 +6,24 @@ import "../IntakeForm/IntakeForm.css";
 class IntakeForm extends Component {
 
     state = {
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        address1: '',
-        address2: '',
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        building_address1: '',
+        building_address2: '',
         city: '',
-        zipCode: '',
-        county: '',
-        dateOfBirth: '',
-        specialRequests: '',
-        dietaryRestrictions: '',
-        meal_submission: '',
-        organization_submission: ''
+        zip_code: '',
+        county_id: '',
+        date_of_birth: '',
+        special_request: '',
+        dietary_restrictions: '',
+        meal_choice: 1,
+        referral_id: 1
     }
 
-    createDependant = (event) => {
+    createDependent = (event) => {
         event.preventDefault();
+        console.log('this.state', this.state)
         this.props.dispatch({type: 'POST_NEW_DEPENDENT', payload: this.state});
 
     }
@@ -34,19 +35,20 @@ class IntakeForm extends Component {
     }
 
     render(){
+        console.log(this.state)
         return(
             <>
             <h1>Sign Up</h1>
             <p>Enter client information form</p>
             <div>
-                <form onSubmit={this.createDependant}>
+                <form onSubmit={this.createDependent}>
                     <p>Please enter client information:</p>
                     <label></label>
                     <input
                         required
                         type="text"
                         placeholder="First Name"
-                        onChange={(event) => this.handleInputs(event, "firstName")}
+                        onChange={(event) => this.handleInputs(event, "first_name")}
                         />
                         <br />
                     <label></label>
@@ -54,7 +56,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Last Name"
-                        onChange={(event) => this.handleInputs(event, "lastName")}
+                        onChange={(event) => this.handleInputs(event, "last_name")}
                         />
                         <br />
                     <label></label>
@@ -62,7 +64,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Phone Number"
-                        onChange={(event) => this.handleInputs(event, "phoneNumber")}
+                        onChange={(event) => this.handleInputs(event, "phone_number")}
                         />
                         <br />
                     <label></label>
@@ -70,7 +72,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Address 1"
-                        onChange={(event) => this.handleInputs(event, "address1")}
+                        onChange={(event) => this.handleInputs(event, "building_address1")}
                         />
                         <br />
                     <label></label>
@@ -78,7 +80,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Address 2"
-                        onChange={(event) => this.handleInputs(event, "address2")}
+                        onChange={(event) => this.handleInputs(event, "building_address2")}
                         />
                         <br />
                     <label></label>
@@ -94,7 +96,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Zip Code"
-                        onChange={(event) => this.handleInputs(event, "zipCode")}
+                        onChange={(event) => this.handleInputs(event, "zip_code")}
                         />
                         <br />
                     <label></label>
@@ -102,7 +104,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="County"
-                        onChange={(event) => this.handleInputs(event, "county")}
+                        onChange={(event) => this.handleInputs(event, "county_id")}
                         />
                         <br />
                     <label></label>
@@ -110,26 +112,26 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Date of Birth"
-                        onChange={(event) => this.handleInputs(event, "dateOfBirth")}
+                        onChange={(event) => this.handleInputs(event, "date_of_birth")}
                         />
                         <br />
                         <p>Meal Type:</p>
                         <select
                             type="dropdown"
-                            onChange={(event) => this.handleInputs(event, "meal_submission")
+                            onChange={(event) => this.handleInputs(event, "meal_choice")
                             
                         }>
-                            <option value="Meat">Meat</option>
-                            <option value="2nd Meat">2nd Meat</option>
-                            <option value="Veggie">Veggie</option>
-                            <option value="Special Request">Special Request</option>
+                            <option value="1">Meat</option>
+                            <option value="2">2nd Meat</option>
+                            <option value="3">Veggie</option>
+                            <option value="4">Special Request</option>
                         </select>
                     <label></label>
                     <input
                         required
                         type="text"
                         placeholder="Special Requests"
-                        onChange={(event) => this.handleInputs(event, "specialRequests")}
+                        onChange={(event) => this.handleInputs(event, "special_request")}
                         />
                         <br />
                     <label></label>
@@ -137,7 +139,7 @@ class IntakeForm extends Component {
                         required
                         type="text"
                         placeholder="Dietary Restrictions"
-                        onChange={(event) => this.handleInputs(event, "dietaryRestrictions")}
+                        onChange={(event) => this.handleInputs(event, "dietary_restrictions")}
                         />
                         <br />
                         <p>Referral Organiztation:
@@ -145,15 +147,15 @@ class IntakeForm extends Component {
                         <select
                             type="dropdown"
                             onChange={(event) => 
-                            this.handleInputs(event, "organization_submission")
+                            this.handleInputs(event, "referral_id")
                             }>
-                            <option value="Minneapolis Public Housing Agency">Minneapolis Public Housing Agency</option>
-                            <option value="Commonbond Communities">Commonbond Communities</option>
-                            <option value="Lakes Day Care">Lakes Day Care</option>
-                            <option value="Ebyan ADC">Ebyan ADC</option>
-                            <option value="MN Senior Center">MN Senior Center</option>
-                            <option value="Nurturing Hands Day Center">Nurturing Hands Day Center</option>
-                            <option value="Umatul Islam">Umatul Islam</option>
+                            <option value="1">Minneapolis Public Housing Agency</option>
+                            <option value="2">Commonbond Communities</option>
+                            <option value="3">Lakes Day Care</option>
+                            <option value="4">Ebyan ADC</option>
+                            <option value="5">MN Senior Center</option>
+                            <option value="6">Nurturing Hands Day Center</option>
+                            <option value="7">Umatul Islam</option>
                         </select>
                         <br />
                         <button className="Next Step" onClick={this.createDependant}>Next Step</button>
@@ -168,4 +170,9 @@ class IntakeForm extends Component {
     }
 }
 
-export default connect()(IntakeForm);
+const mapStateToProps = (reduxState) => ({
+    reduxState,
+  });
+  
+
+export default connect(mapStateToProps)(IntakeForm);
