@@ -44,7 +44,8 @@ router.get('/:id', rejectNotAdmin, (req, res) => {
 });//END GET ROUTE
 //POST ROUTE add new dependent
 router.post('/', rejectNotAdmin, (req, res) => {
-    console.log('body:', req.body)
+    const b = req.body
+    console.log('body:', b)
     const queryText = `WITH insert1 AS (
                         INSERT INTO "dependents"
                         ( "first_name", "last_name", "date_of_birth", 
@@ -64,7 +65,7 @@ router.post('/', rejectNotAdmin, (req, res) => {
                         ( "dependent_id", "number_of_meals", "meal_choice")
                         SELECT insert1.id, $16, $17
                         FROM insert1;  `;
-    const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, req.body.number_of_meals, req.body.meal_choice, req.body.document_signed];
+    const values = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.number_of_meals, b.meal_choice, b.document_signed];
     console.log('put request, values:', values)
     pool.query(queryText, values)
         .then((results) => {
@@ -77,8 +78,10 @@ router.post('/', rejectNotAdmin, (req, res) => {
 
 //PUT ROUTE to adjust all account info
 router.put('/:id', rejectNotAdmin, (req, res) => {
-    console.log('body:', req.body)
-    const queryText = `UPDATE dependents
+    const b = req.body;
+    console.log('body:', req.body);
+    const queryText = `BEGIN;
+                        UPDATE dependents
                         SET("first_name", "last_name", "date_of_birth",
                                 "annual_income", "phone_number",
                                 "building_address1", "building_address2", "zip_code", "county_id", "city",
@@ -92,8 +95,12 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
                                 $13, $14, $15
                                 )
                         WHERE "id" = $16;
+                        UPDATE "current_meal"
+                        SET("number_of_meals", "meal_choice") = ($17, $18)
+                        WHERE "id" = $19;
+                        COMMIT;
                                 `;
-    const values = [req.body.first_name, req.body.last_name, req.body.date_of_birth, req.body.annual_income, req.body.phone_number, req.body.building_address1, req.body.building_address2, req.body.zip_code, req.body.county_id, req.body.city, req.body.special_request, req.body.dietary_restrictions, req.body.referral_id, req.body.program_id, , req.body.document_signed, req.params.id];
+    const values = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.document_signed, req.params.id, b.number_of_meals, b.meal_choice, req.params.id];
     console.log('put request, values:', values)
     pool.query(queryText, values)
         .then((results) => {
