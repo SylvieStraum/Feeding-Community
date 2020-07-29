@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
+import './Nav.scss';
 
 const Nav = (props) => (
   <div className="nav">
@@ -22,27 +22,21 @@ const Nav = (props) => (
           <Link className="nav-link" to="/info">
             Info Page
           </Link>
-          <LogOutButton className="nav-link"/>
+          <LogOutButton className="nav-link" />
         </>
       )}
       {/* Always show this link since the about page is not protected */}
       <Link className="nav-link" to="/about">
         About
       </Link>
-      <Link className="nav-link" to="/userAccount">
-        My Account
-      </Link>
       <Link className="nav-link" to="/intake">
         Intake Form
-      </Link>
-      <Link className="nav-link" to="/review">
-        Admin Review
       </Link>
       <Link className="nav-link" to="/dashboard">
         Dashboard
       </Link>
-      <Link className="nav-link" to="/userList">
-        User List
+      <Link className="nav-link" to="/accounts">
+        Accounts
       </Link>
     </div>
   </div>

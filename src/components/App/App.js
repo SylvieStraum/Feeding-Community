@@ -19,10 +19,9 @@ import InfoPage from '../InfoPage/InfoPage';
 import IntakeForm from '../IntakeForm/IntakeForm';
 import AdminDataReview from '../AdminDataReview/AdminDataReview';
 
-import './App.css';
-import AdminList from '../AdminList/AdminList';
+import './App.scss';
+import Accounts from '../Accounts/Accounts';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
-import UserAccountView from '../UserAccountView/UserAccountView';
 
 class App extends Component {
   componentDidMount() {
@@ -72,13 +71,8 @@ class App extends Component {
             />
             <Route
               exact
-              path="/userAccount"
-              component={UserAccountView}
-            />
-            <Route
-              exact
-              path="/userList"
-              component={AdminList}
+              path="/accounts"
+              component={Accounts}
             />
             <Route
               exact
