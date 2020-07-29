@@ -14,6 +14,7 @@ const menuRouter = require('./routes/menu.router');
 const dependentRouter = require('./routes/dependent.router');
 const ordersRouter = require('./routes/orders.router');
 const adminRouter = require('./routes/admin.router');
+const infoRouter = require('./routes/information.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -32,7 +33,7 @@ app.use('/api/menu', menuRouter);
 app.use('/api/dependent', dependentRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/admin', adminRouter);
-
+app.use('/api/info', infoRouter)
 // Serve static files
 app.use(express.static('build'));
 
