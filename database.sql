@@ -81,7 +81,9 @@ VALUES ('Ramsay County'),('Meals on Wheels');
 INSERT INTO "menu" ("menu_description")
 VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Request');
 
--- Insert for all mn counties
+-- DO NOT INSERT UNLESS YOU WANT TO ADD ALL COUNTIES
+-- DO NOT INSERT IF YOU'VE ALREADAY INSERTED OTHER COUNTIES
+-- -- Insert for all mn counties
 -- INSERT INTO "county"
 --     ("county_name")
 -- VALUES
@@ -101,6 +103,8 @@ VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Reques
 --     ('N/A')
 -- ;
 
+
+-- -- Dummy Insert for testing
 -- WITH insert1 AS (
 -- INSERT INTO "dependents"
 --     ( "first_name", "last_name", "date_of_birth",
@@ -111,7 +115,7 @@ VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Reques
 -- VALUES
 --     ( 'first name', 'last name', '06-02-2020',
 --         '25000', '(XXX) XXX-XXXX',
---         'Building St.', 'Unit 6', '55408', '11', 'city',
+--         'Building St.', 'Unit 6', '55408', '4', 'city',
 --         'special', 'restrict',
 --         1, 2
 -- )
