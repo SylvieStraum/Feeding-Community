@@ -65,7 +65,8 @@ CREATE TABLE "current_meal"
 CREATE TABLE "orders"
 (
     "id" SERIAL PRIMARY KEY,
-    "dependent_id" INT REFERENCES dependents("id")
+    "date" DATE UNIQUE,
+    "daily_orders" JSON
 );
 
 -- Insert for only the seven metro counties
@@ -107,26 +108,22 @@ VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Reques
 -- -- Dummy Insert for testing
 -- WITH insert1 AS (
 -- INSERT INTO "dependents"
---     ( "first_name", "last_name", "date_of_birth",
---     "annual_income", "phone_number",
---     "building_address1", "building_address2", "zip_code", "county_id", "city",
---     "special_request", "dietary_restrictions",
---     "referral_id", "program_id")
--- VALUES
---     ( 'first name', 'last name', '06-02-2020',
---         '25000', '(XXX) XXX-XXXX',
---         'Building St.', 'Unit 6', '55408', '4', 'city',
---         'special', 'restrict',
---         1, 2
--- )
--- RETURNING id ), insert2 AS
--- (
--- INSERT INTO "orders"
---     ("dependent_id")
--- SELECT insert1.id
--- FROM insert1
--- )
--- INSERT INTO "current_meal"
---     ( "dependent_id", "number_of_meals", "meal_choice")
--- SELECT insert1.id, 3, 4
--- FROM insert1;  
+WITH insert1 AS (
+INSERT INTO "dependents"
+    ( "first_name", "last_name", "date_of_birth",
+    "annual_income", "phone_number",
+    "building_address1", "building_address2", "zip_code", "county_id", "city",
+    "special_request", "dietary_restrictions",
+    "referral_id", "program_id")
+VALUES
+    ( 'first name', 'last name', '06-02-2020',
+        '25000', '(XXX) XXX-XXXX',
+        'Building St.', 'Unit 6', '55408', '11', 'city',
+        'special', 'restrict',
+        1, 2
+)
+RETURNING id )
+INSERT INTO "current_meal"
+    ( "dependent_id", "number_of_meals", "meal_choice")
+SELECT insert1.id, 3, 4
+FROM insert1;  

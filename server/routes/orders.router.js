@@ -21,29 +21,29 @@ router.get('/', rejectNotAdmin, (req, res) => {
 
 
 // GET ROUTE to get total of today's orders
-router.get('/total/today/', rejectNotAdmin, (req, res) => {
+router.get('/today/', rejectNotAdmin, (req, res) => {
 
     let today = new Date();
     let date = '';
-    if (today.getMonth() < 10){
-        if (today.getDate()< 10) {
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
+    if (today.getMonth() < 10) {
+        if (today.getDate() < 10) {
+            date = today.getFullYear() + '_0' + (today.getMonth() + 1) + '_0' + today.getDate();
+        } else {
+            date = today.getFullYear() + '_0' + (today.getMonth() + 1) + '_' + today.getDate();
         }
-        else{
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
+    } else {
+        if (today.getDate() < 10) {
+            date = today.getFullYear() + '_' + (today.getMonth() + 1) + '_0' + today.getDate();
+        } else {
+            date = today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate();
         }
-    }
-    else{
-       if (today.getDate() < 10) {
-           date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
-       } else {
-           date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
-       }
     }
     console.log(date);
 
-    const queryText = `SELECT SUM("${date}") AS total FROM "orders";`;
-    pool.query(queryText)
+    const queryText = `SELECT * FROM "orders"
+                        WHERE "date" = $1
+                        ;`;
+    pool.query(queryText, [date])
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
             res.send(result.rows);
@@ -57,42 +57,17 @@ router.get('/total/today/', rejectNotAdmin, (req, res) => {
 //PUT ROUTE to save current meals from the day to orders table
 router.put('/save-day/', rejectNotAdmin, (req, res) => {
     
-    let values = [];
-    if(req.body.columnName){
-    columnName = req.body.columnName
-    values = [columnName, columnName];
-    } 
-    else{
-    let today = new Date();
-    let date = '';
-    if (today.getMonth() < 10) {
-        if (today.getDate() < 10) {
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
-        } else {
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
-        }
-    } else {
-        if (today.getDate() < 10) {
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
-        } else {
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
-        }
-    }
-    values = [date, date];
-    }
 
-    console.log('column:', columnName);
-
-    const queryText = `BEGIN;
-                       ALTER TABLE orders ADD COLUMN $1 INT;
-                       UPDATE "orders"
-                       SET $2 = "current_meal"."number_of_meals"
-                       FROM "current_meal" WHERE orders.dependent_id = current_meal.dependent_id;
-                       COMMIT;`;
+    const queryText = `WITH select_json AS (
+                            SELECT json_agg("current_meal") AS "json_arry" FROM "current_meal")
+                            INSERT INTO "orders"("date", "daily_orders")
+                            SELECT current_timestamp, select_json.json_arry
+                            FROM select_json
+                            ;`;
 
     
-    console.log('put request: values:', values)
-    pool.query(queryText, values)
+    console.log('put request:,', queryText)
+    pool.query(queryText)
         .then((results) => {
             res.send(results);
         }).catch((error) => {
@@ -100,5 +75,27 @@ router.put('/save-day/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         })
 }); //END PUT ROUTE
+
+//PUT ROUTE to save adust data in a day
+router.put('/edit/', rejectNotAdmin, (req, res) => {
+
+    const daily_orders = req.body.daily_orders;
+    const date = req.body.date;
+
+    const queryText = `UPDATE "orders" SET "daily_orders" = $1
+                        WHERE date = $2;
+                            ;`;
+
+
+    console.log('put request:,', queryText)
+    pool.query(queryText, [daily_orders, date])
+        .then((results) => {
+            res.send(results);
+        }).catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        })
+}); //END PUT ROUTE
+
 
 module.exports = router;
