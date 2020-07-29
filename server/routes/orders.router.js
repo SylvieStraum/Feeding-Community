@@ -7,9 +7,7 @@ const encryptLib = require('../modules/encryption');
 // GET ROUTE to get all orders
 router.get('/', rejectNotAdmin, (req, res) => {
 
-    const queryText = `SELECT * FROM "orders"
-                        JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
-                        ;`;
+    const queryText = `SELECT * FROM "orders";`;
     pool.query(queryText)
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
@@ -27,25 +25,23 @@ router.get('/total/today/', rejectNotAdmin, (req, res) => {
 
     let today = new Date();
     let date = '';
-    if (today.getMonth() < 10){
-        if (today.getDate()< 10) {
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
+    if (today.getMonth() < 10) {
+        if (today.getDate() < 10) {
+            date = 'orders' + '_' + today.getFullYear() + '_0' + (today.getMonth() + 1) + '_0' + today.getDate();
+        } else {
+            date = 'orders' + '_' + today.getFullYear() + '_0' + (today.getMonth() + 1) + '_' + today.getDate();
         }
-        else{
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
+    } else {
+        if (today.getDate() < 10) {
+            date = 'orders' + '_' + today.getFullYear() + '_' + (today.getMonth() + 1) + '_0' + today.getDate();
+        } else {
+            date = 'orders' + '_' + today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate();
         }
-    }
-    else{
-       if (today.getDate() < 10) {
-           date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
-       } else {
-           date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
-       }
     }
     console.log(date);
 
-    const queryText = `SELECT SUM("${date}") AS total FROM "orders";`;
-    pool.query(queryText)
+    const queryText = `SELECT SUM( $1 ) AS total FROM "orders";`;
+    pool.query(queryText, [date])
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
             res.send(result.rows);
@@ -59,39 +55,16 @@ router.get('/total/today/', rejectNotAdmin, (req, res) => {
 //PUT ROUTE to save current meals from the day to orders table
 router.put('/save-day/', rejectNotAdmin, (req, res) => {
     
-    let values = [];
-    let today = new Date();
-    let date = '';
-    if(req.body.columnName){
-    columnName = req.body.columnName
-    values = [columnName, columnName];
-    } 
-    else{
-    if (today.getMonth() < 10) {
-        if (today.getDate() < 10) {
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
-        } else {
-            date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
-        }
-    } else {
-        if (today.getDate() < 10) {
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-0' + today.getDate() + '-' + 'orders';
-        } else {
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + 'orders';
-        }
-    }
-    values = [date, date];
-    }
 
-    const queryText = `BEGIN;
-                       ALTER TABLE orders ADD COLUMN "${date}" INT;
-                       UPDATE "orders"
-                       SET "${date}" = "current_meal"."number_of_meals"
-                       FROM "current_meal" WHERE orders.dependent_id = current_meal.dependent_id;
-                       COMMIT;`;
+    const queryText = `WITH select_json AS (
+                            SELECT json_agg("current_meal") AS "json_arry" FROM "current_meal")
+                            INSERT INTO "orders"("date", "daily_orders")
+                            SELECT current_timestamp, select_json.json_arry
+                            FROM select_json
+                            ;`;
 
     
-    console.log('put request:,', queryText, ' values:', values)
+    console.log('put request:,', queryText)
     pool.query(queryText)
         .then((results) => {
             res.send(results);
