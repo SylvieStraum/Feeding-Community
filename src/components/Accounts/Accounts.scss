@@ -1,3 +1,4 @@
+@import './src/index.scss';
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -10,11 +11,11 @@ th {
     background-color: lightgrey;
 }
 h2 {
-    color: peru;
+    color: $secondary;
 }
 .accountItems{
     margin-left: 5%;
 }
 .acctTable{
-    max-width: 100%;
+    max-width: 90%;
 }

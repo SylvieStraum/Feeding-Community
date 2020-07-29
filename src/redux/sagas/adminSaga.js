@@ -14,20 +14,20 @@ function* newAdmin(action) {
     }
 }
 
-//delete outdated admin account
-// function* deleteAdmin(action) {
-//     console.log(action.payload)
-//     try {
-//         yield axios.delete(`/api/admin/${action.payload}`);
-//     } catch (error) {
-//         console.log('put saga request failed', error);
-//     }
-// }
+// delete outdated admin account
+function* deleteAdmin(action) {
+    console.log(action.payload)
+    try {
+        yield axios.delete(`/api/admin/${action.payload}`);
+    } catch (error) {
+        console.log('put saga request failed', error);
+    }
+}
 
 
 function* adminSaga() {
     yield takeEvery('POST_NEW_ADMIN', newAdmin)
-    // yield takeEvery('DELETE_ADMIN', deleteAdmin)
+    yield takeEvery('DELETE_ADMIN', deleteAdmin)
 }
 
 export default adminSaga;

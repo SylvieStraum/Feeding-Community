@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Accounts.css';
+import './Accounts.scss';
 
 class Accounts extends Component {
   // Renders the entire Accounts on the DOM
@@ -40,6 +40,7 @@ class Accounts extends Component {
         <div className="accountItems acctTable">
           <table>
             <caption>Accounts</caption>
+            <thead>
             <tr>
               <th>Name</th>
               <th>Phone Number</th>
@@ -56,6 +57,8 @@ class Accounts extends Component {
               <th>Signed</th>
               <th>Edit</th>
             </tr>
+            </thead>
+            <tbody>
             {/* this table row and data below will eventually come from a .map of reduxState */}
             <tr>
               {/* name td will return a concatenated string of first and last name */}
@@ -97,6 +100,7 @@ class Accounts extends Component {
                 <td><button>Edit</button></td>
               </tr>
             ))}
+            </tbody>
           </table>
         </div>
       </div>

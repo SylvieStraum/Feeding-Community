@@ -1,3 +1,4 @@
+@import './src/index.scss';
 .nav-title {
     font-size: 24px;
     font-weight: 700;
@@ -8,7 +9,10 @@
 
 .nav {
   overflow: hidden;
-  background-color: #1770ac;
+  background-color: $primary;
+  width: 100%;
+  // position:fixed;
+  // top:0px; right:0px; left:0px;
 }
 
 .nav-link {
@@ -28,7 +32,7 @@
 }
 
 .nav-link:hover {
-  background-color: #0f5f94;
+  background-color: $tertiary;
 }
 
 .nav-right {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import './AdminDashboard.css';
+import './AdminDashboard.scss';
 
 class AdminDashboard extends Component {
     // Renders the entire AdminDashboard on the DOM
