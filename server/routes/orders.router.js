@@ -2,12 +2,12 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectNotAdmin } = require('../modules/admin-authentication-middleware');
-const encryptLib = require('../modules/encryption');
 
 // GET ROUTE to get all orders
 router.get('/', rejectNotAdmin, (req, res) => {
 
-    const queryText = `SELECT * FROM "orders";`;
+    const queryText = `SELECT * FROM "orders"
+                        ORDER BY "date" ASC;`;
     pool.query(queryText)
         .then((result) => {
             console.log(`GET Ratings database request successful`, result);
@@ -54,12 +54,38 @@ router.get('/today/', rejectNotAdmin, (req, res) => {
         });
 }); // END GET ROUTE
 
-//PUT ROUTE to save current meals from the day to orders table
-router.put('/save-day/', rejectNotAdmin, (req, res) => {
+// GET ROUTE to get specifc days
+router.get('/dates/', rejectNotAdmin, (req, res) => {
+
+    let date = `%${req.body.date}%`
+
+    console.log(date);
+
+    const queryText = `SELECT * FROM "orders"
+                        WHERE "date"::text LIKE $1
+                        ;`;
+    pool.query(queryText, [date])
+        .then((result) => {
+            console.log(`GET Ratings database request successful`, result);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error making GET Request:`, error);
+            res.sendStatus(500);
+        });
+}); // END GET ROUTE
+
+//POST ROUTE to save current meals from the day to orders table
+router.post('/save-day/', rejectNotAdmin, (req, res) => {
     
 
     const queryText = `WITH select_json AS (
-                            SELECT json_agg("current_meal") AS "json_arry" FROM "current_meal")
+                            SELECT  
+                                JSON_AGG(
+                                    JSON_BUILD_OBJECT('id', d.id, 'first_name', d.first_name, 'last_name', d.last_name, 'building_address1', d.building_address1, 'building_address2', d.building_address2, 'number_of_meals', m.number_of_meals, 'meal_choice', m.meal_choice)
+                                ) AS "json_arry" 
+                            FROM dependents d
+                            JOIN current_meal m ON d.id = m.dependent_id)
                             INSERT INTO "orders"("date", "daily_orders")
                             SELECT current_timestamp, select_json.json_arry
                             FROM select_json
@@ -74,7 +100,7 @@ router.put('/save-day/', rejectNotAdmin, (req, res) => {
             console.log(error);
             res.sendStatus(500);
         })
-}); //END PUT ROUTE
+}); //END POST ROUTE
 
 //PUT ROUTE to save adust data in a day
 router.put('/edit/', rejectNotAdmin, (req, res) => {
