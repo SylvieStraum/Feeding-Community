@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Accounts.scss';
+import AccountsItem from '../AccountsItem/AccountsItem';
+// import Moment from 'react-moment';
 
 class Accounts extends Component {
   // Renders the entire Accounts on the DOM
@@ -28,11 +30,6 @@ class Accounts extends Component {
     this.props.dispatch({ type: 'GET_ALL_DEPENDENTS' })
   }//end componentDidMount
 
-  //GET request
-  //PUT request
-  editDependent = () => {
-    console.log('edit dependent:', this.props.reduxState.allDependents) //this will target the specific dependent clicked
-  }
   render() {
     console.log(this.props.reduxState.allDependents)
     return (
@@ -84,36 +81,7 @@ class Accounts extends Component {
                 <td><button>Edit</button></td>
               </tr>
               {this.props.reduxState.allDependents.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.first_name} {item.first_name}</td>
-                  <td>{item.phone_number}</td>
-                  <td>{item.date_of_birth}</td>
-                  {/* address td will be a concatenated string of building_address 1 and 2 */}
-                  <td>{item.building_address1} {item.building_address2}</td>
-                  <td>{item.zip_code}</td>
-                  <td>{item.county_name}</td>
-                  <td>{item.city}</td>
-                  <td>{item.special_request}</td>
-                  <td>{item.menu_description}</td>
-                  <td>{item.dietary_restrictions}</td>
-                  <td>{item.referral_name}</td>
-                  <td>{item.program_name}</td>
-                  {/* if program === ramsey county return a yes/no if else return empty */}
-                  {/* <td>No</td> */}
-                  {/* {item.program_id === 1 && <td>YES/NO</td> ? : } */}
-
-                  {item.program_id === 1 ?
-                    <>
-                    <td>YES/NO</td>
-                    </>
-                    :
-                    <>
-                    <td>n/a</td>
-                    </>
-                  }
-                  {/* this will conditionally render all information to inputs */}
-                  <td><button onClick={this.editDependent}>Edit</button></td>
-                </tr>
+                <AccountsItem key={item.id} item={item}/>
               ))}
             </tbody>
           </table>
