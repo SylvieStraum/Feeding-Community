@@ -4,19 +4,6 @@ import Moment from 'react-moment';
 
 class AccountsItem extends Component {
     state = {
-        first_name: '',
-        last_name: '',
-        email_address: '',
-        date_of_birth: '',
-        annual_income: '',
-        phone_number: '',
-        building_address1: '',
-        building_address2: '',
-        zip_code: '',
-        county_name: '',
-        city: '',
-        special_request: '',
-        dietary_restrictions: '',
         edit: false
     }
 
@@ -34,6 +21,32 @@ class AccountsItem extends Component {
 
     updateDependent = () => {
         console.log('update dependent', this.props.item)
+         this.setState({
+             edit: !this.state.edit
+         })
+    }
+
+    componentDidMount(){
+        this.sendToState();
+    }
+
+    sendToState(){
+        this.setState({
+            first_name: this.props.item.first_name,
+            last_name: this.props.item.last_name,
+            date_of_birth: this.props.item.date_of_birth,
+            annual_income: this.props.item.annual_income,
+            phone_number: this.props.item.phone_number,
+            building_address1: this.props.item.building_address1,
+            building_address2: this.props.item.building_address2,
+            zip_code: this.props.item.zip_code,
+            county_id: this.props.item.county_id,
+            city: this.props.item.city,
+            special_request: this.props.item.special_request,
+            dietary_restrictions: this.props.item.dietary_restrictions,
+            referral_id: this.props.item.referral_id,
+            program_id: this.props.item.program_id
+        })
     }
     // Renders the entire AccountsItem on the DOM
     render() {
@@ -42,7 +55,7 @@ class AccountsItem extends Component {
             <>
                 {this.state.edit === false ?
                     <tr>
-                        <td>{this.props.item.first_name} {this.props.item.first_name}</td>
+                        <td>{this.props.item.first_name} {this.props.item.last_name}</td>
                         <td>{this.props.item.phone_number}</td>
                         <td>{dateOfBirth}</td>
                         {/* address td will be a concatenated string of building_address 1 and 2 */}
@@ -66,25 +79,34 @@ class AccountsItem extends Component {
                             </>
                         }
                         {/* this will conditionally render all information to inputs */}
-                        <td><button onClick={this.toggleEdit}>Edit</button><button onClick={this.updateDependent}>Update</button></td>
+                        <td><button onClick={this.toggleEdit}>Edit</button></td>
                     </tr>
                     :
                     <tr>
                         {/* need to add last name to toggle value */}
-                        <td><input value={this.props.item.first_name} /></td>
-                        <td><input value={this.props.item.phone_number} /></td>
-                        <td><input value={dateOfBirth} /></td>
+                        <td><input value={this.state.first_name} /><input value={this.state.last_name} /></td>
+                        <td><input value={this.state.phone_number} /></td>
+                        <td><input value={this.state.date_of_birth} /></td>
                         {/* address value will need to be a concatenated string of building_address 1 and 2 */}
-                        <td><input value={this.props.item.building_address1} /></td>
-                        <td><input value={this.props.item.zip_code} /></td>
-                        <td><input value={this.props.item.county_name} /></td>
-                        <td><input value={this.props.item.city} /></td>
-                        <td><input value={this.props.special_request} /></td>
-                        <td><input value={this.props.menu_description} /></td>
-                        <td><input value={this.props.dietary_restrictions} /></td>
-                        <td><input value={this.props.item.referral_name} /></td>
-                        <td><input value={this.props.item.program_name} /></td>
-                        <td><input value={this.props.item.program_id === 1 ?
+                        <td><input value={this.state.building_address1} /><input value={this.state.building_address2} /></td>
+                        <td><input value={this.state.zip_code} /></td>
+                        <td><select required value={this.state.county_id}
+                            placeholder="select county" type="dropdown"
+                            onChange={(event) =>
+                                this.handleInputs(event, "county_id")
+                            }>
+                            <option value="0"></option>
+                            {this.props.counties.map((item) => ( 
+                                <option value={item.id}>{item.county_name}</option>
+                            ))}
+                        </select></td>
+                        <td><input value={this.state.city} /></td>
+                        <td><input value={this.state.special_request} /></td>
+                        <td><input value={this.state.menu_description} /></td>
+                        <td><input value={this.state.dietary_restrictions} /></td>
+                        <td><input value={this.state.referral_name} /></td>
+                        <td><input value={this.state.program_name} /></td>
+                        <td><input value={this.state.program_id === 1 ?
                             <>
                             {/* this will need a true/false based on the new table update if true return yes/ if false return no/ default is false */}
                                 <td>YES/NO</td>
@@ -95,7 +117,7 @@ class AccountsItem extends Component {
                             </>
                         } /></td>
                         {/* this will conditionally render all information to inputs */}
-                        <td><button onClick={this.toggleEdit}>Edit</button><button onClick={this.updateDependent}>Update</button></td>
+                        <td><button onClick={this.updateDependent}>Update</button></td>
                     </tr>
 
                 }
@@ -103,5 +125,9 @@ class AccountsItem extends Component {
         );//end return
     }//end render
 }//end class
+const mapStateToProps = (reduxState) => ({
+    counties: reduxState.counties,
+    organizations: reduxState.organizations
+});
 
-export default connect()(AccountsItem);
+export default connect(mapStateToProps)(AccountsItem);

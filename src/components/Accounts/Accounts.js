@@ -28,7 +28,21 @@ class Accounts extends Component {
     console.log('component did mount')
     //dispatch call to GET all dependents
     this.props.dispatch({ type: 'GET_ALL_DEPENDENTS' })
+    this.getCounty();
+    this.getOrg();
   }//end componentDidMount
+
+  getCounty = () => {
+    this.props.dispatch({
+      type: 'GET_COUNTIES',
+    })
+  }
+
+  getOrg = () => {
+    this.props.dispatch({
+      type: 'GET_ORGS',
+    })
+  }
 
   render() {
     console.log(this.props.reduxState.allDependents)
