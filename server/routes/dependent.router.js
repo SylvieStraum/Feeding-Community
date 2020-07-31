@@ -11,6 +11,7 @@ router.get('/', rejectNotAdmin, (req, res) => {
                                 JOIN "program" ON "dependents"."program_id" = "program"."id"
                                 JOIN "current_meal" ON "dependents"."id" = "current_meal"."dependent_id"
                                 JOIN "menu" ON "current_meal"."meal_choice" = "menu"."id"
+                                ORDER BY "dependents"."id" ASC
                                 ;`;
     pool.query(queryText)
         .then((result) => {
@@ -79,7 +80,7 @@ router.post('/', rejectNotAdmin, (req, res) => {
 //PUT ROUTE to adjust all account info
 router.put('/:id', rejectNotAdmin, async (req, res) => {
     const b = req.body;
-    console.log('body:', req.body);
+    console.log('body:', req.body, 'params:', req.params.id);
     const connection = await pool.connect();
     try {
         await connection.query('BEGIN;');

@@ -21,9 +21,13 @@ class AccountsItem extends Component {
 
     updateDependent = () => {
         console.log('update dependent', this.props.item)
-         this.setState({
-             edit: !this.state.edit
-         })
+        this.props.dispatch({
+            type: 'UPDATE_DEPENDENT',
+            payload: this.state
+        });
+        this.setState({
+            edit: !this.state.edit
+        })
     }
 
     componentDidMount(){
@@ -32,6 +36,7 @@ class AccountsItem extends Component {
 
     sendToState(){
         this.setState({
+            id: this.props.item.id,
             first_name: this.props.item.first_name,
             last_name: this.props.item.last_name,
             date_of_birth: this.props.item.date_of_birth,
@@ -56,6 +61,7 @@ class AccountsItem extends Component {
             [event.target.id]: event.target.value
         })
     }
+
     // Renders the entire AccountsItem on the DOM
     render() {
         let dateOfBirth = <Moment format="MM/DD/YYYY">{this.props.item.date_of_birth}</Moment>
