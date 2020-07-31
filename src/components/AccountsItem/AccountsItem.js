@@ -7,33 +7,40 @@ class AccountsItem extends Component {
         edit: false
     }
 
-    //PUT request
+    // PUT request
     editDependent = () => {
         console.log('edit dependent:', this.props.item) //this will target the specific dependent clicked
 
     }
-
+    // toggles to editable state
     toggleEdit = () => {
         this.setState({
             edit: !this.state.edit
         })
     }
 
+    // send PUT and toggles to uneditable state
     updateDependent = () => {
         console.log('update dependent', this.props.item)
+
+        // sends dispatch with put information
         this.props.dispatch({
             type: 'UPDATE_DEPENDENT',
             payload: this.state
         });
+
+        // toggles to uneditable state
         this.setState({
             edit: !this.state.edit
         })
     }
 
+    // sets state on component mount
     componentDidMount(){
         this.sendToState();
     }
 
+    // gets props data and updates state with data to allow for editing
     sendToState(){
         this.setState({
             id: this.props.item.id,
@@ -56,6 +63,8 @@ class AccountsItem extends Component {
         })
     }
 
+    // handles inputs using event.target.id to get name of variable being changed
+    // uses event.target.value to get value being changed
     handleInput = (event) => {
         this.setState({
             [event.target.id]: event.target.value
@@ -86,7 +95,7 @@ class AccountsItem extends Component {
                         <td>
                         {this.props.item.program_id === 1 ?
                             <>
-                            {this.props.document_signed === true ?
+                            {this.props.item.document_signed === true ?
                             <>Signed</>
                             :
                             <>Not Signed</>
@@ -112,6 +121,7 @@ class AccountsItem extends Component {
                         <td><input value={this.state.building_address1} id={'building_address1'} onChange={this.handleInput}/>
                         <input value={this.state.building_address2} id={'building_address2'} onChange={this.handleInput}/></td>
                         <td><input value={this.state.zip_code} id={'zip_code'} onChange={this.handleInput}/></td>
+                        {/* dropdown for county type */}
                         <td><select required value={this.state.county_id} type="dropdown" id={'county_id'} onChange={this.handleInput} >
                             <option value="0"></option>
                             {this.props.counties.map((item) => ( 
