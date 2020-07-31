@@ -6,6 +6,7 @@ import allDependents from './allDependentsReducer'
 import counties from './countyReducer'
 import organizations from './organizationReducer'
 import programs from './programReducer'
+import menu from './menuReducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   counties, //list of counties 
   organizations, // list of orgs tied to individual
   programs, //list of programs tied to individual
+  menu, // menu
 });
 
 export default rootReducer;
