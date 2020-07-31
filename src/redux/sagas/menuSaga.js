@@ -4,7 +4,6 @@ import { put, takeEvery } from 'redux-saga/effects';
 //retrieves all menu
 function* getMenu() {
     try {
-        console.log('in menu saga')
         const responsePayload = yield axios.get(`/api/menu`);
         yield put({ type: 'SET_MENU' , payload: responsePayload});
     } catch (error) {

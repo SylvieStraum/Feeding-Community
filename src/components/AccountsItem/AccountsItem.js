@@ -46,7 +46,8 @@ class AccountsItem extends Component {
             special_request: this.props.item.special_request,
             dietary_restrictions: this.props.item.dietary_restrictions,
             referral_id: this.props.item.referral_id,
-            program_id: this.props.item.program_id
+            program_id: this.props.item.program_id,
+            document_signed: this.props.item.document_signed
         })
     }
 
@@ -76,15 +77,21 @@ class AccountsItem extends Component {
                         <td>{this.props.item.referral_name}</td>
                         <td>{this.props.item.program_name}</td>
                         {/* if program === ramsey county return a yes/no if else return empty */}
+                        <td>
                         {this.props.item.program_id === 1 ?
                             <>
-                                <td>YES/NO</td>
+                            {this.props.document_signed === true ?
+                            <>Signed</>
+                            :
+                            <>Not Signed</>
+                            }
                             </>
                             :
                             <>
-                                <td>n/a</td>
+                                N/A 
                             </>
                         }
+                        </td>
                         {/* this will conditionally render all information to inputs */}
                         <td><button onClick={this.toggleEdit}>Edit</button></td>
                     </tr>
@@ -126,16 +133,17 @@ class AccountsItem extends Component {
                                 <option value={item.id}>{item.program_name}</option>
                             ))}
                         </select></td>
-                        <td>{this.state.program_id === 1 ?
-                            <>
-                            {/* this will need a true/false based on the new table update if true return yes/ if false return no/ default is false */}
-                                <td>YES/NO</td>
-                            </>
+                        <td>
+                        {this.state.program_id === 1 ?
+                            <select type="dropdown" value={this.state.document_signed} id={'document_signed'} onChange={this.handleInput}>
+                                <option ></option>
+                                <option value="true">Signed</option>
+                                <option value="false">Not Signed</option>  
+                            </select>
                             :
-                            <>
-                                <td></td>
-                            </>
-                        } </td>
+                            <>N/A</>
+                        } 
+                        </td>
                         {/* this will conditionally render all information to inputs */}
                         <td><button onClick={this.updateDependent}>Update</button></td>
                     </tr>
