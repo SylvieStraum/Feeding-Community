@@ -18,12 +18,14 @@ class IntakeForm extends Component {
         special_request: '',
         dietary_restrictions: '',
         meal_choice: 1,
-        referral_id: 1
+        referral_id: 1,
+        program_id: 1
     }
 
     componentDidMount = () => {
         this.getCounty();
         this.getOrg();
+        this.getPrograms();
     }
 
     getCounty = () => {
@@ -35,6 +37,12 @@ class IntakeForm extends Component {
     getOrg = () => {
         this.props.dispatch({
             type: 'GET_ORGS',
+        })
+    }
+
+    getPrograms = () => {
+        this.props.dispatch({
+            type: 'GET_PROGRAMS',
         })
     }
 
@@ -55,7 +63,8 @@ class IntakeForm extends Component {
             special_request: '',
             dietary_restrictions: '',
             meal_choice: 1,
-            referral_id: 1
+            referral_id: 1,
+            program_id: 1
         })
 
     }
@@ -208,6 +217,19 @@ class IntakeForm extends Component {
                             ))}
                         </select>
                         <br />
+                        <p>Program:
+                        </p>
+                        <select
+                            type="dropdown"
+                            value={this.state.program_id}
+                            onChange={(event) => 
+                                this.handleInputs(event, "program_id")
+                            }>
+                            {this.props.programs.map((item, i) => (
+                                <option value={item.id}>{item.program_name}</option>
+                            ))}
+                            </select>
+                        <br />
                         <button className="Next Step" onClick={this.createDependant}>Next Step</button>
 
                     </form>
@@ -222,7 +244,8 @@ class IntakeForm extends Component {
 
 const mapStateToProps = (reduxState) => ({
     counties: reduxState.counties,
-    organizations: reduxState.organizations
+    organizations: reduxState.organizations,
+    programs: reduxState.programs
 });
 
 

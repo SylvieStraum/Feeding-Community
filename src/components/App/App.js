@@ -22,6 +22,7 @@ import AdminDataReview from '../AdminDataReview/AdminDataReview';
 import './App.scss';
 import Accounts from '../Accounts/Accounts';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
+// import SearchBar from '../SearchBar/SearchBar';
 
 class App extends Component {
   componentDidMount() {
