@@ -2,11 +2,11 @@ import React,{Component} from 'react';
 
 class SearchBar extends Component(){
     state={
-        query:''
+        firstName:''
     }
     sortDependents = () => {
-        let query = this.state.query
-     const result = this.props.dependents.filter(item => item.first_name.toUpperCase().includes(query.toUpperCase()));
+        let firstName = this.state.firstName
+     const result = this.props.dependents.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase()));
         if (result.length === 0) {
           //use modal to say nothing is there?
         } else {
