@@ -18,7 +18,7 @@
 .nav-link {
   float: left;
   color: #f2f2f2;
-  background-color: #1770ac;
+  background-color: $primary;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -37,4 +37,9 @@
 
 .nav-right {
   float: right;
+}
+
+.logo {
+  height: 25%;
+  width: 25%;
 }
