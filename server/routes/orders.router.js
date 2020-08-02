@@ -105,6 +105,7 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
     // console.log('startDate:' , req.query.startDate)
     // console.log('endDate:' , req.query.endDate)
 
+    // function to get list of dates from input range
     function getDates(startDate, endDate) {
 
         //creates array for dates to be pushed into
@@ -150,23 +151,43 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
         }
         return dateArray;
     }
+    
+    // runs getDates function and sets dates to dates variable
     let dates = getDates(req.query.startDate, req.query.endDate);
     console.log('dates', dates);
-    let queryText = 'SELECT * FROM "orders" WHERE '
+    
+    // sets initial part of query text
+    let queryText = `SELECT "orders"."id" AS "order_id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
+                        JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
+                        WHERE `
+
+    // function to add additional text to query for each date in array
     function queryDefine (input){
-        let whereLength = input.length
-        console.log('whereLength:', whereLength);
+        // let whereLength = input.length
+        // console.log('whereLength:', whereLength);
+        
+        // this 'for' loop adds additional text to the query based for each date in the dates array
+        // starts index at 1  instead of 0 and ends at input length instead of before input length, just to shorten some code
         for (let index = 1; index <= input.length; index++) {
-            if(index === 1){
-                queryText = queryText.concat(` "date" = ${'$' + index}`)
-            }else if(index === input.length){
-                queryText = queryText.concat(` OR "date" = ${'$' + index} ORDER BY "date" ASC;`)
+            // if single date adds only this to query text
+            if (input.length === 1) {
+                queryText = queryText.concat(` "date" = ${'$' + index} ORDER BY "date" ASC;`)
             }
+            // query text added for first index
+            else if(index === 1){
+                queryText = queryText.concat(` "date" = ${'$' + index}`)
+            }
+            // query text added for last input if more than a single date requested
+            else if(index === input.length){
+                queryText = queryText.concat(` OR "date" = ${'$' + index} ORDER BY "dependent_id" ASC, "date" ASC;`)
+            }
+            // query text added for any input that isn't first or last for more than a single date
             else{
                 queryText = queryText.concat(` OR "date" = ${'$' + index}`)
             }
         }
     }
+    // runs function queryDefine
     queryDefine(dates);
     console.log(queryText);
 
