@@ -82,7 +82,7 @@ class IntakeForm extends Component {
                 <h1>Sign Up</h1>
                 <p>Enter client information form</p>
                 <div>
-                    <form onSubmit={this.createDependent}>
+                    <form class="base-intake-form" onSubmit={this.createDependent}>
                         <p>Please enter client information:</p>
                         <label></label>
                         <input
