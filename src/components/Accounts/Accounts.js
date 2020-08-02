@@ -36,7 +36,6 @@ class Accounts extends Component {
   }//end componentDidMount
 
   render() {
-    console.log(this.props.reduxState.allDependents)
     return (
       <div className="Accounts">
         <div className="accountItems">
@@ -44,7 +43,7 @@ class Accounts extends Component {
           <p>List of all accounts, you can edit within any row.</p>
         </div>
         <div className="searchBar">
-        <SearchBar dependents={this.props.reduxState.allDependents}/>
+        <SearchBar dependents={this.props.reduxState.allDependents} referralQuery={this.props.reduxState.organizations}/>
         </div>
         <div className="accountItems acctTable">
           <table>
