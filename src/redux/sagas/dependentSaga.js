@@ -5,6 +5,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* getAllDependents() {
     try {
         const responsePayload = yield axios.get(`/api/dependent`);
+        console.log(responsePayload)
         yield put({ type: 'SET_ALL_DEPENDENTS' , payload: responsePayload});
     } catch (error) {
         console.log('Get all saga error', error);
