@@ -7,7 +7,8 @@ import counties from './countyReducer'
 import organizations from './organizationReducer'
 import programs from './programReducer'
 import menu from './menuReducer'
-import orders from './ordersReducer'
+import ordersToday from './ordersTodayReducer'
+import ordersRange from './ordersRangeReducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   organizations, // list of orgs tied to individual
   programs, //list of programs tied to individual
   menu, // menu
-  orders, //orders
+  ordersToday, // orders for today
+  ordersRange // orders for specific range
 });
 
 export default rootReducer;
