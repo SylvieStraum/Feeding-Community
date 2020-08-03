@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
+import SearchAddress from '../SearchAddress/SearchAddress';
 
 class SearchBar extends Component {
     state={
@@ -54,6 +55,10 @@ render(){
    />
    <button onClick={()=>this.sortDependents}>search!</button>
   </div>
+  <div>
+  <SearchAddress />
+  </div>
+  <div>
   <select 
   type="dropdown"
   value={this.state.referralQuery}
@@ -63,6 +68,7 @@ render(){
     <option value={item.id}>{item.referral_name}</option>
   ))}
   </select>
+  </div>
   </>
 );
 }}
