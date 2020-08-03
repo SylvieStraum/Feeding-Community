@@ -4,6 +4,12 @@ import './AdminDashboard.scss';
 
 class AdminDashboard extends Component {
     // Renders the entire AdminDashboard on the DOM
+
+    async componentDidMount() {
+        //dispatch to get todays orders
+        await this.props.dispatch({ type: 'GET_TODAYS_ORDERS' });
+    }//end componentDidMount
+
     render() {
         return (
             <div className="AdminDashboard">
@@ -12,14 +18,36 @@ class AdminDashboard extends Component {
                     <h2>Admin Dashboard 7/28/20</h2>
                 </div>
                 <div className="mealBox dashboardItem">
+                    {console.log(this.props.today)}
                     {/* this will have a map of reduxState with meal totals */}
-                    Meals: 100
-                    Special Requests: 10
-                    Total: 110
+                    {this.props.today.totalOrders ?
+                    <>
+                    {
+                        console.log(this.props.today.totalOrders)
+                    }
+                    Meat: {this.props.today.totalOrders.meat} 
+                    Fish: {this.props.today.totalOrders.fish} 
+                    Veggie: {this.props.today.totalOrders.veggie} 
+                    Special Requests: {this.props.today.totalOrders.special} 
+                    Total: {this.props.today.totalOrders.total}
+                    </>
+                    :
+                    <>
+                    Meat:
+                    Fish: 
+                    Veggie:
+                    Special Requests:
+                    Total:
+                    </>
+                    }
                 </div>
             </div>
         );//end return
     }//end render
 }//end class
 //map to reduxSate to grab total number of meals served that day
-export default connect()(AdminDashboard);
+const mapStateToProps = (reduxState) => ({
+    today: reduxState.ordersToday
+});
+
+export default connect(mapStateToProps)(AdminDashboard);
