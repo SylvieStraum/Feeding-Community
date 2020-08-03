@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Accounts.scss';
 import AccountsItem from '../AccountsItem/AccountsItem';
+import SearchBar from '../SearchBar/SearchBar';
 // import Moment from 'react-moment';
 
 class Accounts extends Component {
@@ -41,6 +42,10 @@ class Accounts extends Component {
         <div className="accountItems">
           <h2>ACCOUNTS</h2>
           <p>List of all accounts, you can edit within any row.</p>
+        </div>
+        <div>
+          <SearchBar referralQuery={this.props.reduxState.organizations} 
+          dependents={this.props.reduxState.allDependents}></SearchBar>
         </div>
         <div className="accountItems acctTable">
           <table>

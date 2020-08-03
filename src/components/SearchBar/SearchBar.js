@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 
-class SearchBar extends Component(){
+class SearchBar extends Component {
     state={
         firstName:'',
         referralQuery: ''
@@ -19,17 +19,17 @@ class SearchBar extends Component(){
         })
       }
 
-      sortReferrals = () => {
-        let referralQuery = this.state.referralQuery
+      sortReferrals = (event) => {
+        let referralQuery = event.target.value
         // let  = this.state.referralQuery
         const result = this.props.dependents.filter(item => item.referral_id.includes(referralQuery))
         if (result.length === 0) {
 
         } else {
-
+          
         }
         this.setState({
-          referralQuery: ''
+          referralQuery: referralQuery
         })
       }
 
@@ -57,11 +57,12 @@ render(){
   <select 
   type="dropdown"
   value={this.state.referralQuery}
-  onChange={(event) => this.handleOnChange(event, 'query')}/>
-  <option value="0"></option>
+  onChange={(event) => this.sortReferrals(event)}>
+  <option value="">Please select by organization</option>
   {this.props.referralQuery.map((item) => (
-    <option value={item.id}>{item.referral_id}</option>
+    <option value={item.id}>{item.referral_name}</option>
   ))}
+  </select>
   </>
 );
 }}
