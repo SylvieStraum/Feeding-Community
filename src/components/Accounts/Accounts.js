@@ -36,7 +36,6 @@ class Accounts extends Component {
   }//end componentDidMount
 
   render() {
-    console.log(this.props.reduxState.allDependents)
     return (
       <div className="Accounts">
         <div className="accountItems">
