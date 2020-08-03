@@ -75,25 +75,6 @@ class Accounts extends Component {
             </thead>
             <tbody>
               {/* this table row and data below will eventually come from a .map of reduxState */}
-              <tr>
-                {/* name td will return a concatenated string of first and last name */}
-                <td>Mohamed Mohamed</td>
-                <td>612-867-5309</td>
-                <td>01/01/1960</td>
-                {/* address td will be a concatenated string of building_address 1 and 2 */}
-                <td>4321 Afro Deli Lane, Apt 2</td>
-                <td>55413</td>
-                <td>Hennepin</td>
-                <td>Minneapolis</td>
-                <td>No meat</td>
-                <td>Veggie</td>
-                <td></td>
-                <td>MN Senior Center</td>
-                <td>Meals On Wheels</td>
-                <td>Yes</td>
-                {/* this will conditionally render all information to inputs */}
-                <td><button>Edit</button></td>
-              </tr>
               {this.props.reduxState.allDependents.map((item) => (
                 <AccountsItem key={item.id} item={item}/>
               ))}
