@@ -42,7 +42,7 @@ class Accounts extends Component {
       <div className="Accounts">
         <div className="accountItems">
           <h2>ACCOUNTS</h2>
-          <p>List of all accounts, you can edit within any row.</p>
+          {/* <p>List of all accounts, you can edit within any row.</p> */}
         </div>
         <div>
           <SearchBar referralQuery={this.props.reduxState.organizations} 
@@ -50,7 +50,7 @@ class Accounts extends Component {
           programQuery={this.props.reduxState.programs} 
           dependents={this.props.reduxState.allDependents}>
           </SearchBar>
-          <SearchAddress dependents={this.props.reduxState.allDependents}/>
+          {/* <SearchAddress dependents={this.props.reduxState.allDependents}/> */}
         </div>
         <div className="accountItems acctTable">
           <table>
