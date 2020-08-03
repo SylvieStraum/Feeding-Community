@@ -8,7 +8,7 @@ import './Footer.scss'
 
 const Footer = () => (
   <footer>
-    &copy; Feeding Community Team with Prime Digital Academy
+    {/* &copy; Feeding Community Team with Prime Digital Academy */}
   </footer>
 );
 

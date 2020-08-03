@@ -11,8 +11,14 @@ class SearchBar extends Component{
         let firstName = this.state.firstName
         let lastName = this.state.lastName
         let result = this.props.dependents
-       this.state.firstName ?result = result.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase())):console.log('no firstname query')
-       this.state.lastName ? result = result.filter(item => item.last_name.toUpperCase().includes(lastName.toUpperCase())) : console.log('no lastname found query')
+       this.state.firstName ?
+       result = result.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase()))
+       :
+       console.log('no firstname query')
+       this.state.lastName ? 
+       result = result.filter(item => item.last_name.toUpperCase().includes(lastName.toUpperCase())) 
+       : 
+       console.log('no lastname found query')
      if (result.length === 0) {
           //use modal to say nothing is there?
           console.log('not found here is list', this.props.dependents)
@@ -24,17 +30,18 @@ class SearchBar extends Component{
         }
       }
 
-      sortReferrals = () => {
-        let referralQuery = this.state.referralQuery
+      sortReferrals = (event) => {
+        let referralQuery = event.target.value
         // let  = this.state.referralQuery
         const result = this.props.dependents.filter(item => item.referral_id.includes(referralQuery))
         if (result.length === 0) {
 
         } else {
 
+          
         }
         this.setState({
-          referralQuery: ''
+          referralQuery: referralQuery
         })
       }
 
@@ -69,10 +76,10 @@ console.log(this.props)
   <select 
   type="dropdown"
   value={this.state.referralQuery}
-  onChange={(event) => this.handleOnChange(event, 'query')}>
-  <option value="0"></option>
+  onChange={(event) => this.sortReferrals(event)}>
+  <option value="">Please select by organization</option>
   {this.props.referralQuery.map((item) => (
-    <option key={item.id} value={item.id}>{item.referral_name}</option>
+    <option value={item.id}>{item.referral_name}</option>
   ))}
   </select>
   </>

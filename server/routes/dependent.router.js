@@ -15,7 +15,7 @@ router.get('/', rejectNotAdmin, (req, res) => {
                                 ;`;
     pool.query(queryText)
         .then((result) => {
-            console.log(`GET Ratings database request successful`, result);
+            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -35,7 +35,7 @@ router.get('/:id', rejectNotAdmin, (req, res) => {
                         WHERE "dependents"."id" = $1`;
     pool.query(queryText, [req.params.id])
         .then((result) => {
-            console.log(`GET Ratings database request successful`, result);
+            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -66,7 +66,7 @@ router.post('/', rejectNotAdmin, (req, res) => {
                         ( "dependent_id", "number_of_meals", "meal_choice")
                         SELECT insert1.id, $16, $17
                         FROM insert1;  `;
-    const values = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.number_of_meals, b.meal_choice, b.document_signed];
+    const values = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.document_signed, b.number_of_meals, b.meal_choice];
     console.log('put request, values:', values)
     pool.query(queryText, values)
         .then((results) => {
