@@ -11,8 +11,8 @@ class SearchBar extends Component{
         let firstName = this.state.firstName
         let lastName = this.state.lastName
         let result = this.props.dependents
-       this.state.firstName && result.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase()));
-       this.state.lastName && result.filter(item => item.last_name.toUpperCase().includes(lastName.toUpperCase()));
+       this.state.firstName ?result = result.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase())):console.log('no firstname query')
+       this.state.lastName ? result = result.filter(item => item.last_name.toUpperCase().includes(lastName.toUpperCase())) : console.log('no lastname found query')
      if (result.length === 0) {
           //use modal to say nothing is there?
           console.log('not found here is list', this.props.dependents)
