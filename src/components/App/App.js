@@ -13,8 +13,7 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
+
 import InfoPage from '../InfoPage/InfoPage';
 import IntakeForm from '../IntakeForm/IntakeForm';
 import AdminDataReview from '../AdminDataReview/AdminDataReview';
@@ -40,17 +39,12 @@ class App extends Component {
             <Redirect exact from="/" to="/home" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
-            <Route
-              exact
-              path="/about"
-              component={AboutPage}
-            />
-            <Route
+            <ProtectedRoute
               exact
               path="/intake"
               component={IntakeForm}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/review"
               component={AdminDataReview}
@@ -67,7 +61,7 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              component={UserPage}
+              component={AdminDashboard}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
@@ -76,15 +70,10 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
-            <Route
+            <ProtectedRoute
               exact
               path="/accounts"
               component={Accounts}
-            />
-            <Route
-              exact
-              path="/dashboard"
-              component={AdminDashboard}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

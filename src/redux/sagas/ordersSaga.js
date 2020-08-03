@@ -5,18 +5,18 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* getTodaysOrders() {
     try {
         const responsePayload = yield axios.get(`/api/orders/today/`);
-        yield put({ type: 'SET_ORDERS' , payload: responsePayload});
+        yield put({ type: 'SET_TODAYS_ORDERS' , payload: responsePayload});
     } catch (error) {
         console.log('Get orders saga error', error);
     }
 }
 
 //retrieves a specific month's orders
-function* getMonthOrders() {
+function* getMonthOrders(action) {
     try {
         const responsePayload = yield axios.get(`/api/orders/month/${action.payload.id}`);
         yield put({
-            type: 'SET_ORDERS',
+            type: 'SET_RANGE_ORDERS',
             payload: responsePayload
         });
     } catch (error) {
@@ -25,11 +25,11 @@ function* getMonthOrders() {
 }
 
 //retrieves a specific years's orders
-function* getYearOrders() {
+function* getYearOrders(action) {
     try {
         const responsePayload = yield axios.get(`/api/orders/year/${action.payload.id}`);
         yield put({
-            type: 'SET_ORDERS',
+            type: 'SET_RANGE_ORDERS',
             payload: responsePayload
         });
     } catch (error) {
@@ -47,7 +47,7 @@ function* getDatesOrders(action) {
     try {
         const responsePayload = yield axios.get(`/api/orders/dates/${action.payload.id}`);
         yield put({
-            type: 'SET_ORDERS',
+            type: 'SET_RANGE_ORDERS',
             payload: responsePayload
         });
     } catch (error) {
