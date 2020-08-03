@@ -25,10 +25,10 @@ class AdminDashboard extends Component {
                     {
                         console.log(this.props.today.totalOrders)
                     }
-                    Meat: {this.props.today.totalOrders.meat}
-                    Fish: {this.props.today.totalOrders.fish}
-                    Veggie: {this.props.today.totalOrders.veggie}
-                    Special Requests: {this.props.today.totalOrders.special}
+                    Meat: {this.props.today.totalOrders.meat} 
+                    Fish: {this.props.today.totalOrders.fish} 
+                    Veggie: {this.props.today.totalOrders.veggie} 
+                    Special Requests: {this.props.today.totalOrders.special} 
                     Total: {this.props.today.totalOrders.total}
                     </>
                     :

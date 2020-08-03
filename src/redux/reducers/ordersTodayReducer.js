@@ -17,18 +17,18 @@ const orders = (state=[], action) =>{
             for (let i = 0; i < orders.length; i++) {
                 const el = orders[i];
                 if(el.meal_choice === 1){
-                    meat++
+                    meat = meat+el.number_of_meals
                 }
                 else if (el.meal_choice === 2) {
-                    fish++
+                    fish = fish+el.number_of_meals
                 }
                 else if (el.meal_choice === 3) {
-                    veggie++
+                    veggie = veggie+el.number_of_meals
                 }
                 else if (el.meal_choice === 4) {
-                    special++
+                    special = special+el.number_of_meals
                 }
-                total++
+                total = total+el.number_of_meals
             }
 
             // totals for each into totalsOrders
