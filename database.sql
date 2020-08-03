@@ -129,7 +129,7 @@ INSERT INTO "dependents"
 VALUES
     ( 'first name', 'last name', '06-02-2020',
         '25000', '(XXX) XXX-XXXX',
-        'Building St.', 'Unit 6', '55408', '11', 'city',
+        'Building St.', 'Unit 6', '55408', '4', 'city',
         'special', 'restrict',
         1, 2
 )
