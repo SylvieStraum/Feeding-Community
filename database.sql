@@ -33,7 +33,8 @@ CREATE TABLE "dependents"
 CREATE TABLE "program"
 (
     "id" SERIAL PRIMARY KEY,
-    "program_name" VARCHAR (400)
+    "program_name" VARCHAR (400),
+    "default_no_meals" INT
 );
 
 CREATE TABLE "referral"
@@ -65,22 +66,32 @@ CREATE TABLE "current_meal"
 CREATE TABLE "orders"
 (
     "id" SERIAL PRIMARY KEY,
-    "date" DATE UNIQUE,
-    "daily_orders" JSON
+    "date" DATE,
+    "dependent_id" INT,
+    "number_of_meals" INT,
+    "meal_choice" INT
 );
 
+ALTER TABLE "orders"
+	ADD CONSTRAINT date_dependent_int_unique
+    	UNIQUE ("dependent_id", "date") ;
+
 -- Insert for only the seven metro counties
+-- DO NOT INSERT THIS IF YOU INSTEAD WANT TO INSERT ALL COUNTIES
 INSERT INTO "county"("county_name")
 VALUES ('Anoka'),('Carver'),('Dakota'),('Hennepin'),('Scott'),('Ramsay'),('Washington'),('N/A');
 
+-- Insert for partner organizations to allow feeding communities to track who signed these people up
 INSERT INTO "referral" ("referral_name")
 VALUES ('Feeding Communities'),('Minneapolis Public Housing Agency'),('Commonbond Communities'),('Lakes Day Care'),('Ebyan ADC'), ('MN Senior Center'), ('Nurturing Hands Day Center'), ('Umatul Islam');
 
-INSERT INTO "program" ("program_name")
-VALUES ('Ramsey County'),('Meals on Wheels');
+-- Insert for which delivery program they fall under based on qualificiations
+INSERT INTO "program" ("program_name", "default_no_meals")
+VALUES ('Ramsay County', 3),('Meals on Wheels', 1);
 
+-- 
 INSERT INTO "menu" ("menu_description")
-VALUES ('Meat Option'),('Second Meat Option'),('Veggie Option'),('Special Request');
+VALUES ('Chicken or Beef'),('Fish'),('Veggie Only'),('Special Request');
 
 -- DO NOT INSERT UNLESS YOU WANT TO ADD ALL COUNTIES
 -- DO NOT INSERT IF YOU'VE ALREADAY INSERTED OTHER COUNTIES
@@ -118,7 +129,7 @@ INSERT INTO "dependents"
 VALUES
     ( 'first name', 'last name', '06-02-2020',
         '25000', '(XXX) XXX-XXXX',
-        'Building St.', 'Unit 6', '55408', '11', 'city',
+        'Building St.', 'Unit 6', '55408', '4', 'city',
         'special', 'restrict',
         1, 2
 )
