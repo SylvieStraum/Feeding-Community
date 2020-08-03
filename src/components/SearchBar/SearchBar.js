@@ -6,7 +6,8 @@ class SearchBar extends Component{
     state={
         firstName:'',
         lastName:'',
-        referralQuery: ''
+        referralQuery: '',
+        programQuery: ''
     }
     sortByName = () => {
         let firstName = this.state.firstName
@@ -34,7 +35,7 @@ class SearchBar extends Component{
       sortReferrals = (event) => {
         let referralQuery = event.target.value
         // let  = this.state.referralQuery
-        const result = this.props.dependents.filter(item => item.referral_id.includes(referralQuery))
+        const result = this.props.dependents.filter(item => item.referral_name.includes(referralQuery))
         if (result.length === 0) {
 
         } else {
@@ -43,6 +44,19 @@ class SearchBar extends Component{
         }
         this.setState({
           referralQuery: referralQuery
+        })
+      }
+
+      sortPrograms = (event) => {
+        let programQuery = event.target.value
+        const result = this.props.dependents.filter(item => item.program_name.includes(programQuery))
+        if (result.length === 0) {
+
+        } else {
+
+        }
+        this.setState({
+          programQuery: programQuery
         })
       }
 
@@ -87,6 +101,15 @@ console.log(this.props)
   ))}
   </select>
   </div>
+  <select 
+  type="dropdown"
+  value={this.state.programQuery}
+  onChange={(event) => this.sortPrograms(event)}>
+  <option value="">Please select by program</option>
+  {this.props.programQuery.map((item) => (
+    <option value={item.id}>{item.program_name}</option>
+  ))}
+  </select>
   </>
 );
 }}
