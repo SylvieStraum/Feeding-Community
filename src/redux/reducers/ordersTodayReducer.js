@@ -6,7 +6,7 @@ const orders = (state=[], action) =>{
             let orders = action.payload.data;
             
             // create variables for totalOrders array
-            let totalOrders = [];
+            let totalOrders = {};
             let meat = 0;
             let fish = 0;
             let veggie = 0;
@@ -31,11 +31,11 @@ const orders = (state=[], action) =>{
                 total++
             }
 
-            // pushes totals for each into totalsOrders array
-            totalOrders.push({meat: meat},{fish: fish},{veggie: veggie},{special: special},{total: total})
+            // totals for each into totalsOrders
+            totalOrders = {meat: meat, fish: fish, veggie: veggie, special: special, total: total}
             
             // returns totals array then orders array
-            return [totalOrders, orders];
+            return {totalOrders: totalOrders, orders: orders};
         default:
             return state;
     };

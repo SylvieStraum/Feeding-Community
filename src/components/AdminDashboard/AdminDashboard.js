@@ -18,15 +18,18 @@ class AdminDashboard extends Component {
                     <h2>Admin Dashboard 7/28/20</h2>
                 </div>
                 <div className="mealBox dashboardItem">
-                    {console.log(this.props.today[0])}
+                    {console.log(this.props.today)}
                     {/* this will have a map of reduxState with meal totals */}
-                    {this.props.today[1] ?
+                    {this.props.today.totalOrders ?
                     <>
-                    Meat: {this.props.today[0].meat}
-                    Fish: {this.props.today[0].fish}
-                    Veggie: {this.props.today[0].veggie}
-                    Special Requests: {this.props.today[0].special}
-                    Total: {this.props.today[0].total}
+                    {
+                        console.log(this.props.today.totalOrders)
+                    }
+                    Meat: {this.props.today.totalOrders.meat}
+                    Fish: {this.props.today.totalOrders.fish}
+                    Veggie: {this.props.today.totalOrders.veggie}
+                    Special Requests: {this.props.today.totalOrders.special}
+                    Total: {this.props.today.totalOrders.total}
                     </>
                     :
                     <>
