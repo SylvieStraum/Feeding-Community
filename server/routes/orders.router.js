@@ -135,7 +135,7 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
                     // console.log('in if, date:', date);
                 }
             } else {
-                if (today.getDate() < 10) {
+                if (date.getDate() < 10) {
                     date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-0' + date.getDate();
                     // console.log('in if, date:', date);
                 } else {
