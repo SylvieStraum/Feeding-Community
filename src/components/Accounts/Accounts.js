@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './Accounts.scss';
 import AccountsItem from '../AccountsItem/AccountsItem';
 import SearchBar from '../SearchBar/SearchBar';
+import SearchAddress from '../SearchAddress/SearchAddress';
 // import Moment from 'react-moment';
 
 class Accounts extends Component {
@@ -33,6 +34,7 @@ class Accounts extends Component {
     this.props.dispatch({type: 'GET_ORGS'});
     this.props.dispatch({type: 'GET_MENU'});
     this.props.dispatch({type: 'GET_PROGRAMS'});
+    this.props.dispatch({type: 'GET_ADDRESSES'})
   }//end componentDidMount
 
   render() {
@@ -48,6 +50,7 @@ class Accounts extends Component {
           programQuery={this.props.reduxState.programs} 
           dependents={this.props.reduxState.allDependents}>
           </SearchBar>
+          <SearchAddress dependents={this.props.reduxState.allDependents}/>
         </div>
         <div className="accountItems acctTable">
           <table>

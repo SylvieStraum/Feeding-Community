@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
+// import SearchAddress from '../SearchAddress/SearchAddress';
 
 class SearchBar extends Component{
     state={
@@ -87,6 +88,9 @@ console.log(this.props)
    />
    <button onClick={()=>this.sortByName()}>search!</button>
   </div>
+  <div>
+  </div>
+  <div>
   <select 
   type="dropdown"
   value={this.state.referralQuery}
@@ -96,6 +100,7 @@ console.log(this.props)
     <option value={item.id}>{item.referral_name}</option>
   ))}
   </select>
+  </div>
   <select 
   type="dropdown"
   value={this.state.programQuery}
