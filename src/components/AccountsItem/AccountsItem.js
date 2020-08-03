@@ -7,6 +7,12 @@ class AccountsItem extends Component {
         edit: false
     }
 
+    cancelEdit = () => {
+        console.log('cancelling edit')
+        this.setState({
+            edit: !this.state.edit
+        })
+    }
     // PUT request
     editDependent = () => {
         console.log('edit dependent:', this.props.item) //this will target the specific dependent clicked
@@ -66,6 +72,15 @@ class AccountsItem extends Component {
     // handles inputs using event.target.id to get name of variable being changed
     // uses event.target.value to get value being changed
     handleInput = (event) => {
+        //this will be a dispatch with the object payload, send to reducer that 
+        // updates, then from reducer "save" will send to saga to update DB
+        // this.props.dispatch({
+        //     type: "UPDATE_DEPENDENT",
+        //     payload: {
+
+        //     }
+        // })
+
         this.setState({
             [event.target.id]: event.target.value
         })
@@ -161,7 +176,7 @@ class AccountsItem extends Component {
                         } 
                         </td>
                         {/* this will conditionally render all information to inputs */}
-                        <td><button onClick={this.updateDependent}>Update</button></td>
+                        <td><button onClick={this.updateDependent}>Update</button><button onClick={this.cancelEdit}>Cancel</button></td>
                     </tr>
 
                 }
