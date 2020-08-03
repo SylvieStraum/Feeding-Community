@@ -8,22 +8,7 @@ class AdminDashboard extends Component {
     async componentDidMount() {
         //dispatch to get todays orders
         await this.props.dispatch({ type: 'GET_TODAYS_ORDERS' });
-        console.log(this.props.today)
     }//end componentDidMount
-
-    getTotal = () => {
-        if(this.props.today.meal_choice){
-            let total = 0
-            for (let i = 0; i < this.props.today.meal_choice.length; i++) {
-                console.log('meal_choice', this.props.today.meal_choice[i])
-                
-            }
-            return total
-        }
-        else{
-            return 'loading'
-        }
-    }
 
     render() {
         return (
@@ -33,11 +18,25 @@ class AdminDashboard extends Component {
                     <h2>Admin Dashboard 7/28/20</h2>
                 </div>
                 <div className="mealBox dashboardItem">
+                    {console.log(this.props.today[0])}
                     {/* this will have a map of reduxState with meal totals */}
-                    Meals: 
-                    Special Requests: 10
-                    {console.log(this.props.today, )}
-                    Total: {this.props.today[0] ? this.getTotal : <>Not Yet</>}
+                    {this.props.today[1] ?
+                    <>
+                    Meat: {this.props.today[0].meat}
+                    Fish: {this.props.today[0].fish}
+                    Veggie: {this.props.today[0].veggie}
+                    Special Requests: {this.props.today[0].special}
+                    Total: {this.props.today[0].total}
+                    </>
+                    :
+                    <>
+                    Meat:
+                    Fish: 
+                    Veggie:
+                    Special Requests:
+                    Total:
+                    </>
+                    }
                 </div>
             </div>
         );//end return
