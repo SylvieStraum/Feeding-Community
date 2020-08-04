@@ -21,7 +21,7 @@ function* getIndividual(action) {
         console.log('Get individual error', error);
     }
 }
-//Adding new Dependant
+//Adding new Dependent
 // needs proper route to be created . url up to change
 function* newDependent(action) {
     try {

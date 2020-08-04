@@ -56,35 +56,6 @@ class SearchBar extends Component {
     this.props.dispatch({ type: 'SEARCH_DEPENDENTS', payload: result});
   }
 
-  // sortReferrals = (event) => {
-  //   let referralQuery = event.target.value
-  //   // let  = this.state.referralQuery
-  //   let result = this.props.dependents.filter(item => item.referral_name.includes(referralQuery))
-  //   if (result.length === 0) {
-  //     console.log('no matching dependents for that referral program')
-  //   } else if (result.length != 0) {
-  //     console.log('found people at this address:', result)
-  //     return true
-  //   }
-  //   this.setState({
-  //     referralQuery: referralQuery
-  //   })
-  // }
-
-  // sortPrograms = (event) => {
-  //   let programQuery = event.target.value
-  //   let result = this.props.dependents.filter(item => item.program_name.includes(programQuery))
-  //   if (result.length === 0) {
-
-  //   } else if (result.length != 0) {
-
-  //   }
-  //   this.setState({
-  //     programQuery: programQuery
-  //   })
-  // }
-
-
   handleOnChange = (event, type) => {
     this.setState({
       ...this.state,
