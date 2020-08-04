@@ -12,11 +12,11 @@ router.get('/counties', rejectNotAdmin,(req, res) => {
     `
     pool.query(sqlText)
     .then(result=>{
-        console.log('in dependant get information')
+        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{
-        console.log('error in dependant get', err)
+        console.log('error in dependent get', err)
         res.sendStatus(500)
     })
 });
@@ -28,11 +28,11 @@ router.get('/org', rejectNotAdmin,(req, res) => {
     `
     pool.query(sqlText)
     .then(result=>{
-        console.log('in dependant get information')
+        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{
-        console.log('error in dependant get', err)
+        console.log('error in dependent get', err)
         res.sendStatus(500)
     })
 });
@@ -44,11 +44,11 @@ router.get('/program', rejectNotAdmin,(req, res) => {
     `
     pool.query(sqlText)
     .then(result=>{
-        console.log('in dependant get information')
+        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{
-        console.log('error in dependant get', err)
+        console.log('error in dependent get', err)
         res.sendStatus(500)
     })
 });

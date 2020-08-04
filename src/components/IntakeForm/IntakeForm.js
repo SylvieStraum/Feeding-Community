@@ -230,7 +230,7 @@ class IntakeForm extends Component {
                             ))}
                             </select>
                         <br />
-                        <button className="Next Step" onClick={this.createDependant}>Next Step</button>
+                        <button className="Next Step" onClick={this.createDependent}>Next Step</button>
 
                     </form>
                 </div>
