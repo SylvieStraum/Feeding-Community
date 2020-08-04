@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2'
 
 class SearchBar extends Component {
   state = {
@@ -11,7 +12,7 @@ class SearchBar extends Component {
   }
 
   resetDependents = () => {
-    this.props.dispatch({ type: 'GET_ALL_DEPENDENTS' });
+    this.props.dispatch({ type: 'RESET_SEARCH' });
   }
 
   searchDependents = (event) => {
@@ -25,36 +26,40 @@ class SearchBar extends Component {
     this.state.firstName ?
       result = result.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase()))
       :
-      console.log('no firstname query')
+      console.log('no firstname')
     this.state.lastName ?
       result = result.filter(item => item.last_name.toUpperCase().includes(lastName.toUpperCase()))
       :
-      console.log('no lastname found query')
+      console.log('no lastname ')
     this.state.address ?
       result = result.filter(item => item.building_address1.toUpperCase().includes(address.toUpperCase()))
       :
-      console.log('no address found', referralQuery)
+      console.log('no address ')
     this.state.referralQuery ?
       result = result.filter(item => item.referral_id === Number(referralQuery))
       :
-      console.log('no one in that referral organization')
+      console.log('no organization')
 
     this.state.programQuery ?
       result = result.filter(item => item.program_id === Number(programQuery))
       :
-      console.log('no one in that program found')
+      console.log('no program')
     if (result.length === 0) {
-      //use modal to say nothing is there?
-      console.log('not found here is list', this.props.dependents)
-    } else if (result.length != 0) {
-      //use function here to bring altered array to map in parent component  
-      console.log('found people containing phrase, heres that list', result)
+      Swal.fire({
+        title: 'Sorry, no one matches that search!',
+        icon: 'warning',
+        width: 600,
+        padding: '3em',
+        background: '#fff',
+        backdrop: `
+          rgba(0,0,0,0.4)
+          no-repeat
+        `
+      })
+    } else {
+     //dispatch call to bring back array with only search inputs
+     this.props.dispatch({ type: 'SEARCH_DEPENDENTS', payload: result});
     }
-
-    //dispatch call to bring back array with only search inputs
-    this.props.dispatch({ type: 'SEARCH_DEPENDENTS', payload: result});
-
-    // this.setState
   }
 
   handleOnChange = (event, type) => {
@@ -63,10 +68,8 @@ class SearchBar extends Component {
       [type]: event.target.value
     })
   }
-
-
+  
   render() {
-    console.log("props", this.props)
     return (
       <>
         <div className="searchItems">
@@ -88,17 +91,13 @@ class SearchBar extends Component {
             value={this.state.address}
             onChange={(event) => this.handleOnChange(event, 'address')}
           />
-          <button onClick={() => this.searchDependents()}>search!</button>
-          <button onClick={this.resetDependents}>reset</button>
-        </div>
-        <div className="searchItems">
           <select
             type="dropdown"
             value={this.state.referralQuery}
             onChange={(event) => this.handleOnChange(event, 'referralQuery')}>
             <option value="">Please select by organization</option>
             {this.props.referralQuery.map((item) => (
-              <option value={item.id}>{item.referral_name}</option>
+              <option key={item.id} value={item.id}>{item.referral_name}</option>
             ))}
           </select>
           <select
@@ -107,9 +106,11 @@ class SearchBar extends Component {
             onChange={(event) => this.handleOnChange(event, 'programQuery')}>
             <option value="">Please select by program</option>
             {this.props.programQuery.map((item) => (
-              <option value={item.id}>{item.program_name}</option>
+              <option key={item.id} value={item.id}>{item.program_name}</option>
             ))}
           </select>
+          <button onClick={() => this.searchDependents()}>search!</button>
+          <button onClick={this.resetDependents}>reset</button>
         </div>
       </>
     );
