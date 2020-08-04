@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import './Accounts.scss';
 import AccountsItem from '../AccountsItem/AccountsItem';
 import SearchBar from '../SearchBar/SearchBar';
-import SearchAddress from '../SearchAddress/SearchAddress';
-// import Moment from 'react-moment';
 
 class Accounts extends Component {
   // Renders the entire Accounts on the DOM

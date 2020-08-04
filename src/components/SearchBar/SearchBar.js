@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import SearchAddress from '../SearchAddress/SearchAddress';
 
 class SearchBar extends Component {
   state = {
