@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
-  allDependents, // contains list of all dependants  and relevant information
+  allDependents, // contains list of all dependents  and relevant information
   counties, //list of counties 
   organizations, // list of orgs tied to individual
   programs, //list of programs tied to individual

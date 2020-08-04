@@ -1,0 +1,27 @@
+<<<<<<< HEAD:src/components/IntakeForm/IntakeForm.css
+.intakeForm input[type=text],.intakeForm select {
+=======
+@import './src/index.scss';
+.intakeForm input[type=text], select {
+>>>>>>> 5242218e7960c6d338e5d1fcacd6d8ddc0f0f7dd:src/components/IntakeForm/IntakeForm.scss
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.formItem {
+  background-color: $grey;
+  max-width: 40%;
+  max-height: 1200px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 2px;
+}
+
+.header{
+  margin-left: 45%;
+}

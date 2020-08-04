@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import "../IntakeForm/IntakeForm.css";
+import "../IntakeForm/IntakeForm.scss";
 
 
 class IntakeForm extends Component {
@@ -79,11 +79,13 @@ class IntakeForm extends Component {
         console.log(this.state)
         return (
             <div className="intakeForm">
-                <h1>Sign Up</h1>
-                <p>Enter client information form</p>
+                <div className="header">
+                <h1>Intake Form</h1>
+                </div>
+                {/* <p>Enter client information form</p> */}
                 <div>
-                    <form class="base-intake-form" onSubmit={this.createDependent}>
-                        <p>Please enter client information:</p>
+                    <form class="formItem" onSubmit={this.createDependent}>
+                        <p>Please enter client information below</p>
                         <label></label>
                         <input
                             required
@@ -230,7 +232,7 @@ class IntakeForm extends Component {
                             ))}
                             </select>
                         <br />
-                        <button className="Next Step" onClick={this.createDependant}>Next Step</button>
+                        <button className="Next Step" onClick={this.createDependent}>Next Step</button>
 
                     </form>
                 </div>

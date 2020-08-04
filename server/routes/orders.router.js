@@ -212,7 +212,7 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
 
     pool.query(queryText, dates)
         .then((result) => {
-            console.log(`GET database request successful`);
+            console.log(`GET database request successful`, result.rows);
             res.send(result.rows);
         })
         .catch((error) => {
