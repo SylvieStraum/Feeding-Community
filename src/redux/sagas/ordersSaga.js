@@ -11,10 +11,25 @@ function* getTodaysOrders() {
     }
 }
 
+//retrieves a specific day's orders
+function* getDaysOrders(action) {
+    try {
+        console.log('action.payload:', action.payload)
+        const responsePayload = yield axios.get(`/api/orders/day/${action.payload}`);
+        yield put({
+            type: 'SET_RANGE_ORDERS',
+            payload: responsePayload
+        });
+    } catch (error) {
+        console.log('Get orders saga error', error);
+    }
+}
+
 //retrieves a specific month's orders
 function* getMonthOrders(action) {
     try {
-        const responsePayload = yield axios.get(`/api/orders/month/${action.payload.id}`);
+        console.log('action.payload:', action.payload)
+        const responsePayload = yield axios.get(`/api/orders/month/${action.payload}`);
         yield put({
             type: 'SET_RANGE_ORDERS',
             payload: responsePayload
@@ -27,6 +42,7 @@ function* getMonthOrders(action) {
 //retrieves a specific years's orders
 function* getYearOrders(action) {
     try {
+        console.log('action.payload:', action.payload)
         const responsePayload = yield axios.get(`/api/orders/year/${action.payload.id}`);
         yield put({
             type: 'SET_RANGE_ORDERS',
@@ -45,7 +61,9 @@ function* getDatesOrders(action) {
     // YYYY-MM-DD:HH:MM:SS format works well with this system
     // HH:MM:SS has to be specified or it defaults to 00:00:00, which can end up with date being read as day before
     try {
-        const responsePayload = yield axios.get(`/api/orders/dates/${action.payload.id}`);
+        console.log('action.payload.startDate:' , action.payload.startDate)
+        console.log('action.payload.endDate:' , action.payload.endDate)
+        const responsePayload = yield axios.get(`/api/orders/dates/?startDate=${action.payload.startDate}:01:00:00&endDate=${action.payload.endDate}:01:00:00`);
         yield put({
             type: 'SET_RANGE_ORDERS',
             payload: responsePayload
@@ -69,8 +87,9 @@ function* alterOrders(action) {
 
 function* menuSaga() {
     yield takeEvery('GET_TODAYS_ORDERS', getTodaysOrders);
-    yield takeEvery('GET_MONTH_ORDERS', getMonthOrders);
-    yield takeEvery('GET_YEAR_ORDERS', getYearOrders);
+    yield takeEvery('GET_DAYS_ORDERS', getDaysOrders);
+    yield takeEvery('GET_MONTHS_ORDERS', getMonthOrders);
+    yield takeEvery('GET_YEARS_ORDERS', getYearOrders);
     yield takeEvery('GET_DATE_RANGE_ORDERS', getDatesOrders);
     yield takeEvery('UPDATE_TODAYS_ORDERS', alterOrders);
 }

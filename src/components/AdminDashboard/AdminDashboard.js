@@ -4,18 +4,30 @@ import './AdminDashboard.scss';
 
 class AdminDashboard extends Component {
     // Renders the entire AdminDashboard on the DOM
+    state = ({
+        date: ''
+    })
 
     async componentDidMount() {
         //dispatch to get todays orders
         await this.props.dispatch({ type: 'GET_TODAYS_ORDERS' });
+        await this.getDate();
     }//end componentDidMount
+    getDate = () =>{
+        let today = new Date();
+        let date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
 
+        this.setState({
+            date: date
+        })
+    }
+    
     render() {
         return (
             <div className="AdminDashboard">
                 <div className="dashboardItem">
                     {/* this will eventually have a string interpolation with the current date */}
-                    <h2>Admin Dashboard 7/28/20</h2>
+                    <h2>Admin Dashboard {this.state.date}</h2>
                 </div>
                 <div className="mealBox dashboardItem">
                     {console.log(this.props.today)}
