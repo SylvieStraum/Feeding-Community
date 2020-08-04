@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2'
+import './SearchBar.scss'
 
 class SearchBar extends Component {
   state = {
@@ -13,6 +14,13 @@ class SearchBar extends Component {
 
   resetDependents = () => {
     this.props.dispatch({ type: 'RESET_SEARCH' });
+    this.setState({
+      address: '',
+      firstName: '',
+      lastName: '',
+      referralQuery: '',
+      programQuery: ''
+    })
   }
 
   searchDependents = (event) => {
@@ -71,7 +79,6 @@ class SearchBar extends Component {
   
   render() {
     return (
-      <>
         <div className="searchItems">
           <input
             type="text"
@@ -109,10 +116,11 @@ class SearchBar extends Component {
               <option key={item.id} value={item.id}>{item.program_name}</option>
             ))}
           </select>
-          <button onClick={() => this.searchDependents()}>search!</button>
+          <div className="searchBtn">
+          <button onClick={() => this.searchDependents()}>search</button>
           <button onClick={this.resetDependents}>reset</button>
+          </div>
         </div>
-      </>
     );
   }
 }
