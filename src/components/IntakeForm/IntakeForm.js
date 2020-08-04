@@ -80,7 +80,6 @@ class IntakeForm extends Component {
         return (
             <div className="intakeForm">
                 <h1>Sign Up</h1>
-                <p>Enter client information form</p>
                 <div>
                     <form class="base-intake-form" onSubmit={this.createDependent}>
                         <p>Please enter client information:</p>
@@ -122,7 +121,6 @@ class IntakeForm extends Component {
                         <br />
                         <label></label>
                         <input
-                            required
                             type="text"
                             value={this.state.building_address2}
                             placeholder="Address 2"
@@ -141,13 +139,13 @@ class IntakeForm extends Component {
                         <label></label>
                         <input
                             required
-                            type="text"
+                            type="number"
                             value={this.state.zip_code}
                             placeholder="Zip Code"
                             onChange={(event) => this.handleInputs(event, "zip_code")}
                         />
                         <br />
-                        <label>Select County</label>
+                        <label></label>
                         <select
                             required
                             type="text"
@@ -157,40 +155,39 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "county_id")
                             }>
-                            <option value="0"></option>
+                            <option value="0">Select County</option>
                             {this.props.counties.map((item) => ( 
                                 <option value={item.id}>{item.county_name}</option>
                             ))}
                         </select>
                         <br />
-                        <label></label>
+                        <label for="Date of Birth">Date of Birth:</label>
                         <input
                             required
-                            type="text"
+                            type="date"
                             value={this.state.date_of_birth}
-                            placeholder="Date of Birth"
                             onChange={(event) => this.handleInputs(event, "date_of_birth")}
                         />
                         <br />
-                        <p>Meal Type:</p>
                         <select
                             type="dropdown"
                             value={this.state.meal_choice}
+                            placeholder="Select Meat"
                             onChange={(event) => this.handleInputs(event, "meal_choice")
 
                             }>
-                            <option value="0"></option>
-                            <option value="1">Meat</option>
-                            <option value="2">2nd Meat</option>
-                            <option value="3">Veggie</option>
-                            <option value="4">Special Request</option>
+                            <option value="1">Select Food Option</option>
+                            <option value="2">Chicken or Beef</option>
+                            <option value="3">Fish</option>
+                            <option value="4">Veggie Only</option>
+                            <option value="5">Special Request</option>
                         </select>
                         <label></label>
                         <input
                             required
                             type="text"
                             value={this.state.special_request}
-                            placeholder="Special Requests"
+                            placeholder="Special Requests (ex. vegan)"
                             onChange={(event) => this.handleInputs(event, "special_request")}
                         />
                         <br />
@@ -199,7 +196,7 @@ class IntakeForm extends Component {
                             required
                             type="text"
                             value={this.state.dietary_restrictions}
-                            placeholder="Dietary Restrictions"
+                            placeholder="Dietary Restrictions (ex. gluten free)"
                             onChange={(event) => this.handleInputs(event, "dietary_restrictions")}
                         />
                         <br />
@@ -211,7 +208,7 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "referral_id")
                             }>
-                            
+                                <option value="1">Select Referral Organiztation</option>
                             {this.props.organizations.map((item, i) => (
                                 <option value={item.id}>{item.referral_name}</option>
                             ))}
@@ -225,6 +222,7 @@ class IntakeForm extends Component {
                             onChange={(event) => 
                                 this.handleInputs(event, "program_id")
                             }>
+                                <option value="1">Select Program</option>
                             {this.props.programs.map((item, i) => (
                                 <option value={item.id}>{item.program_name}</option>
                             ))}
