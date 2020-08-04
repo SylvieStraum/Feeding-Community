@@ -55,11 +55,30 @@ router.get('/today/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         });
 }); // END GET ROUTE
+// GET ROUTE to get a day's orders
+router.get('/day/:id', rejectNotAdmin, (req, res) => {
+
+    let date = req.params.id
+    console.log('date:' , date);
+
+    const queryText = `SELECT * FROM "orders"
+                        WHERE "date" = $1
+                        ;`;
+    pool.query(queryText, [date])
+        .then((result) => {
+            console.log(`GET database request successful`);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error making GET Request:`, error);
+            res.sendStatus(500);
+        });
+}); // END GET ROUTE
 
 // GET ROUTE to get a month's worth of dates
-router.get('/month/', rejectNotAdmin, (req, res) => {
+router.get('/month/:id', rejectNotAdmin, (req, res) => {
 
-    let date = `%${req.body.date}%`
+    let date = `%${req.params.id}%`
 
     console.log(date);
 
@@ -101,9 +120,9 @@ router.get('/year/', rejectNotAdmin, (req, res) => {
 // GET ROUTE to get specifc range
 router.get('/dates/', rejectNotAdmin, (req, res) => {
 
-    // console.log('query:' , req.query)
-    // console.log('startDate:' , req.query.startDate)
-    // console.log('endDate:' , req.query.endDate)
+    console.log('query:' , req.query)
+    console.log('startDate:' , req.query.startDate)
+    console.log('endDate:' , req.query.endDate)
 
     // function to get list of dates from input range
     function getDates(startDate, endDate) {
@@ -222,14 +241,13 @@ router.post('/save-day/', rejectNotAdmin, (req, res) => {
         })
 }); //END POST ROUTE
 
-//PUT ROUTE to save adust data in a day
+//PUT ROUTE to save adjust data in a day
 router.put('/edit/', rejectNotAdmin, (req, res) => {
 
-    const daily_orders = req.body.daily_orders;
-    const date = req.body.date;
+    
 
     const queryText = `UPDATE "orders" SET "daily_orders" = $1
-                        WHERE date = $2;
+                        WHERE date = $2 AND dependet_id = $3;
                             ;`;
 
 

@@ -20,6 +20,7 @@ import AdminDataReview from '../AdminDataReview/AdminDataReview';
 import './App.scss';
 import Accounts from '../Accounts/Accounts';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import OrdersTable from '../OrdersTable/OrdersTable'
 //import SearchBar from '../SearchBar/SearchBar';
 // import SearchBar from '../SearchBar/SearchBar';
 
@@ -73,6 +74,11 @@ class App extends Component {
               exact
               path="/accounts"
               component={Accounts}
+            />
+            <ProtectedRoute
+              exact
+              path="/orders"
+              component={OrdersTable}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

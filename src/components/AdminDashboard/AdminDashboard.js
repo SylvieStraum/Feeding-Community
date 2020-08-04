@@ -15,11 +15,8 @@ class AdminDashboard extends Component {
     }//end componentDidMount
     getDate = () =>{
         let today = new Date();
-        let date = '';
-        console.log('today:', today)
-         
-        date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
-        console.log('date:', date);
+        let date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+
         this.setState({
             date: date
         })
