@@ -53,6 +53,8 @@ class SearchBar extends Component {
 
     //dispatch call to bring back array with only search inputs
     this.props.dispatch({ type: 'SEARCH_DEPENDENTS', payload: result});
+
+    // this.setState
   }
 
   handleOnChange = (event, type) => {
