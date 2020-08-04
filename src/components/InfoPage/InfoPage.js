@@ -20,7 +20,8 @@ const InfoPage = () => (
       to prevent sensitive client information to leak. Here are the main interactive points of our application and how to use them effectively.
     </p>
     <p><b>Intake Form:</b> All of the inputs are required information for the intake process. Input client information in the 
-    structure provided by each input to ensure optimal function for the Application.
+    structure provided by each input to ensure optimal function for the Application. There will be an assumption as to which program
+    a person is enrolled based off of county selected. This can be changed on the Table afterwards if proven to be inaccurate.
     </p>
 
   </div>
