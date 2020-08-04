@@ -10,12 +10,18 @@ class SearchBar extends Component {
     referralQuery: '',
     programQuery: ''
   }
-  searchDependents = () => {
+
+  resetDependents = () => {
+    this.props.dispatch({ type: 'GET_ALL_DEPENDENTS' });
+  }
+
+  searchDependents = (event) => {
     let firstName = this.state.firstName
     let lastName = this.state.lastName
     let address = this.state.address
     let result = this.props.dependents
-    let resultAddress = this.props.dependents
+    let referralQuery = this.state.referralQuery
+    let programQuery = this.state.programQuery
 
     this.state.firstName ?
       result = result.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase()))
@@ -26,53 +32,57 @@ class SearchBar extends Component {
       :
       console.log('no lastname found query')
     this.state.address ?
-      resultAddress = result.filter(item => item.building_address1.toUpperCase().includes(address.toUpperCase()))
+      result = result.filter(item => item.building_address1.toUpperCase().includes(address.toUpperCase()))
       :
-      console.log('no address found')
+      console.log('no address found', referralQuery)
+    this.state.referralQuery ?
+      result = result.filter(item => item.referral_id === Number(referralQuery))
+      :
+      console.log('no one in that referral organization')
+
+    this.state.programQuery ?
+      result = result.filter(item => item.program_id === Number(programQuery))
+      :
+      console.log('no one in that program found')
     if (result.length === 0) {
       //use modal to say nothing is there?
       console.log('not found here is list', this.props.dependents)
-      return false
     } else if (result.length != 0) {
       //use function here to bring altered array to map in parent component  
       console.log('found people containing phrase, heres that list', result)
-      return true
-    } else if (resultAddress.length === 0) {
-      console.log('no matching address, here are other dependents', this.props.dependents)
-      return false
-    } else if (resultAddress.length != 0) {
-      console.log('found people at this address:', result)
-      return true
     }
+
+    //dispatch call to bring back array with only search inputs
+    this.props.dispatch({ type: 'SEARCH_DEPENDENTS', payload: result});
   }
 
-  sortReferrals = (event) => {
-    let referralQuery = event.target.value
-    // let  = this.state.referralQuery
-    const result = this.props.dependents.filter(item => item.referral_name.includes(referralQuery))
-    if (result.length === 0) {
+  // sortReferrals = (event) => {
+  //   let referralQuery = event.target.value
+  //   // let  = this.state.referralQuery
+  //   let result = this.props.dependents.filter(item => item.referral_name.includes(referralQuery))
+  //   if (result.length === 0) {
+  //     console.log('no matching dependents for that referral program')
+  //   } else if (result.length != 0) {
+  //     console.log('found people at this address:', result)
+  //     return true
+  //   }
+  //   this.setState({
+  //     referralQuery: referralQuery
+  //   })
+  // }
 
-    } else {
+  // sortPrograms = (event) => {
+  //   let programQuery = event.target.value
+  //   let result = this.props.dependents.filter(item => item.program_name.includes(programQuery))
+  //   if (result.length === 0) {
 
+  //   } else if (result.length != 0) {
 
-    }
-    this.setState({
-      referralQuery: referralQuery
-    })
-  }
-
-  sortPrograms = (event) => {
-    let programQuery = event.target.value
-    const result = this.props.dependents.filter(item => item.program_name.includes(programQuery))
-    if (result.length === 0) {
-
-    } else {
-
-    }
-    this.setState({
-      programQuery: programQuery
-    })
-  }
+  //   }
+  //   this.setState({
+  //     programQuery: programQuery
+  //   })
+  // }
 
 
   handleOnChange = (event, type) => {
@@ -84,7 +94,7 @@ class SearchBar extends Component {
 
 
   render() {
-    console.log(this.props)
+    console.log("props", this.props)
     return (
       <>
         <div className="searchItems">
@@ -107,26 +117,27 @@ class SearchBar extends Component {
             onChange={(event) => this.handleOnChange(event, 'address')}
           />
           <button onClick={() => this.searchDependents()}>search!</button>
+          <button onClick={this.resetDependents}>reset</button>
         </div>
         <div className="searchItems">
           <select
             type="dropdown"
             value={this.state.referralQuery}
-            onChange={(event) => this.sortReferrals(event)}>
+            onChange={(event) => this.handleOnChange(event, 'referralQuery')}>
             <option value="">Please select by organization</option>
             {this.props.referralQuery.map((item) => (
               <option value={item.id}>{item.referral_name}</option>
             ))}
           </select>
-        <select
-          type="dropdown"
-          value={this.state.programQuery}
-          onChange={(event) => this.sortPrograms(event)}>
-          <option value="">Please select by program</option>
-          {this.props.programQuery.map((item) => (
-            <option value={item.id}>{item.program_name}</option>
-          ))}
-        </select>
+          <select
+            type="dropdown"
+            value={this.state.programQuery}
+            onChange={(event) => this.handleOnChange(event, 'programQuery')}>
+            <option value="">Please select by program</option>
+            {this.props.programQuery.map((item) => (
+              <option value={item.id}>{item.program_name}</option>
+            ))}
+          </select>
         </div>
       </>
     );

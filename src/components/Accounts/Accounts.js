@@ -47,8 +47,7 @@ class Accounts extends Component {
         <div>
           <SearchBar referralQuery={this.props.reduxState.organizations} 
           dependents={this.props.reduxState.allDependents}
-          programQuery={this.props.reduxState.programs} 
-          dependents={this.props.reduxState.allDependents}>
+          programQuery={this.props.reduxState.programs}>
           </SearchBar>
           {/* <SearchAddress dependents={this.props.reduxState.allDependents}/> */}
         </div>
