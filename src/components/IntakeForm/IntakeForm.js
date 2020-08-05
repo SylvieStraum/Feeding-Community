@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import "../IntakeForm/IntakeForm.css";
+import "../IntakeForm/IntakeForm.scss";
 
 
 class IntakeForm extends Component {
@@ -19,7 +19,9 @@ class IntakeForm extends Component {
         dietary_restrictions: '',
         meal_choice: 1,
         referral_id: 1,
-        program_id: 1
+        program_id: 1,
+        special_request_toggle: false
+        
     }
 
     componentDidMount = () => {
@@ -73,16 +75,30 @@ class IntakeForm extends Component {
         this.setState({
             [typeOf]: event.target.value
         })
-    }
+    //     if (typeOf === 'meal_choice' && event.target.value === '5'){
+    //         console.log('special request')
+    //         this.setState({
+    //             special_request_toggle: true
+    //         })
+    //     } else {
+    //     this.setState({
+    //         special_request_toggle: false
+    //     })
+
+    // }
+}
 
     render() {
         console.log(this.state)
         return (
             <div className="intakeForm">
-                <h1>Sign Up</h1>
+                <div className="header">
+                <h1>Intake Form</h1>
+                </div>
+                {/* <p>Enter client information form</p> */}
                 <div>
-                    <form class="base-intake-form" onSubmit={this.createDependent}>
-                        <p>Please enter client information:</p>
+                    <form class="formItem" onSubmit={this.createDependent}>
+                        <p>Please enter client information below</p>
                         <label></label>
                         <input
                             required
@@ -176,20 +192,26 @@ class IntakeForm extends Component {
                             onChange={(event) => this.handleInputs(event, "meal_choice")
 
                             }>
-                            <option value="1">Select Food Option</option>
-                            <option value="2">Chicken or Beef</option>
-                            <option value="3">Fish</option>
-                            <option value="4">Veggie Only</option>
-                            <option value="5">Special Request</option>
+                            <option disabled selected value> -- Select Food Option -- </option>
+                            <option value="1">Chicken or Beef</option>
+                            <option value="2">Fish</option>
+                            <option value="3">Veggie Only</option>
+                            <option value="4">Special Request</option>
                         </select>
-                        <label></label>
+                        {this.state.meal_choice === '4' ?
                         <input
-                            required
-                            type="text"
-                            value={this.state.special_request}
-                            placeholder="Special Requests (ex. vegan)"
-                            onChange={(event) => this.handleInputs(event, "special_request")}
-                        />
+                        required
+                        type="text"
+                        value={this.state.special_request}
+                        placeholder="Special Requests (ex. vegan)"
+                        onChange={(event) => this.handleInputs(event, "special_request")}
+                    
+                    />
+                    :
+                    console.log('no special resquest')
+
+                }
+                        <label></label>
                         <br />
                         <label></label>
                         <input
@@ -208,7 +230,7 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "referral_id")
                             }>
-                                <option value="1">Select Referral Organiztation</option>
+                                <option value="">Select Referral Organiztation</option>
                             {this.props.organizations.map((item, i) => (
                                 <option value={item.id}>{item.referral_name}</option>
                             ))}
@@ -222,18 +244,19 @@ class IntakeForm extends Component {
                             onChange={(event) => 
                                 this.handleInputs(event, "program_id")
                             }>
-                                <option value="1">Select Program</option>
+                                <option value="">Select Program</option>
                             {this.props.programs.map((item, i) => (
                                 <option value={item.id}>{item.program_name}</option>
                             ))}
                             </select>
                         <br />
-                        <button className="Next Step" onClick={this.createDependant}>Next Step</button>
+                        <button className="Next Step" onClick={this.createDependent}>Next Step</button>
 
                     </form>
                 </div>
-
+            
             </div>
+        
 
 
         )
