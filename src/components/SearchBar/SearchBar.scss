@@ -1,3 +1,29 @@
+@import './src/index.scss';
+.searchItems input, .searchItems select{
+    width: 20%;
+    min-width: 150px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 .searchItems{
-    margin-left: 30px;
+    text-align: center;
+}
+.searchBtn button{
+    // box-sizing: border-box;
+    padding: 12px 20px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.searchBtn :active {
+   box-shadow:0 0 10px $primary ;
+   background-color: darkgrey;
+}
+.searchBtn :hover {
+    background-color: rgba(97, 137, 163, 0.5);
 }
