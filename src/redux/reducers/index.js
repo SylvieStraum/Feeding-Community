@@ -10,6 +10,7 @@ import menu from './menuReducer'
 import ordersToday from './ordersTodayReducer'
 import ordersRange from './ordersRangeReducer'
 import searchReducer from './searchReducer'
+import userList from './adminReducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   menu, // menu
   ordersToday, // orders for today
   ordersRange, // orders for specific range
-  searchReducer
+  searchReducer, // contains search results
+  userList, // contains list of users that can access app
 });
 
 export default rootReducer;
