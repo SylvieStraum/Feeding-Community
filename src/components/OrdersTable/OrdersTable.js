@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import menu from '../../redux/reducers/menuReducer';
+import ExportCsv from '../ExportCsv/ExportCsv'
 
 
 class OrdersTable extends Component {
@@ -104,6 +105,11 @@ class OrdersTable extends Component {
                   </>
                 }
               </form>
+             { this.props.range[0] && <ExportCsv 
+             labels={this.props.range[0].map((date) =>date)} 
+             data={this.props.range[1]}
+            />
+             }
               <table>
                 <thead>
                   <tr>
