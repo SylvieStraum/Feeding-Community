@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeEvery } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 
 
 //Adding new Admin
