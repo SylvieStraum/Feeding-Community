@@ -97,7 +97,7 @@ class IntakeForm extends Component {
                 </div>
                 {/* <p>Enter client information form</p> */}
                 <div>
-                    <form className="formItem" onSubmit={this.createDependent}>
+                    <form class="formItem" onSubmit={this.createDependent}>
                         <p>Please enter client information below</p>
                         <label></label>
                         <input
@@ -164,19 +164,16 @@ class IntakeForm extends Component {
                         <label></label>
                         <select
                             required
+                            type="text"
                             value={this.state.county_id}
                             placeholder="select county"
                             type="dropdown"
                             onChange={(event) =>
                                 this.handleInputs(event, "county_id")
                             }>
-<<<<<<< HEAD
                             <option value="0">Select County</option>
-=======
-                            <option value="0">Choose a County</option>
->>>>>>> master
                             {this.props.counties.map((item) => ( 
-                                <option key={item.id} value={item.id}>{item.county_name}</option>
+                                <option value={item.id}>{item.county_name}</option>
                             ))}
                         </select>
                         <br />
@@ -195,7 +192,7 @@ class IntakeForm extends Component {
                             onChange={(event) => this.handleInputs(event, "meal_choice")
 
                             }>
-                            <option disabled selected value> -- Select Food Option -- </option>
+                            <option disabled selected value> -- Select Food Option --</option>
                             <option value="1">Chicken or Beef</option>
                             <option value="2">Fish</option>
                             <option value="3">Veggie Only</option>
@@ -233,15 +230,9 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "referral_id")
                             }>
-<<<<<<< HEAD
                                 <option value="">Select Referral Organiztation</option>
                             {this.props.organizations.map((item, i) => (
                                 <option value={item.id}>{item.referral_name}</option>
-=======
-                            
-                            {this.props.organizations.map((item) => (
-                                <option key={item.id} value={item.id}>{item.referral_name}</option>
->>>>>>> master
                             ))}
                         </select>
                         <br />
@@ -253,14 +244,9 @@ class IntakeForm extends Component {
                             onChange={(event) => 
                                 this.handleInputs(event, "program_id")
                             }>
-<<<<<<< HEAD
                                 <option value="">Select Program</option>
                             {this.props.programs.map((item, i) => (
                                 <option value={item.id}>{item.program_name}</option>
-=======
-                            {this.props.programs.map((item) => (
-                                <option key={item.id} value={item.id}>{item.program_name}</option>
->>>>>>> master
                             ))}
                             </select>
                         <br />
