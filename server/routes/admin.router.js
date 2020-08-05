@@ -85,7 +85,7 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
 }); //END PUT ROUTE
 
 // DELETE Route
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectNotAdmin, (req, res) => {
     
     let id = req.params.id; // id of the thing to delete
     console.log('Delete route called with id of', id);

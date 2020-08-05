@@ -2,9 +2,10 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectNotAdmin } = require('../modules/admin-authentication-middleware');
+const { rejectNotDriver } = require('../modules/driver-authentication-middleware');
 
 //simple get all items from the menu
-router.get('/', (req, res) => {
+router.get('/', rejectNotDriver, (req, res) => {
     sqlText=`
     SELECT *
     FROM menu
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 //this plans on individual items being altered at a time. could change it to handling all changes at once if necessary.
-router.put('/', (req, res) => {
+router.put('/', rejectNotAdmin, (req, res) => {
     sqlText=`
     UPDATE menu
     SET description = $1

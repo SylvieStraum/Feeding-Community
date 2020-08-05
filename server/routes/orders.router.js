@@ -1,11 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectNotEditor } = require('../modules/editor-authentication-middleware');
+const { rejectNotOvernight } = require('../modules/overnight-authentication-middleware');
 const { rejectNotAdmin } = require('../modules/admin-authentication-middleware');
 const { query } = require('../modules/pool');
 
 // GET ROUTE to get all orders
-router.get('/', rejectNotAdmin, (req, res) => {
+router.get('/', rejectNotEditor, (req, res) => {
 
     const queryText = `SELECT * FROM "orders"
                         ORDER BY "date" ASC;`;
@@ -22,7 +24,7 @@ router.get('/', rejectNotAdmin, (req, res) => {
 
 
 // GET ROUTE to get total of today's orders
-router.get('/today/', rejectNotAdmin, (req, res) => {
+router.get('/today/', rejectNotEditor, (req, res) => {
 
     let today = new Date();
     let date = '';
@@ -57,7 +59,7 @@ router.get('/today/', rejectNotAdmin, (req, res) => {
 }); // END GET ROUTE
 
 // GET ROUTE to get a day's orders
-router.get('/day/:id', rejectNotAdmin, (req, res) => {
+router.get('/day/:id', rejectNotEditor, (req, res) => {
 
     let date = req.params.id
     console.log('date:' , date);
@@ -78,7 +80,7 @@ router.get('/day/:id', rejectNotAdmin, (req, res) => {
 }); // END GET ROUTE
 
 // GET ROUTE to get a month's worth of dates
-router.get('/month/:id', rejectNotAdmin, (req, res) => {
+router.get('/month/:id', rejectNotEditor, (req, res) => {
 
     let date = `%${req.params.id}%`
 
@@ -100,7 +102,7 @@ router.get('/month/:id', rejectNotAdmin, (req, res) => {
 }); // END GET ROUTE
 
 // GET ROUTE to get a year's worth of dates
-router.get('/year/', rejectNotAdmin, (req, res) => {
+router.get('/year/', rejectNotEditor, (req, res) => {
 
     let date = `%${req.body.date}%`
 
@@ -122,7 +124,7 @@ router.get('/year/', rejectNotAdmin, (req, res) => {
 }); // END GET ROUTE
 
 // GET ROUTE to get specifc range
-router.get('/dates/', rejectNotAdmin, (req, res) => {
+router.get('/dates/', rejectNotEditor, (req, res) => {
 
     // console.log('query:' , req.query)
     // console.log('startDate:' , req.query.startDate)
@@ -226,7 +228,7 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
 }); // END GET ROUTE
 
 //POST ROUTE to save current meals from the day to orders table
-router.post('/save-day/', rejectNotAdmin, (req, res) => {
+router.post('/save-day/', rejectNotOvernight, (req, res) => {
     
 
     const queryText = `INSERT INTO "orders" ("date", "dependent_id", "number_of_meals", "meal_choice")
@@ -245,8 +247,28 @@ router.post('/save-day/', rejectNotAdmin, (req, res) => {
         })
 }); //END POST ROUTE
 
+//POST ROUTE to save current meals from the day to orders table
+router.post('/save-day-back-up/', rejectNotAdmin, (req, res) => {
+
+
+    const queryText = `INSERT INTO "orders" ("date", "dependent_id", "number_of_meals", "meal_choice")
+                        SELECT current_timestamp, "dependent_id", "number_of_meals", "meal_choice" FROM "current_meal"
+                        ORDER BY "dependent_id" ASC
+                        ;`;
+
+
+    console.log('put request:,', queryText)
+    pool.query(queryText)
+        .then((results) => {
+            res.send(results);
+        }).catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        })
+}); //END POST ROUTE
+
 //PUT ROUTE to save adjust data in a day
-router.put('/edit/', rejectNotAdmin, (req, res) => {
+router.put('/edit/', rejectNotEditor, (req, res) => {
 
     
 
