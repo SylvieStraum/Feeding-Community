@@ -11,11 +11,24 @@ function* getTodaysOrders() {
     }
 }
 
-//retrieves a specific day's orders
-function* getDaysOrders(action) {
+//retrieves orders for dates
+function* getOrders(action) {
     try {
+        const method = action.payload.method;
+        const value = action.payload.value;
+        const range = action.payload.range;
+        let responsePayload = '';
+        if (method === "selectDay") {
+
+            responsePayload = yield axios.get(`/api/orders/day/${value}`);
+        } else if (method === "selectMonth") {
+
+            responsePayload = yield axios.get(`/api/orders/month/${value}`);
+        } else if (method === "rangeSubmit") {
+            
+            responsePayload = yield axios.get(`/api/orders/dates/?startDate=${range.startDate}:01:00:00&endDate=${range.endDate}:01:00:00`);
+        }
         console.log('action.payload:', action.payload)
-        const responsePayload = yield axios.get(`/api/orders/day/${action.payload}`);
         yield put({
             type: 'SET_RANGE_ORDERS',
             payload: responsePayload
@@ -25,53 +38,6 @@ function* getDaysOrders(action) {
     }
 }
 
-//retrieves a specific month's orders
-function* getMonthOrders(action) {
-    try {
-        console.log('action.payload:', action.payload)
-        const responsePayload = yield axios.get(`/api/orders/month/${action.payload}`);
-        yield put({
-            type: 'SET_RANGE_ORDERS',
-            payload: responsePayload
-        });
-    } catch (error) {
-        console.log('Get orders saga error', error);
-    }
-}
-
-//retrieves a specific years's orders
-function* getYearOrders(action) {
-    try {
-        console.log('action.payload:', action.payload)
-        const responsePayload = yield axios.get(`/api/orders/year/${action.payload.id}`);
-        yield put({
-            type: 'SET_RANGE_ORDERS',
-            payload: responsePayload
-        });
-    } catch (error) {
-        console.log('Get orders saga error', error);
-    }
-}
-
-//retrieves range of orders
-function* getDatesOrders(action) {
-    // note for future cam/other devs to get dates action.payload.id will have to be a http params query like:
-    // ?startDate=2020-07-30:01:00:00&endDate=2020-08-01:01:00:00
-    // startDate determines the starting date, endDate determines ending date
-    // YYYY-MM-DD:HH:MM:SS format works well with this system
-    // HH:MM:SS has to be specified or it defaults to 00:00:00, which can end up with date being read as day before
-    try {
-        console.log('action.payload.startDate:' , action.payload.startDate)
-        console.log('action.payload.endDate:' , action.payload.endDate)
-        const responsePayload = yield axios.get(`/api/orders/dates/?startDate=${action.payload.startDate}:01:00:00&endDate=${action.payload.endDate}:01:00:00`);
-        yield put({
-            type: 'SET_RANGE_ORDERS',
-            payload: responsePayload
-        });
-    } catch (error) {
-        console.log('Get orders saga error', error);
-    }
-}
 
 // put request to alter orders
 function* alterOrders(action) {
@@ -87,10 +53,7 @@ function* alterOrders(action) {
 
 function* menuSaga() {
     yield takeEvery('GET_TODAYS_ORDERS', getTodaysOrders);
-    yield takeEvery('GET_DAYS_ORDERS', getDaysOrders);
-    yield takeEvery('GET_MONTHS_ORDERS', getMonthOrders);
-    yield takeEvery('GET_YEARS_ORDERS', getYearOrders);
-    yield takeEvery('GET_DATE_RANGE_ORDERS', getDatesOrders);
+    yield takeEvery('GET_ORDERS', getOrders);
     yield takeEvery('UPDATE_TODAYS_ORDERS', alterOrders);
 }
 
