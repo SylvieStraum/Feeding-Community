@@ -46,7 +46,7 @@ class SearchBar extends Component {
     if (result.length === 0) {
       //use modal to say nothing is there?
       console.log('not found here is list', this.props.dependents)
-    } else if (result.length != 0) {
+    } else if (result.length !== 0) {
       //use function here to bring altered array to map in parent component  
       console.log('found people containing phrase, heres that list', result)
     }

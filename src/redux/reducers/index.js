@@ -9,6 +9,7 @@ import programs from './programReducer'
 import menu from './menuReducer'
 import ordersToday from './ordersTodayReducer'
 import ordersRange from './ordersRangeReducer'
+import driverDependents from './driverReducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   programs, //list of programs tied to individual
   menu, // menu
   ordersToday, // orders for today
-  ordersRange // orders for specific range
+  ordersRange, // orders for specific range
+  driverDependents //gets dependents for drivers
 });
 
 export default rootReducer;

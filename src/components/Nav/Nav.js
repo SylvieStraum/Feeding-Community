@@ -35,6 +35,9 @@ const Nav = (props) => (
           <Link className="nav-link" to="/orders">
             Orders
           </Link>
+          <Link className="nav-link" to="/drivers">
+            Drivers
+          </Link>
         </>
       )}
       {/* Always show this link since the about page is not protected */}
