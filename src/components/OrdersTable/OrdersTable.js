@@ -52,20 +52,20 @@ class OrdersTable extends Component {
 
     handleSelect = (event) => {
         if(event.target.id === "selectDay"){
-          console.log(event.target.value);
+          // console.log(event.target.value);
           this.setState({
             selectDay: event.target.value
           })
           this.props.dispatch({ type: 'GET_DAYS_ORDERS', payload: event.target.value });
         }
         else if(event.target.id === "selectMonth"){
-          console.log(event.target.value);
+          // console.log(event.target.value);
           this.setState({
             selectMonth: event.target.value
           })
           this.props.dispatch({ type: 'GET_MONTHS_ORDERS', payload: event.target.value });
         }else if(event.target.id === "rangeSubmit"){
-          console.log('startDate:' , this.state.startDate, 'endDate:' , this.state.endDate)
+          // console.log('startDate:' , this.state.startDate, 'endDate:' , this.state.endDate)
           let range = {startDate: this.state.startDate, endDate: this.state.endDate}
           this.props.dispatch({ type: 'GET_DATE_RANGE_ORDERS' , payload: range });
         }
@@ -80,7 +80,7 @@ class OrdersTable extends Component {
     render() {
         return (
             <div className="OrdersTable">
-              {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)}
+              {/* {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)} */}
               <form className="selection">
                 {this.state.selectMode ?
                   <>

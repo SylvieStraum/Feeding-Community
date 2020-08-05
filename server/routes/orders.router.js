@@ -55,6 +55,7 @@ router.get('/today/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         });
 }); // END GET ROUTE
+
 // GET ROUTE to get a day's orders
 router.get('/day/:id', rejectNotAdmin, (req, res) => {
 
@@ -120,9 +121,9 @@ router.get('/year/', rejectNotAdmin, (req, res) => {
 // GET ROUTE to get specifc range
 router.get('/dates/', rejectNotAdmin, (req, res) => {
 
-    console.log('query:' , req.query)
-    console.log('startDate:' , req.query.startDate)
-    console.log('endDate:' , req.query.endDate)
+    // console.log('query:' , req.query)
+    // console.log('startDate:' , req.query.startDate)
+    // console.log('endDate:' , req.query.endDate)
 
     // function to get list of dates from input range
     function getDates(startDate, endDate) {
@@ -132,11 +133,11 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
 
         // sets current date to date type
         let currentDate = new Date(startDate);
-        console.log('currentDate:', currentDate);
+        // console.log('currentDate:', currentDate);
 
         // sets stop date to date type
         let stopDate = new Date(endDate);
-        console.log('stopDate:', stopDate);
+        // console.log('stopDate:', stopDate);
 
         // while loop to extract dates
         while (currentDate <= stopDate) {
