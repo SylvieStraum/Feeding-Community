@@ -122,6 +122,7 @@ class AccountsItem extends Component {
                             </>
                         }
                         </td>
+                        <td>{this.props.item.route_name}</td>
                         {/* this will conditionally render all information to inputs */}
                         <td><button onClick={this.toggleEdit}>Edit</button></td>
                     </tr>

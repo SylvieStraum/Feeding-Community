@@ -32,7 +32,8 @@ class Accounts extends Component {
     this.props.dispatch({type: 'GET_ORGS'});
     this.props.dispatch({type: 'GET_MENU'});
     this.props.dispatch({type: 'GET_PROGRAMS'});
-    this.props.dispatch({type: 'GET_ADDRESSES'})
+    this.props.dispatch({type: 'GET_ADDRESSES'});
+    this.props.dispatch({type: 'GET_ROUTES'});
   }//end componentDidMount
 
   render() {
@@ -45,7 +46,7 @@ class Accounts extends Component {
         <div>
           <SearchBar referralQuery={this.props.reduxState.organizations} 
           dependents={this.props.reduxState.allDependents}
-          programQuery={this.props.reduxState.programs}>
+          programQuery={this.props.reduxState.programs} routeQuery={this.props.reduxState.driverRoutes}>
           </SearchBar>
           {/* <SearchAddress dependents={this.props.reduxState.allDependents}/> */}
         </div>
@@ -67,6 +68,7 @@ class Accounts extends Component {
                 <th>Referral Organization</th>
                 <th>Qualified Program</th>
                 <th>Signed</th>
+                <th>Route Assignment</th>
                 <th>Edit</th>
               </tr>
             </thead>

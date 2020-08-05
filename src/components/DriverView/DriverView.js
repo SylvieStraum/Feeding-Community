@@ -47,7 +47,7 @@ class DriverView extends Component {
                         <tbody>
                             {/* this table row and data below will eventually come from a .map of reduxState */}
                             {this.props.reduxState.driverDependents.map((item) => (
-                                <DriverViewItems key={item.id} item={item} />
+                                <DriverViewItems key={item.id} item={item} routeQuery={this.props.reduxState.driverRoutes}/>
                             ))}
                         </tbody>
                     </table>
