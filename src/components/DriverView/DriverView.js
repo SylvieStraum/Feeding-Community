@@ -6,11 +6,18 @@ class DriverView extends Component {
 
     componentDidMount = () => {
         this.getDriverDependents();
+        this.getRoutes();
     }
 
     getDriverDependents = () => {
         this.props.dispatch({
             type: 'GET_DRIVER_DEPENDENTS',
+        })
+    }
+
+    getRoutes = () => {
+        this.props.dispatch({
+            type: 'GET_ROUTES',
         })
     }
     render() {

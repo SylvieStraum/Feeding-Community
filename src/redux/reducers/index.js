@@ -10,6 +10,7 @@ import menu from './menuReducer'
 import ordersToday from './ordersTodayReducer'
 import ordersRange from './ordersRangeReducer'
 import driverDependents from './driverReducer'
+import driverRoutes from './routesReducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   menu, // menu
   ordersToday, // orders for today
   ordersRange, // orders for specific range
-  driverDependents //gets dependents for drivers
+  driverDependents, //sets dependents for drivers
+  driverRoutes //sets the route names/assignments
 });
 
 export default rootReducer;
