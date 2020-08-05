@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import menu from '../../redux/reducers/menuReducer';
 
 
 class OrdersTable extends Component {
@@ -15,6 +16,7 @@ class OrdersTable extends Component {
     componentDidMount() {
       // call to set the current date so that's the date that's pulled up in select menu
       this.getDate();
+      this.props.dispatch({type: 'GET_MENU'});
     } //end componentDidMount
 
     getDate = () => {
@@ -102,13 +104,37 @@ class OrdersTable extends Component {
                   </>
                 }
               </form>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name {console.log(this.props.menu)}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.props.range.map((dep) => {
+                    return <tr key={dep.dependent_id}>
+                      <td>{dep.first_name} {dep.last_name}</td>
+                      {dep.dates.map((date) => {
+                        let dateName = Object.keys(date)
+                        let number_of_meals = date[dateName[0]].number_of_meals
+
+                        // let meal_choice_id = (date[dateName[0]].meal_choice - 1)
+                        // let meal_name = this.props.menu[meal_choice_id].menu_description
+                        //console.log(dateName, date[dateName[0]], meal_name)
+                        return <td key={dateName[0]}>Amount: {number_of_meals} </td>
+                      })}
+                    </tr>
+                  })}
+                </tbody>
+              </table>
             </div>
         );//end return
     }//end render
 }//end class
 
 const mapStateToProps = (reduxState) => ({
-  range: reduxState.ordersRange
+  range: reduxState.ordersRange,
+  menu: reduxState.menu
 });
 
 export default connect(mapStateToProps)(OrdersTable);

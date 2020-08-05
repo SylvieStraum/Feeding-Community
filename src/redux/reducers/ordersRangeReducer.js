@@ -3,7 +3,7 @@ const orders = (state=[], action) =>{
         case 'SET_RANGE_ORDERS':
 
             function formatDate(dateInput){
-                let date = dateInput
+                let date = new Date(dateInput)
                 //console.log(date);
                     if (date.getMonth() < 10) {
                         if (date.getDate() < 10) {
@@ -36,41 +36,44 @@ const orders = (state=[], action) =>{
                 let endDate = '';
                 // loops through data and get highest and lowest days
                 for (let i = 0; i < data.length; i++) {
-                    const el= data[i];
+                    const el= data[i].date
+                    // console.log(el)
                     if(startDate === '' || endDate === ''){
-                        startDate = el.date
-                        endDate = el.date
+                        startDate = el
+                        endDate = el
                     }
-                    else if(el.date < startDate){
-                        startDate = el.date
+                    else if(el < startDate){
+                        startDate = el
+                        console.log('start:', startDate)
                     }
-                    else if(el.date > startDate){
-                        endDate = el.date
+                    else if(el > endDate){
+                        endDate = el
+                        console.log('end:', startDate)
                     }
                 }
-                // console.log('in Redux, startDate:', startDate, 'endDate:', endDate)
+                console.log('in Redux, startDate:', startDate, 'endDate:', endDate)
                 // sets current date to date type
                 let currentDate = new Date(startDate);
                 currentDate.setHours(1, 0, 0, 0)
-                // console.log('currentDate:', currentDate);
+                console.log('currentDate:', currentDate);
 
                 // sets stop date to date type
                 let stopDate = new Date(endDate);
                 stopDate.setHours(1, 0, 0, 0)
-                // console.log('stopDate:', stopDate);
+                console.log('stopDate:', stopDate);
 
                 // while loop to extract dates
                 while (currentDate <= stopDate) {                    
                     // pushes date into date array
                     let date = currentDate.toString()
                     
-                    // console.log(date)
+                    //console.log(date)
                     dateArray.push(date);
                     // console.log('in while dateArray:',dateArray)
                     currentDate.setDate(currentDate.getDate() + 1);
                     // console.log('in while, after itterate dateArray:',dateArray)
                 }
-                // console.log('dateArray:' , dateArray)
+                console.log('dateArray:' , dateArray)
                 return dateArray;
             }// END getDates function
 
@@ -118,11 +121,23 @@ const orders = (state=[], action) =>{
                 // for loop that added each dependent row to array
                 for (let dex = 0; dex < dependentArray.length; dex++) {
                     
-                    // sets dependent_id for current dependent
+                    // console.log(dependentArray[dex])
+
+                    // sets dependent info to values
                     const dependent_id = dependentArray[dex].dependent_id;
+                    const first_name = dependentArray[dex].first_name;
+                    const last_name = dependentArray[dex].last_name;
+                    const building_address1 = dependentArray[dex].building_address1;
+                    const building_address2 = dependentArray[dex].building_address2;
                     
                     // creates object that will be pushed into array with dependent
-                    let depObj = {dependent_id: dependent_id}
+                    let depObj = {
+                        dependent_id: dependent_id,
+                        first_name: first_name, 
+                        last_name: last_name, 
+                        building_address1: building_address1, 
+                        building_address2: building_address2
+                    }
                     //console.log('depObj:', depObj )
 
                     // array that will be added to depObj
@@ -134,21 +149,29 @@ const orders = (state=[], action) =>{
                         let checkDate = new Date(currentDate)
                         //console.log('currentDate:', currentDate)
                         let formattedDate = formatDate(checkDate)
-                       
+                        // let meal_name = formattedDate.concat('_meal');
+                        // let number_name = formattedDate.concat('_number');
+
+                        // establish both values outside of loop to be used when pushed into array
+                        let meal_choice = null;
+                        let number_of_meals = null;
+
                         // for loop that checks if dependent had meal on that date
                         for (let mealIndex = 0; mealIndex < data.length; mealIndex++) {
                             const dataObj = data[mealIndex];
                             let dataDate = new Date(dataObj.date);
-                            // for some reason dates won't match unless formatted, even though, day, month, year, hours, minutes, seconds, and timezone all match.border-yellow
-                            // so sending them through the formatter returns strings that acutally let you compare them
+                            // formatting dates so they can compare to each other
                             let formatDD = formatDate(dataDate);
                             
                             //console.log('datadate:', dataDate, 'currentdate:', currentDate)
                             if (dataObj.dependent_id === dependent_id && formatDD === formattedDate) {
-                                
+                                // console.log(dataObj)
+                                meal_choice = dataObj.meal_choice
+                                number_of_meals = dataObj.number_of_meals
                             }
                         }
-                        dateArray.push({[formattedDate]: {meal_choice: 0, number_of_meals: 0}})
+
+                        dateArray.push({[formattedDate]: {number_of_meals: number_of_meals, meal_choice: meal_choice}})
                     }
                     
                     // adds dates array into depObj
@@ -159,11 +182,11 @@ const orders = (state=[], action) =>{
                 }
                 return outputArray
             }
-
+            // console.log(action.payload.data)
             let orders = defineOutputArray(action.payload.data);
             console.log('orders:' , orders)
 
-            return action.payload.data;
+            return orders;
         default:
             return state;
     };
