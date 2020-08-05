@@ -38,5 +38,12 @@ router.post('/register/', rejectNotAdmin, (req, res) => {
         .catch(() => res.sendStatus(500));
 });//END POST ROUTE to create account
 
+router.delete('/:id', (req, res) => {
+    const queryText = `DELETE FROM "user" WHERE "id" =$1`;
+    pool.query(queryText, [req.params.id])
+        .then(() => res.sendStatus(200))
+        .catch(() => res.sendStatus(500));
+});
+
 
 module.exports = router;
