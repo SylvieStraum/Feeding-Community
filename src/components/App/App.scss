@@ -5,8 +5,18 @@ body {
 }
 
 .alert {
-    background-color: #ff4545;
+    background-color: $alert;
     margin: 50px;
+    color: black;
+}
+
+.form2 {
+  background-color: $grey;
+  width: 30%;
+  height: 250px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 2px;
 }
 
 input {

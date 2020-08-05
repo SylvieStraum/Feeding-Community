@@ -8,9 +8,7 @@ const Nav = (props) => (
   <div className="nav">
     <Link to="/home">
       <img src="images/feedingcommunitywhite-501706b0bf803ec56edaa0832a85fed3.png" className="logo" alt="logo in nav"></img>
-
-      <h2 className="nav-title"></h2>
-
+      {/* <h2 className="nav-title"></h2> */}
     </Link>
     <div className="nav-right">
       <Link className="nav-link" to="/home">
@@ -25,16 +23,16 @@ const Nav = (props) => (
           <Link className="nav-link" to="/info">
             Info Page
           </Link>
-          <LogOutButton className="nav-link" />
-          <Link className="nav-link" to="/intake">
-            Intake Form
-          </Link>
           <Link className="nav-link" to="/accounts">
             Accounts
+          </Link>
+          <Link className="nav-link" to="/intake">
+            Intake Form
           </Link>
           <Link className="nav-link" to="/orders">
             Orders
           </Link>
+          <LogOutButton className="nav-link" />
         </>
       )}
       {/* Always show this link since the about page is not protected */}

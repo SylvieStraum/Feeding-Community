@@ -55,17 +55,12 @@ function* deleteDependent(action) {
     }
 }
 
-function* getSearchResults(action){
-    console.log(action.payload)
-}
-
 function* dependentSaga() {
     yield takeEvery('GET_ALL_DEPENDENTS', getAllDependents);
     yield takeEvery('GET_SPECIFIC_DEPENDENT', getIndividual);
     yield takeEvery('POST_NEW_DEPENDENT', newDependent)
     yield takeEvery('UPDATE_DEPENDENT', alterDependent)
     yield takeEvery('DELETE_DEPENDENT', deleteDependent)
-    yield takeEvery('SEARCH_DEPENDENTS', getSearchResults)
 }
 
 export default dependentSaga;

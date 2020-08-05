@@ -42,12 +42,11 @@ class Accounts extends Component {
           <h2>ACCOUNTS</h2>
           {/* <p>List of all accounts, you can edit within any row.</p> */}
         </div>
-        <div>
-          <SearchBar referralQuery={this.props.reduxState.organizations} 
+        <div className='search'>
+          <SearchBar 
+          referralQuery={this.props.reduxState.organizations} 
           dependents={this.props.reduxState.allDependents}
-          programQuery={this.props.reduxState.programs}>
-          </SearchBar>
-          {/* <SearchAddress dependents={this.props.reduxState.allDependents}/> */}
+          programQuery={this.props.reduxState.programs}/>
         </div>
         <div className="accountItems acctTable">
           <table>
@@ -72,9 +71,15 @@ class Accounts extends Component {
             </thead>
             <tbody>
               {/* this table row and data below will eventually come from a .map of reduxState */}
-              {this.props.reduxState.allDependents.map((item) => (
+              {this.props.reduxState.searchReducer.length ?
+               this.props.reduxState.searchReducer.map((item) => (
                 <AccountsItem key={item.id} item={item}/>
-              ))}
+              ))
+              :
+              this.props.reduxState.allDependents.map((item) => (
+                <AccountsItem key={item.id} item={item}/>
+              ))
+              }
             </tbody>
           </table>
         </div>
