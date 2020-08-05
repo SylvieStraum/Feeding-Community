@@ -108,10 +108,16 @@ class OrdersTable extends Component {
                 <thead>
                   <tr>
                     <th>Name {console.log(this.props.menu)}</th>
+                    {this.props.range[0] &&
+                    this.props.range[0].map((date) => 
+                      <th>{date}</th>
+                    )
+                    }
                   </tr>
                 </thead>
                 <tbody>
-                  {this.props.range.map((dep) => {
+                  {this.props.range[1] &&
+                  this.props.range[1].map((dep) => {
                     return <tr key={dep.dependent_id}>
                       <td>{dep.first_name} {dep.last_name}</td>
                       {dep.dates.map((date) => {
@@ -124,7 +130,8 @@ class OrdersTable extends Component {
                         return <td key={dateName[0]}>Amount: {number_of_meals} </td>
                       })}
                     </tr>
-                  })}
+                  })
+                  }
                 </tbody>
               </table>
             </div>

@@ -65,7 +65,7 @@ const orders = (state=[], action) =>{
                 // while loop to extract dates
                 while (currentDate <= stopDate) {                    
                     // pushes date into date array
-                    let date = currentDate.toString()
+                    let date = formatDate(currentDate);
                     
                     //console.log(date)
                     dateArray.push(date);
@@ -104,9 +104,6 @@ const orders = (state=[], action) =>{
             function defineOutputArray(data){
                 // gets range of dates returned from database
                 // possibly modify later so that this is just range of dates sent into request
-                // could use data from GET saga passed through with response from db
-                let dateRange = getDates(data);
-                // console.log('dateRange:', dateRange );
 
                 // gets all dependents returned from who placed orders from that date
                 let dependentArray = getDependents(data);
@@ -146,9 +143,9 @@ const orders = (state=[], action) =>{
                     // for loop that adds subsequent data to depObj
                     for (let dateIndex = 0; dateIndex < dateRange.length; dateIndex++) {
                         const currentDate = dateRange[dateIndex];
-                        let checkDate = new Date(currentDate)
+                        //let checkDate = new Date(currentDate)
                         //console.log('currentDate:', currentDate)
-                        let formattedDate = formatDate(checkDate)
+                        //let formattedDate = formatDate(checkDate)
                         // let meal_name = formattedDate.concat('_meal');
                         // let number_name = formattedDate.concat('_number');
 
@@ -164,14 +161,14 @@ const orders = (state=[], action) =>{
                             let formatDD = formatDate(dataDate);
                             
                             //console.log('datadate:', dataDate, 'currentdate:', currentDate)
-                            if (dataObj.dependent_id === dependent_id && formatDD === formattedDate) {
+                            if (dataObj.dependent_id === dependent_id && formatDD === currentDate) {
                                 // console.log(dataObj)
                                 meal_choice = dataObj.meal_choice
                                 number_of_meals = dataObj.number_of_meals
                             }
                         }
 
-                        dateArray.push({[formattedDate]: {number_of_meals: number_of_meals, meal_choice: meal_choice}})
+                        dateArray.push({[currentDate]: {number_of_meals: number_of_meals, meal_choice: meal_choice}})
                     }
                     
                     // adds dates array into depObj
@@ -182,11 +179,13 @@ const orders = (state=[], action) =>{
                 }
                 return outputArray
             }
-            // console.log(action.payload.data)
+            // console.log(action.payload.data)// could use data from GET saga passed through with response from db
+            let dateRange = getDates(action.payload.data);
+            // console.log('dateRange:', dateRange );
             let orders = defineOutputArray(action.payload.data);
-            console.log('orders:' , orders)
+            console.log('to send' , [dateRange , orders])
 
-            return orders;
+            return [dateRange, orders];
         default:
             return state;
     };
