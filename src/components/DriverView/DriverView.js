@@ -39,9 +39,10 @@ class DriverView extends Component {
                                 <th>City</th>
                                 <th>Zip Code</th>
                                 <th>Meal Type</th>
-                                <th>Qualified Program</th>
+                                <th>Meal Notes</th>
+                                {/* <th>Qualified Program</th> */}
                                 <th>Signed</th>
-                                <th>Route Assignment</th>
+                                {/* <th>Route Assignment</th> */}
                             </tr>
                         </thead>
                         <tbody>

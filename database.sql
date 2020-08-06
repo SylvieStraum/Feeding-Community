@@ -8,6 +8,11 @@ CREATE TABLE "user"
     "password" VARCHAR (1000) NOT NULL,
     "account_type" INT NOT NULL DEFAULT 1
 );
+-- auth levels for account_type are as follows:
+-- 1 is for drivers, should only be able to get limited user info, specific to their route, and insert new people
+-- 5 is for editors, should allow access to all user info and order history and allow editing for both
+-- 8 is for the overnight schedule that sends a save-day command to store daily orders
+-- 10 is for admin that can control user accounts, should allow access to create new drivers, editors, etc.
 
 CREATE TABLE "dependents"
 (
@@ -80,7 +85,8 @@ ALTER TABLE "orders"
 CREATE TABLE "route"
 (
     "id" SERIAL PRIMARY KEY,
-    "route_name" VARCHAR (200) UNIQUE NOT NULL
+    "route_name" VARCHAR (200) UNIQUE NOT NULL,
+    "user_id" INT REFERENCES "user"
 );
 
 -- Insert for only the seven metro counties

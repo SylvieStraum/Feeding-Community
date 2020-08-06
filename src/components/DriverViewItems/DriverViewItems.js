@@ -12,8 +12,17 @@ class DriverViewItems extends Component {
                     <td>{this.props.item.building_address1} {this.props.item.building_address2}</td> 
                     <td>{this.props.item.city}</td>                   
                     <td>{this.props.item.zip_code}</td>
-                    <td>{this.props.item.menu_description}</td>
-                    <td>{this.props.item.program_name}</td>
+                    <td>{this.props.item.menu_description}</td>                    
+                    <td>{this.props.item.meal_choice === 4 ?
+                            <>
+                            {this.props.item.special_request}
+                            </>
+                            :
+                            <>
+                                 
+                            </>
+                        }</td>
+                    {/* <td>{this.props.item.program_name}</td> */}
                     <td>
                         {this.props.item.program_id === 1 ?
                             <>
@@ -28,7 +37,7 @@ class DriverViewItems extends Component {
                                 N/A 
                             </>
                         } </td>
-                    <td>{this.props.item.route_name}</td>
+                    {/* <td>{this.props.item.route_name}</td> */}
                 </tr>
             </>
         );//end return
