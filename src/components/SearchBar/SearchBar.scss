@@ -1,7 +1,7 @@
 @import './src/index.scss';
 .searchItems input, .searchItems select, .OrdersTable input{
     width: 15%;
-    min-width: 150px;
+    min-width: min-content;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;

@@ -68,8 +68,9 @@ class OrdersTable extends Component {
         selectMode: !this.state.selectMode,
       })
     }
-
     render() {
+      //this will only fire off on page load when the reducer has nothing in it so the month table will populate
+      this.props.range.length===0 &&  this.props.dispatch({ type: 'GET_ORDERS', payload: {method: 'selectMonth', value: this.state.selectMonth}});
         return (
             <div className="OrdersTable" style={{textAlign:'center'}}>
               {/* {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)} */}
@@ -90,18 +91,18 @@ class OrdersTable extends Component {
                     <input type="date" id="startDate" value={this.state.startDate} onChange={this.handleInput}></input>
                     <label for="endDate">End Date:</label>
                     <input type="date" id="endDate" value={this.state.endDate} onChange={this.handleInput}></input>
-                    <br/>
                     <button id="rangeSubmit" onClick={this.handleSelect}>Get Range</button>
+                    <br/>
                     <button onClick={this.changeInputState}>Or Get Month or Day</button>
                   </>
                 }
               </form>
-              <table style={{margin:'auto'}}>
-             { this.props.range[0] && <ExportCsv 
+              { this.props.range[0] && <ExportCsv 
              labels={this.props.range[0].map((date) =>date)} 
              data={this.props.range[1]}
             />
              }
+              <table style={{margin:'auto'}}>
                 <thead>
                   <tr>
                   {this.props.range[0] &&
