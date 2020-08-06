@@ -15,7 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import InfoPage from '../InfoPage/InfoPage';
 import IntakeForm from '../IntakeForm/IntakeForm';
-import AdminDataReview from '../AdminDataReview/AdminDataReview';
+//import AdminDataReview from '../AdminDataReview/AdminDataReview';
 
 import './App.scss';
 import Accounts from '../Accounts/Accounts';
@@ -45,11 +45,11 @@ class App extends Component {
               path="/intake"
               component={IntakeForm}
             />
-            <ProtectedRoute
+            {/* <ProtectedRoute
               exact
               path="/review"
               component={AdminDataReview}
-            />
+            /> */}
             {/* <Route
               exact
               path="/search"

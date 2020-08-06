@@ -11,6 +11,8 @@ import ordersToday from './ordersTodayReducer'
 import ordersRange from './ordersRangeReducer'
 import driverDependents from './driverReducer'
 import driverRoutes from './routesReducer'
+import searchReducer from './searchReducer'
+import userList from './adminReducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -31,7 +33,9 @@ const rootReducer = combineReducers({
   ordersToday, // orders for today
   ordersRange, // orders for specific range
   driverDependents, //sets dependents for drivers
-  driverRoutes //sets the route names/assignments
+  driverRoutes, //sets the route names/assignments
+  searchReducer, // contains search results
+  userList, // contains list of users that can access app
 });
 
 export default rootReducer;

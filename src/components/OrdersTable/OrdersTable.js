@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import menu from '../../redux/reducers/menuReducer';
+import ExportCsv from '../ExportCsv/ExportCsv'
 
 
 class OrdersTable extends Component {
@@ -15,6 +17,7 @@ class OrdersTable extends Component {
     componentDidMount() {
       // call to set the current date so that's the date that's pulled up in select menu
       this.getDate();
+      this.props.dispatch({type: 'GET_MENU'});
     } //end componentDidMount
 
     getDate = () => {
@@ -52,20 +55,20 @@ class OrdersTable extends Component {
 
     handleSelect = (event) => {
         if(event.target.id === "selectDay"){
-          console.log(event.target.value);
+          // console.log(event.target.value);
           this.setState({
             selectDay: event.target.value
           })
           this.props.dispatch({ type: 'GET_DAYS_ORDERS', payload: event.target.value });
         }
         else if(event.target.id === "selectMonth"){
-          console.log(event.target.value);
+          // console.log(event.target.value);
           this.setState({
             selectMonth: event.target.value
           })
           this.props.dispatch({ type: 'GET_MONTHS_ORDERS', payload: event.target.value });
         }else if(event.target.id === "rangeSubmit"){
-          console.log('startDate:' , this.state.startDate, 'endDate:' , this.state.endDate)
+          // console.log('startDate:' , this.state.startDate, 'endDate:' , this.state.endDate)
           let range = {startDate: this.state.startDate, endDate: this.state.endDate}
           this.props.dispatch({ type: 'GET_DATE_RANGE_ORDERS' , payload: range });
         }
@@ -80,7 +83,7 @@ class OrdersTable extends Component {
     render() {
         return (
             <div className="OrdersTable">
-              {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)}
+              {/* {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)} */}
               <form className="selection">
                 {this.state.selectMode ?
                   <>
@@ -102,13 +105,49 @@ class OrdersTable extends Component {
                   </>
                 }
               </form>
+             { this.props.range[0] && <ExportCsv 
+             labels={this.props.range[0].map((date) =>date)} 
+             data={this.props.range[1]}
+            />
+             }
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name {console.log(this.props.menu)}</th>
+                    {this.props.range[0] &&
+                    this.props.range[0].map((date) => 
+                      <th>{date}</th>
+                    )
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.props.range[1] &&
+                  this.props.range[1].map((dep) => {
+                    return <tr key={dep.dependent_id}>
+                      <td>{dep.first_name} {dep.last_name}</td>
+                      {dep.dates.map((date) => {
+                        let dateName = Object.keys(date)
+                        let number_of_meals = date[dateName[0]].number_of_meals
+
+                        // let meal_choice_id = (date[dateName[0]].meal_choice - 1)
+                        // let meal_name = this.props.menu[meal_choice_id].menu_description
+                        //console.log(dateName, date[dateName[0]], meal_name)
+                        return <td key={dateName[0]}>Amount: {number_of_meals} </td>
+                      })}
+                    </tr>
+                  })
+                  }
+                </tbody>
+              </table>
             </div>
         );//end return
     }//end render
 }//end class
 
 const mapStateToProps = (reduxState) => ({
-  range: reduxState.ordersRange
+  range: reduxState.ordersRange,
+  menu: reduxState.menu
 });
 
 export default connect(mapStateToProps)(OrdersTable);

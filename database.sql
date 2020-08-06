@@ -186,9 +186,16 @@ FROM insert1;
 
 -- Insert that copies current meals into orders table
 -- Run this after inserting a few people into db, can only be run once per day
+<<<<<<< HEAD
 INSERT INTO "orders"
     ("date", "dependent_id", "number_of_meals", "meal_choice")
 SELECT current_timestamp, "dependent_id", "number_of_meals", "meal_choice"
 FROM "current_meal"
 ORDER BY "dependent_id" ASC
 ;
+=======
+--INSERT INTO "orders" ("date", "dependent_id", "number_of_meals", "meal_choice")
+--SELECT current_timestamp, "dependent_id", "number_of_meals", "meal_choice" FROM "current_meal"
+--ORDER BY "dependent_id" ASC
+--;
+>>>>>>> master

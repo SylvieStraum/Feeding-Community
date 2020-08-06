@@ -1,32 +1,59 @@
 import axios from 'axios';
-import { put, takeEvery } from 'redux-saga/effects';
+import { put , takeEvery } from 'redux-saga/effects';
 
+// GET to retrieve all account info
+function* userGet() {
+    try {
+        const responsePayload = yield axios.get(`/api/admin/`);
+        yield put({
+            type: 'SET_USERS',
+            payload: responsePayload
+        });
+    } catch (error) {
+        console.log('Get user saga error', error);
+    }
+}
 
-//Adding new Admin
+// POST for adding new Admin
 function* newAdmin(action) {
     try {
-       yield axios.post(`/api/admin/register/`, action.payload);
-
-        // yield put({ type: 'GET_ALL_ADMIN'  });
-        //this is if they need a list of admins, can be added later if need arrises 
+        yield axios.post(`/api/admin/register/`, action.payload);
+        yield put({
+            type: 'GET_USERS'
+        });
     } catch (error) {
         console.log('Post new dependent error', error);
     }
 }
 
-// delete outdated admin account
-function* deleteAdmin(action) {
+// PUT request to alter user information
+function* alterAdmin(action) {
     console.log(action.payload)
     try {
-        yield axios.delete(`/api/admin/${action.payload}`);
+        yield axios.put(`/api/admin/${action.payload.id}`, action.payload);
+        yield put({
+            type: 'GET_USERS'
+        });
     } catch (error) {
         console.log('put saga request failed', error);
     }
 }
 
+// DELETE for removing user accounts
+function* deleteAdmin(action) {
+    console.log(action.payload)
+    try {
+        yield axios.delete(`/api/admin/${action.payload.id}`);
+    } catch (error) {
+        console.log('delete saga request failed', error);
+    }
+}
+
 
 function* adminSaga() {
+    yield takeEvery('GET_USERS', userGet)
     yield takeEvery('POST_NEW_ADMIN', newAdmin)
+    yield takeEvery('UPDATE_ADMIN', alterAdmin)
     yield takeEvery('DELETE_ADMIN', deleteAdmin)
 }
 

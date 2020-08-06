@@ -55,13 +55,15 @@ router.get('/today/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         });
 }); // END GET ROUTE
+
 // GET ROUTE to get a day's orders
 router.get('/day/:id', rejectNotAdmin, (req, res) => {
 
     let date = req.params.id
     console.log('date:' , date);
 
-    const queryText = `SELECT * FROM "orders"
+    const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
+                        JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
                         WHERE "date" = $1
                         ;`;
     pool.query(queryText, [date])
@@ -82,7 +84,8 @@ router.get('/month/:id', rejectNotAdmin, (req, res) => {
 
     console.log(date);
 
-    const queryText = `SELECT * FROM "orders"
+    const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
+                        JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
                         WHERE "date"::text LIKE $1
                         ;`;
     pool.query(queryText, [date])
@@ -103,7 +106,8 @@ router.get('/year/', rejectNotAdmin, (req, res) => {
 
     console.log(date);
 
-    const queryText = `SELECT * FROM "orders"
+    const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
+                        JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
                         WHERE "date"::text LIKE $1
                         ;`;
     pool.query(queryText, [date])
@@ -120,9 +124,9 @@ router.get('/year/', rejectNotAdmin, (req, res) => {
 // GET ROUTE to get specifc range
 router.get('/dates/', rejectNotAdmin, (req, res) => {
 
-    console.log('query:' , req.query)
-    console.log('startDate:' , req.query.startDate)
-    console.log('endDate:' , req.query.endDate)
+    // console.log('query:' , req.query)
+    // console.log('startDate:' , req.query.startDate)
+    // console.log('endDate:' , req.query.endDate)
 
     // function to get list of dates from input range
     function getDates(startDate, endDate) {
@@ -132,11 +136,11 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
 
         // sets current date to date type
         let currentDate = new Date(startDate);
-        console.log('currentDate:', currentDate);
+        // console.log('currentDate:', currentDate);
 
         // sets stop date to date type
         let stopDate = new Date(endDate);
-        console.log('stopDate:', stopDate);
+        // console.log('stopDate:', stopDate);
 
         // while loop to extract dates
         while (currentDate <= stopDate) {
@@ -176,7 +180,7 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
     console.log('dates', dates);
     
     // sets initial part of query text
-    let queryText = `SELECT "orders"."id" AS "order_id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
+    let queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
                         JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
                         WHERE `
 
@@ -212,7 +216,7 @@ router.get('/dates/', rejectNotAdmin, (req, res) => {
 
     pool.query(queryText, dates)
         .then((result) => {
-            console.log(`GET database request successful`);
+            console.log(`GET database request successful`, result.rows);
             res.send(result.rows);
         })
         .catch((error) => {

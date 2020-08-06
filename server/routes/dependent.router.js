@@ -24,6 +24,7 @@ router.get('/', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         });
 });// END GET ROUTE
+
 // GET ROUTE for selecting single user info
 router.get('/:id', rejectNotAdmin, (req, res) => {
     console.log(req.params.id)
@@ -44,6 +45,7 @@ router.get('/:id', rejectNotAdmin, (req, res) => {
             res.sendStatus(500);
         });
 });//END GET ROUTE
+
 //POST ROUTE add new dependent
 router.post('/', rejectNotAdmin, (req, res) => {
     const b = req.body
