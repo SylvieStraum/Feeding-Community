@@ -120,6 +120,7 @@ function* sortOrders(action) {
                 // console.log(dependentArray[dex])
 
                 // sets dependent info to values
+                const id = dependentArray[dex].id;
                 const dependent_id = dependentArray[dex].dependent_id;
                 const first_name = dependentArray[dex].first_name;
                 const last_name = dependentArray[dex].last_name;
@@ -128,6 +129,7 @@ function* sortOrders(action) {
 
                 // creates object that will be pushed into array with dependent
                 let depObj = {
+                    id: id,
                     dependent_id: dependent_id,
                     first_name: first_name,
                     last_name: last_name,

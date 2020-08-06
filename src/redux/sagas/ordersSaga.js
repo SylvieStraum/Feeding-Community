@@ -77,7 +77,7 @@ function* getOrders(action) {
 
 
 // put request to alter orders
-function* alterOrders(action) {
+function* alterOrder(action) {
     console.log(action.payload)
     try {
         yield axios.put(`/api/orders/${action.payload.id}`, action.payload);
@@ -91,7 +91,7 @@ function* alterOrders(action) {
 function* ordersGetSaga() {
     yield takeEvery('GET_TODAYS_ORDERS', getTodaysOrders);
     yield takeEvery('GET_ORDERS', getOrders);
-    yield takeEvery('UPDATE_TODAYS_ORDERS', alterOrders);
+    yield takeEvery('UPDATE_ORDER', alterOrder);
 }
 
 export default ordersGetSaga;
