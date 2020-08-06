@@ -16,6 +16,7 @@ function* userGet() {
 
 // POST for adding new Admin
 function* newAdmin(action) {
+    console.log('action.payload', action.payload)
     try {
         yield axios.post(`/api/admin/register/`, action.payload);
         yield put({
