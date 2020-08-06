@@ -9,6 +9,8 @@ import programs from './programReducer'
 import menu from './menuReducer'
 import ordersToday from './ordersTodayReducer'
 import ordersRange from './ordersRangeReducer'
+import driverDependents from './driverReducer'
+import driverRoutes from './routesReducer'
 import searchReducer from './searchReducer'
 import userList from './adminReducer'
 import routeDependents from './routeDependentsReducer'
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   menu, // menu
   ordersToday, // orders for today
   ordersRange, // orders for specific range
+  driverDependents, //sets dependents for drivers
+  driverRoutes, //sets the route names/assignments
   searchReducer, // contains search results
   userList, // contains list of users that can access app,
   routeDependents, // contains list of dependents associated to each route

@@ -1,29 +1,64 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectNotAdmin } = require('../modules/admin-authentication-middleware');
 const { rejectNotDriver } = require('../modules/driver-authentication-middleware');
 
+//GET route to dependents for driver view
+//left in all fields for dependent so that in the future the driver can edit while in person, as requested.
+// router.get('/', rejectNotAdmin, (req, res) => {
+//     const queryText = `SELECT "dependents"."id", "first_name", "last_name", "date_of_birth", "annual_income", "phone_number", "building_address1", "building_address2", "zip_code", "county_id", "county_name", "city", "special_request", "document_signed", "dietary_restrictions", "referral_id", "program_id", "menu_description", "referral_name", "program_name", "number_of_meals", "meal_choice", "menu_description", "route_id", "route_name" FROM "dependents"
+
+
 // GET ROUTE for selecting all users associated with specific route
-router.get('/:id', rejectNotDriver, (req, res) => {
-    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "phone_number", "building_address1", "building_address2", "zip_code", "city", "special_request", "document_signed", number_of_meals", "meal_choice", "menu_description" FROM "dependents"
+router.get('/', rejectNotDriver, (req, res) => {
+    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "phone_number", "building_address1", "building_address2", "zip_code", "city", "special_request", "document_signed", "number_of_meals", "meal_choice", "menu_description", "route_id", "route_name" FROM "dependents"
                                 JOIN "county" ON "dependents"."county_id" = "county"."id"
                                 JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
                                 JOIN "program" ON "dependents"."program_id" = "program"."id"
                                 JOIN "current_meal" ON "dependents"."id" = "current_meal"."dependent_id"
                                 JOIN "menu" ON "current_meal"."meal_choice" = "menu"."id"
-                                WHERE "route"."id" = $1
+                                JOIN "route" ON "dependents"."route_id" = "route"."id"
+                                WHERE "route"."user_id" = $1
                                 ORDER BY "dependents"."id" ASC
                                 ;`;
-    pool.query(queryText, [req.params.id])
+        pool.query(queryText, [req.user.id])
         .then((result) => {
-            console.log(`GET database request successful`);
+            console.log(`GET driver database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
-            console.log(`Error making GET Request:`, error);
+            console.log(`Error with driver GET Request:`, error);
             res.sendStatus(500);
         });
-});// END GET ROUTE
+});// end get route
 
+// WHERE "route"."id" = $1
+// ORDER BY "dependents"."id" ASC
+// ;`;
+// pool.query(queryText, [req.params.id])
+// .then((result) => {
+// console.log(`GET database request successful`);
+// res.send(result.rows);
+// })
+// .catch((error) => {
+// console.log(`Error making GET Request:`, error);
+// res.sendStatus(500);
+// });
+// });// end get route
+
+
+router.get('/routes', rejectNotAdmin, (req, res) => {
+    sqlText = `SELECT * FROM route;`
+    pool.query(sqlText)
+        .then((result) => {
+            console.log('in GET driver routes')
+            res.send(result.rows)
+        })
+        .catch((err) => {
+            console.log('error with GET driver routes', err)
+            res.sendStatus(500)
+        })
+});
 
 module.exports = router;
