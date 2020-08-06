@@ -1,5 +1,5 @@
 const express = require('express');
-const { rejectNotDriver } = require('../modules/driver-authentication-middleware');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
@@ -7,7 +7,7 @@ const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
 
 // Handles Ajax request for user information if user is authenticated
-router.get('/', rejectNotDriver, (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
   res.send(req.user);
 });

@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectNotEditor } = require('../modules/editor-authentication-middleware');
+const { rejectNotDriver } = require('../modules/driver-authentication-middleware');
 
 // GET ROUTE for selecting all users
 router.get('/', rejectNotEditor, (req, res) => {
@@ -27,7 +28,7 @@ router.get('/', rejectNotEditor, (req, res) => {
 // GET ROUTE for selecting single user info
 router.get('/:id', rejectNotEditor, (req, res) => {
     console.log(req.params.id)
-    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "date_of_birth", "annual_income", "phone_number", "building_address1", "building_address2", "zip_code", "county_id", "county_name", "city", "special_request", "document_signed", "dietary_restrictions", "referral_id", "program_id", "menu_description", "referral_name", "program_name", "number_of_meals", "meal_choice", "menu_description" FROM "dependents"
+    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "date_of_birth", "annual_income", "phone_number", "building_address1", "building_address2", "zip_code", "county_id", "county_name", "city", "special_request", "document_signed", "dietary_restrictions", "referral_id", "program_id", "referral_name", "program_name", "number_of_meals", "meal_choice", "menu_description" FROM "dependents"
                                 JOIN "county" ON "dependents"."county_id" = "county"."id"
                                 JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
                                 JOIN "program" ON "dependents"."program_id" = "program"."id"
@@ -46,7 +47,7 @@ router.get('/:id', rejectNotEditor, (req, res) => {
 });//END GET ROUTE
 
 //POST ROUTE add new dependent
-router.post('/', rejectNotEditor, (req, res) => {
+router.post('/', rejectNotDriver, (req, res) => {
     const b = req.body
     console.log('body:', b)
     const queryText = `WITH insert1 AS (
