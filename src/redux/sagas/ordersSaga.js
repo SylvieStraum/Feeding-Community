@@ -6,10 +6,10 @@ function* getTodaysOrders() {
     try {
         const responsePayload = yield axios.get(`/api/orders/today/`);
         // sets responsePayload as orders
-        let orders = responsePayload;
-
+        console.log('responsePayload:', responsePayload)
+        let orders = responsePayload.data;
+        console.log('orders:', orders);
         // create variables for totalOrders array
-        let totalOrders = {};
         let meat = 0;
         let fish = 0;
         let veggie = 0;
@@ -32,14 +32,16 @@ function* getTodaysOrders() {
         }
 
         // totals for each into totalsOrders
-        totalOrders = {
+        let totalOrders = {
             meat: meat,
             fish: fish,
             veggie: veggie,
             special: special,
             total: total
         }
-
+        let payload = {totalOrders: totalOrders, orders: orders}
+        console.log('payload:', payload)
+        
         yield put({ type: 'SET_TODAYS_ORDERS' , payload: {totalOrders: totalOrders, orders: orders }});
     } catch (error) {
         console.log('Get orders saga error', error);
