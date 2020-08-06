@@ -81,9 +81,9 @@ class OrdersTable extends Component {
 
     render() {
         return (
-            <div className="OrdersTable">
+            <div className="OrdersTable" style={{textAlign:'center'}}>
               {/* {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)} */}
-              <form className="selection">
+              <form className="selection" >
                 {this.state.selectMode ?
                   <>
                     <label for="selectDay">Get Day:</label>
@@ -91,6 +91,7 @@ class OrdersTable extends Component {
                     <label for="rangeButton"></label>
                     <label for="selectMonth">Get Month:</label>
                     <input type="month" id="selectMonth" value={this.state.selectMonth} onChange={this.handleSelect} ></input>
+                    <br/>
                     <button onClick={this.changeInputState}>Or Specify Date Range</button>
                   </>
                   :
@@ -99,15 +100,18 @@ class OrdersTable extends Component {
                     <input type="date" id="startDate" value={this.state.startDate} onChange={this.handleInput}></input>
                     <label for="endDate">End Date:</label>
                     <input type="date" id="endDate" value={this.state.endDate} onChange={this.handleInput}></input>
+                    <br/>
                     <button id="rangeSubmit" onClick={this.handleSelect}>Get Range</button>
                     <button onClick={this.changeInputState}>Or Get Month or Day</button>
                   </>
                 }
               </form>
-              <table>
+              <table style={{margin:'auto'}}>
                 <thead>
                   <tr>
+                  {this.props.range[0] &&
                     <th>Name {console.log(this.props.menu)}</th>
+                  }
                     {this.props.range[0] &&
                     this.props.range[0].map((date) => 
                       <th>{date}</th>

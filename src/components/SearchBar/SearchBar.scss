@@ -1,6 +1,6 @@
 @import './src/index.scss';
-.searchItems input, .searchItems select{
-    width: 20%;
+.searchItems input, .searchItems select, .OrdersTable input{
+    width: 15%;
     min-width: 150px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -12,7 +12,7 @@
 .searchItems{
     text-align: center;
 }
-.searchBtn button{
+.searchBtn button, .OrdersTable button{
     // box-sizing: border-box;
     padding: 12px 20px;
     margin: 8px;
@@ -20,10 +20,10 @@
     border-radius: 4px;
 }
 
-.searchBtn :active {
+.searchBtn :active, .OrdersTable button:active{
    box-shadow:0 0 10px $primary ;
    background-color: darkgrey;
 }
-.searchBtn :hover {
-    background-color: rgba(97, 137, 163, 0.5);
+.searchBtn :hover,.OrdersTable button:hover {
+    background-color: rgba(189, 189, 189, 0.5);
 }

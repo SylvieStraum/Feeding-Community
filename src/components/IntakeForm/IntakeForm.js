@@ -75,21 +75,9 @@ class IntakeForm extends Component {
         this.setState({
             [typeOf]: event.target.value
         })
-    //     if (typeOf === 'meal_choice' && event.target.value === '5'){
-    //         console.log('special request')
-    //         this.setState({
-    //             special_request_toggle: true
-    //         })
-    //     } else {
-    //     this.setState({
-    //         special_request_toggle: false
-    //     })
-
-    // }
 }
 
     render() {
-        console.log(this.state)
         return (
             <div className="intakeForm">
                 <div className="header">
@@ -97,7 +85,7 @@ class IntakeForm extends Component {
                 </div>
                 {/* <p>Enter client information form</p> */}
                 <div>
-                    <form class="formItem" onSubmit={this.createDependent}>
+                    <form className="formItem" onSubmit={this.createDependent}>
                         <p>Please enter client information below</p>
                         <label></label>
                         <input
@@ -131,7 +119,7 @@ class IntakeForm extends Component {
                             required
                             type="text"
                             value={this.state.building_address1}
-                            placeholder="Address 1"
+                            placeholder="Street address"
                             onChange={(event) => this.handleInputs(event, "building_address1")}
                         />
                         <br />
@@ -139,7 +127,7 @@ class IntakeForm extends Component {
                         <input
                             type="text"
                             value={this.state.building_address2}
-                            placeholder="Address 2"
+                            placeholder="House / Apt # / Business"
                             onChange={(event) => this.handleInputs(event, "building_address2")}
                         />
                         <br />
@@ -164,7 +152,6 @@ class IntakeForm extends Component {
                         <label></label>
                         <select
                             required
-                            type="text"
                             value={this.state.county_id}
                             placeholder="select county"
                             type="dropdown"
@@ -173,11 +160,11 @@ class IntakeForm extends Component {
                             }>
                             <option value="0">Select County</option>
                             {this.props.counties.map((item) => ( 
-                                <option value={item.id}>{item.county_name}</option>
+                                <option key={item.id} value={item.id}>{item.county_name}</option>
                             ))}
                         </select>
                         <br />
-                        <label for="Date of Birth">Date of Birth:</label>
+                        <label htmlFor="Date of Birth">Date of Birth:</label>
                         <input
                             required
                             type="date"
@@ -190,25 +177,21 @@ class IntakeForm extends Component {
                             value={this.state.meal_choice}
                             placeholder="Select Meat"
                             onChange={(event) => this.handleInputs(event, "meal_choice")
-
                             }>
-                            <option disabled selected value> -- Select Food Option --</option>
+                            <option disabled value> -- Select Food Option --</option>
                             <option value="1">Chicken or Beef</option>
                             <option value="2">Fish</option>
                             <option value="3">Veggie Only</option>
                             <option value="4">Special Request</option>
                         </select>
-                        {this.state.meal_choice === '4' ?
+                        {this.state.meal_choice === '4' &&
                         <input
                         required
                         type="text"
                         value={this.state.special_request}
-                        placeholder="Special Requests (ex. vegan)"
+                        placeholder="Special Requests (ex. Extra Beef)"
                         onChange={(event) => this.handleInputs(event, "special_request")}
-                    
                     />
-                    :
-                    console.log('no special resquest')
 
                 }
                         <label></label>
@@ -230,9 +213,9 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "referral_id")
                             }>
-                                <option value="">Select Referral Organiztation</option>
+                                <option disabled value="">-- Select Referral Organiztation --</option>
                             {this.props.organizations.map((item, i) => (
-                                <option value={item.id}>{item.referral_name}</option>
+                                <option key={item.id} value={item.id}>{item.referral_name}</option>
                             ))}
                         </select>
                         <br />
@@ -244,13 +227,13 @@ class IntakeForm extends Component {
                             onChange={(event) => 
                                 this.handleInputs(event, "program_id")
                             }>
-                                <option value="">Select Program</option>
+                                <option disabled value> -- Select Program --</option>
                             {this.props.programs.map((item, i) => (
-                                <option value={item.id}>{item.program_name}</option>
+                                <option key={item.id} value={item.id}>{item.program_name}</option>
                             ))}
                             </select>
                         <br />
-                        <button className="Next Step" onClick={this.createDependent}>Next Step</button>
+                        <button className="NextStep" onClick={this.createDependent}>Next Step</button>
 
                     </form>
                 </div>
