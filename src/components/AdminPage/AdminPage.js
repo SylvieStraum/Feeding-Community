@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 class AdminPage extends Component {
 
     state = {
-        email_address: '',
+        username: '',
         password: ''
     }
 
@@ -25,11 +25,11 @@ class AdminPage extends Component {
         console.log('in post admin')
     }
 
-    deleteAdmin = (data) => {
-        console.log('in delete user', data);
+    deleteAdmin = (id) => {
+        console.log('in delete user', id);
         this.props.dispatch({
           type: 'DELETE_ADMIN',
-          payload: data
+          payload: {id: id}
         })
     }
 

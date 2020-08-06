@@ -44,6 +44,9 @@ function* deleteAdmin(action) {
     console.log(action.payload)
     try {
         yield axios.delete(`/api/admin/${action.payload.id}`);
+        yield put({
+            type: 'GET_USERS'
+        });
     } catch (error) {
         console.log('delete saga request failed', error);
     }
