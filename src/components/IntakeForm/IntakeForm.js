@@ -185,6 +185,7 @@ class IntakeForm extends Component {
                             <option value="2">2nd Meat</option>
                             <option value="3">Veggie</option>
                             <option value="4">Special Request</option>
+                            
                         </select>
                         <label></label>
                         <input
@@ -204,8 +205,7 @@ class IntakeForm extends Component {
                             onChange={(event) => this.handleInputs(event, "dietary_restrictions")}
                         />
                         <br />
-                        <p>Referral Organiztation:
-                        </p>
+                        <p>Referral Organization:</p>
                         <select
                             type="dropdown"
                             value={this.state.referral_id}
