@@ -25,7 +25,7 @@ router.post('/register', (req, res, next) => {
   const queryText = `INSERT INTO "user"
                         ("username", "password", "account_type")
                         VALUES
-                        ($1, $2, 2)
+                        ($1, $2, 10)
                       ;`;
   const values = [username, password]
   
