@@ -8,6 +8,7 @@ import infoSaga from './infoSaga' //contains misc orgs, counties, and associated
 import menuSaga from './menuSaga' // contains menu
 import ordersSaga from './ordersSaga' // contains orders
 import ordersSortSaga from './ordersSortSaga' // contains orders
+import driverSaga from './driverSaga' // requests for drivers
 //import orders from '../reducers/ordersTodayReducer';
 
 // rootSaga is the primary saga.
@@ -27,6 +28,10 @@ export default function* rootSaga() {
     infoSaga(),
     menuSaga(),
     ordersSaga(),
+<<<<<<< HEAD
     ordersSortSaga()
+=======
+    driverSaga()
+>>>>>>> master
   ]);
 }
