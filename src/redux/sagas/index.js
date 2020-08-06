@@ -28,10 +28,7 @@ export default function* rootSaga() {
     infoSaga(),
     menuSaga(),
     ordersSaga(),
-<<<<<<< HEAD
-    ordersSortSaga()
-=======
+    ordersSortSaga(),
     driverSaga()
->>>>>>> master
   ]);
 }
