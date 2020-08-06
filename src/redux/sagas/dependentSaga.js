@@ -25,8 +25,7 @@ function* getIndividual(action) {
 // needs proper route to be created . url up to change
 function* newDependent(action) {
     try {
-       yield axios.post(`/api/dependent`, action.payload);
-
+        yield axios.post(`/api/dependent`, action.payload);
         yield put({ type: 'GET_ALL_DEPENDENTS'  });
     } catch (error) {
         console.log('Post new dependent error', error);

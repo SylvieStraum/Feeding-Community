@@ -1,11 +1,11 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectNotAdmin } = require('../modules/admin-authentication-middleware');
+const { rejectNotDriver } = require('../modules/driver-authentication-middleware');
 const encryptLib = require('../modules/encryption');
 
 
-router.get('/counties', rejectNotAdmin,(req, res) => {
+router.get('/counties', rejectNotDriver,(req, res) => {
     sqlText=`
     SELECT *
     FROM county
@@ -21,7 +21,7 @@ router.get('/counties', rejectNotAdmin,(req, res) => {
     })
 });
 
-router.get('/org', rejectNotAdmin,(req, res) => {
+router.get('/org', rejectNotDriver,(req, res) => {
     sqlText=`
     SELECT *
     FROM referral
@@ -37,7 +37,7 @@ router.get('/org', rejectNotAdmin,(req, res) => {
     })
 });
 
-router.get('/program', rejectNotAdmin,(req, res) => {
+router.get('/program', rejectNotDriver,(req, res) => {
     sqlText=`
     SELECT *
     FROM program
