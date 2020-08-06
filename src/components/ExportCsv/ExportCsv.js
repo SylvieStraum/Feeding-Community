@@ -15,7 +15,7 @@ class ExportCsv extends Component {
         console.log('export csv data', csvData)
         return (
             <div>
-         <CSVLink data={csvData}>Download me</CSVLink>;
+         <CSVLink data={csvData}>Download table as CSV</CSVLink>
             </div>
         )
     }
