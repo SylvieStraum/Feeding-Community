@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import menu from '../../redux/reducers/menuReducer';
 import ExportCsv from '../ExportCsv/ExportCsv'
-
+import OrdersItem from '../OrdersItem/OrdersItem'
 
 class OrdersTable extends Component {
   state = ({
@@ -104,39 +104,37 @@ class OrdersTable extends Component {
         <table style={{ margin: 'auto' }}>
           <thead>
             <tr>
-              {this.props.range[0] &&
-                <th>Name {console.log(this.props.menu)}</th>
-              }
-              {this.props.range[0] &&
-                this.props.range[0].map((date) =>
-                  <th>{date}</th>
-                )
-              }
+              <th>Name {console.log(this.props.menu)}</th>
+                    {this.props.range[0] &&
+                    this.props.range[0].map((date) => 
+                      <th key={date}>{date}</th>
+                    )
+                    }
             </tr>
           </thead>
-          <tbody>
-            {this.props.range[1] &&
-              this.props.range[1].map((dep) => {
-                return <tr key={dep.dependent_id}>
-                  <td>{dep.first_name} {dep.last_name}</td>
-                  {dep.dates.map((date) => {
-                    let dateName = Object.keys(date)
-                    let number_of_meals = date[dateName[0]].number_of_meals
-
-                    // let meal_choice_id = (date[dateName[0]].meal_choice - 1)
-                    // let meal_name = this.props.menu[meal_choice_id].menu_description
-                    //console.log(dateName, date[dateName[0]], meal_name)
-                    return <td key={dateName[0]}>Amount: {number_of_meals} </td>
-                  })}
-                </tr>
-              })
-            }
-          </tbody>
-        </table>
-      </div>
-    );//end return
-  }//end render
-}//end class
+            <tbody>
+                {this.props.range[1] &&
+                  this.props.range[1].map((dep) => {
+                    return <tr key={dep.dependent_id}>
+                      <td>{dep.first_name} {dep.last_name}</td>
+                      {dep.dates.map((date) => {
+                        let dateName = Object.keys(date)
+                        let number_of_meals = date[dateName[0]].number_of_meals
+                        let dateKey = dateName[0] + '-' + dep.first_name
+                        // let meal_choice_id = (date[dateName[0]].meal_choice - 1)
+                        // let meal_name = this.props.menu[meal_choice_id].menu_description
+                        //console.log(dateName, date[dateName[0]], meal_name)
+                        return <OrdersItem key={dateKey} order={date[dateName[0]]} dependent_id={dep.dependent_id} id={dep.id}/>
+                      })}
+                    </tr>
+                  })
+                  }
+                </tbody>
+              </table>
+            </div>
+        );//end return
+    }//end render
+}
 
 const mapStateToProps = (reduxState) => ({
   range: reduxState.ordersRange,

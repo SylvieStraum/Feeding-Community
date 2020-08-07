@@ -84,6 +84,18 @@ class IntakeForm extends Component {
         this.setState({
             [typeOf]: event.target.value
         })
+
+    //     if (typeOf === 'meal_choice' && event.target.value === '5'){
+    //         console.log('special request')
+    //         this.setState({
+    //             special_request_toggle: true
+    //         })
+    //     } else {
+    //     this.setState({
+    //         special_request_toggle: false
+    //     })
+
+    // }
 }
 
     render() {
@@ -94,7 +106,7 @@ class IntakeForm extends Component {
                 </div>
                 {/* <p>Enter client information form</p> */}
                 <div>
-                    <form className="formItem" onSubmit={this.createDependent}>
+                    <form class="formItem" onSubmit={this.createDependent}>
                         <p>Please enter client information below</p>
                         <label></label>
                         <input
@@ -161,6 +173,7 @@ class IntakeForm extends Component {
                         <label></label>
                         <select
                             required
+                            type="text"
                             value={this.state.county_id}
                             placeholder="select county"
                             type="dropdown"
@@ -222,9 +235,8 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "referral_id")
                             }>
+                            {this.props.organizations.map((item) => (
                                 <option disabled value="">-- Select Referral Organiztation --</option>
-                            {this.props.organizations.map((item, i) => (
-                                <option key={item.id} value={item.id}>{item.referral_name}</option>
                             ))}
                         </select>
                         <br />

@@ -33,20 +33,6 @@ router.get('/', rejectNotDriver, (req, res) => {
         });
 });// end get route
 
-// WHERE "route"."id" = $1
-// ORDER BY "dependents"."id" ASC
-// ;`;
-// pool.query(queryText, [req.params.id])
-// .then((result) => {
-// console.log(`GET database request successful`);
-// res.send(result.rows);
-// })
-// .catch((error) => {
-// console.log(`Error making GET Request:`, error);
-// res.sendStatus(500);
-// });
-// });// end get route
-
 
 router.get('/routes', rejectNotDriver, (req, res) => {
     sqlText = `SELECT * FROM route;`

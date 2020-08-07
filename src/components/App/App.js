@@ -21,7 +21,9 @@ import './App.scss';
 import Accounts from '../Accounts/Accounts';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import OrdersTable from '../OrdersTable/OrdersTable'
+import AdminPage from '../AdminPage/AdminPage';
 import DriverView from '../DriverView/DriverView';
+
 //import SearchBar from '../SearchBar/SearchBar';
 // import SearchBar from '../SearchBar/SearchBar';
 
@@ -81,7 +83,11 @@ class App extends Component {
               path="/orders"
               component={OrdersTable}
             />
-
+            <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminPage}
+            />
             <ProtectedRoute
               exact
               path="/drivers"
