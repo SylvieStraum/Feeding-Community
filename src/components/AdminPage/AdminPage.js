@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AdminItem from './AdminItem'
+import "./AdminPage.css";
+
 //import { actionChannel } from 'redux-saga/effects';
 
 class AdminPage extends Component {
@@ -68,19 +70,34 @@ class AdminPage extends Component {
         
             <div>
                 <form class="formItem">
-                <h2>Create New Admin</h2>
-                <input value = {this.state.username} id="username" onChange = {this.handleAdminChange} type = 'text' placeholder = 'username' />
-                <input value = {this.state.password} id="password" onChange = {this.handleAdminChange} type = 'text' placeholder = 'password' />
-                <input value = {this.state.account_type} id="account_type" onChange = {this.handleAdminChange} type = 'text' placeholder = 'account type' />
-                <br />
-                <button onClick = {this.addNewAdmin}>Add Admin</button>
-                <h2>Current Admin</h2>
-                {this.props.userList.map((user) => (
-                    <AdminItem key={user.id} user={user} />
-                        
-                ))
-                }
+                    <fieldset>
+                        <legend>Create New Admin</legend>
+                        <label className="admin-form__label" for="username">Username:</label>
+                        <input className="admin-form__input" value = {this.state.username} id="username" onChange = {this.handleAdminChange} type = 'text' placeholder = 'username' />
+                        <label className="admin-form__label" for="password">Password:</label>
+                        <input className="admin-form__input" value = {this.state.password} id="password" onChange = {this.handleAdminChange} type = 'password' placeholder = 'password' />
+                        <label className="admin-form__label" for="account_type">Account Type:</label>
+                        <select className="admin-form__input" name="account_type" id="account_type" onChange= {this.handleAdminChange}>
+                            <option value="1">Drivers</option>
+                            <option value="5">Editors</option>
+                            <option value="8">Over Night</option>
+                            <option value="10">Admin</option>
+                        </select>
+                        <br />
+                        <button className="admin-form__button" onClick = {this.addNewAdmin}>Add Admin</button>
+                    </fieldset>
                 </form>
+                <div className="admin-list__container">
+                    <h2 className="admin-list__title">Current Admin</h2>
+                    {this.props.userList.map((user) => {
+                        if(user.id === this.props.user.id) {
+                            return false
+                        } 
+                        return (<AdminItem key={user.id} user={user} />)
+                            
+                    })
+                    }
+                </div>
             </div>
         
 
@@ -90,7 +107,8 @@ class AdminPage extends Component {
 }//end class
 
 const mapStateToProps = state => ({
-    userList: state.userList
+    userList: state.userList,
+    user: state.user
 });
 
 export default connect(mapStateToProps)(AdminPage)
