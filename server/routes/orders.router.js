@@ -268,17 +268,17 @@ router.post('/save-day-back-up/', rejectNotAdmin, (req, res) => {
 }); //END POST ROUTE
 
 //PUT ROUTE to save adjust data in a day
-router.put('/edit/', rejectNotEditor, (req, res) => {
+router.put('/:id', rejectNotEditor, (req, res) => {
 
-    
+    const number_of_meals = req.body.number_of_meals
 
-    const queryText = `UPDATE "orders" SET "daily_orders" = $1
-                        WHERE date = $2 AND dependet_id = $3;
+    const queryText = `UPDATE "orders" SET "number_of_meals" = $1
+                        WHERE "id" = $;
                             ;`;
 
 
     console.log('put request:,', queryText)
-    pool.query(queryText, [daily_orders, date])
+    pool.query(queryText, [number_of_meals, req.params.id])
         .then((results) => {
             res.send(results);
         }).catch((error) => {

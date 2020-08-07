@@ -80,7 +80,12 @@ function* getOrders(action) {
 function* alterOrder(action) {
     console.log(action.payload)
     try {
-        yield axios.put(`/api/orders/${action.payload.id}`, action.payload);
+        if(action.payload.id){
+            yield axios.put(`/api/orders/${action.payload.id}`, action.payload);
+        }
+        else {
+            yield axios.post(`/api/orders/`, action.payload);
+        }
         yield put({ type: 'GET_DATES_ORDERS'});
     } catch (error) {
         console.log('put saga request failed', error);

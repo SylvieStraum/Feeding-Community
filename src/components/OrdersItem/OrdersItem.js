@@ -32,13 +32,21 @@ class OrdersItem extends Component {
             editMode: !this.state.editMode
         })
     }
-    
+
     save = () => {
         this.editToggle();
         this.props.dispatch({
             type: 'UPDATE_ORDER',
             payload: this.state
         });
+    }
+
+    cancel = () => {
+        this.editToggle();
+        this.setState({
+            number_of_meals: this.props.order.number_of_meals,
+            meal_choice: this.props.order.meal_choice
+        })
     }
 
     handleInput = (event) => {
@@ -53,9 +61,9 @@ class OrdersItem extends Component {
                 {this.props.order.number_of_meals ?
                     this.state.editMode === true ?
                         <>
-                            <input onChange={this.handleInput} value={this.state.number_of_meals} id="number_of_meals"></input>
+                            <input class="ordersEditInput" onChange={this.handleInput} value={this.state.number_of_meals} id="number_of_meals"></input>
                             <button onClick={this.save}>Save</button>
-                            <button onClick={this.editToggle}>Cancel</button>
+                            <button onClick={this.cancel}>Cancel</button>
                         </>
                         :
                         <p onClick={this.editToggle}>Amount: {this.props.order.number_of_meals}</p>

@@ -73,6 +73,13 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
                         WHERE "id" = $2;`
         values.push(account_type, id);
     }
+    else if(actionType === 'changeRoute'){
+        account_type = req.body.account_type
+        queryText = `UPDATE "route"
+                        SET "user_id" = $1
+                        WHERE "id" = $2;`
+        values.push(user_id, id);
+    }
 
     console.log('put request, values:', values)
     pool.query(queryText, values)
