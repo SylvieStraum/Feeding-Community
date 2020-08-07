@@ -16,6 +16,7 @@ function* userGet() {
 
 // POST for adding new Admin
 function* newAdmin(action) {
+    console.log('action.payload', action.payload)
     try {
         yield axios.post(`/api/admin/register/`, action.payload);
         yield put({
@@ -44,6 +45,9 @@ function* deleteAdmin(action) {
     console.log(action.payload)
     try {
         yield axios.delete(`/api/admin/${action.payload.id}`);
+        yield put({
+            type: 'GET_USERS'
+        });
     } catch (error) {
         console.log('delete saga request failed', error);
     }

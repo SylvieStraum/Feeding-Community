@@ -136,6 +136,7 @@ VALUES
 INSERT INTO "route"
     ("route_name")
 VALUES
+    ('Default Driver'),
     ('Driver 1'),
     ('Driver 2'),
     ('Driver 3'),

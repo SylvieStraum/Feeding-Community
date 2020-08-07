@@ -34,7 +34,7 @@ router.get('/', rejectNotDriver, (req, res) => {
 });// end get route
 
 
-router.get('/routes', rejectNotAdmin, (req, res) => {
+router.get('/routes', rejectNotDriver, (req, res) => {
     sqlText = `SELECT * FROM route;`
     pool.query(sqlText)
         .then((result) => {
