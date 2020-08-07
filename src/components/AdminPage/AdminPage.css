@@ -1,0 +1,55 @@
+/**
+* AdminPage.js Styling
+**/
+
+.admin-form__input {
+    min-width: 200px;
+    display: block;
+}
+
+.admin-form__label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.admin-form__button {
+    display: block;
+    margin: 0 auto;
+    background-color: #0f5f94;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.admin-list__container {
+    margin: 50px 0 0 0;
+    background-color: lightgrey;
+}
+
+.admin-list__title {
+    text-align: center;
+    background-color:  #0f5f94;
+    color: white;
+    padding: 20px;
+}
+
+/**
+* AdminItem.js Styling
+**/
+
+.admin-item__container {
+    margin: 25px;
+    padding-bottom: 20px;
+}
+
+.admin-item__username {
+    font-weight: normal;
+}
+
+.admin-item__button {
+    display: block;
+    background-color: #0f5f94;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
