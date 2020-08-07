@@ -17,6 +17,7 @@ class IntakeForm extends Component {
         date_of_birth: '',
         special_request: '',
         dietary_restrictions: '',
+        route_id: 1,
         meal_choice: 1,
         referral_id: 1,
         program_id: 1
@@ -26,6 +27,7 @@ class IntakeForm extends Component {
         this.getCounty();
         this.getOrg();
         this.getPrograms();
+        this.getRoutes();
     }
 
     getCounty = () => {
@@ -46,6 +48,12 @@ class IntakeForm extends Component {
         })
     }
 
+    getRoutes = () => {
+        this.props.dispatch({
+            type: 'GET_ROUTES',
+        })
+    }
+
     createDependent = (event) => {
         event.preventDefault();
         console.log('this.state', this.state)
@@ -62,6 +70,7 @@ class IntakeForm extends Component {
             date_of_birth: '',
             special_request: '',
             dietary_restrictions: '',
+            route_id: 1,
             meal_choice: 1,
             referral_id: 1,
             program_id: 1
@@ -80,7 +89,7 @@ class IntakeForm extends Component {
         return (
             <div className="intakeForm">
                 <div className="header">
-                <h1>Intake Form</h1>
+                    <h1>Intake Form</h1>
                 </div>
                 {/* <p>Enter client information form</p> */}
                 <div>
@@ -159,7 +168,7 @@ class IntakeForm extends Component {
                                 this.handleInputs(event, "county_id")
                             }>
                             <option value="0">Choose a County</option>
-                            {this.props.counties.map((item) => ( 
+                            {this.props.counties.map((item) => (
                                 <option key={item.id} value={item.id}>{item.county_name}</option>
                             ))}
                         </select>
@@ -185,7 +194,7 @@ class IntakeForm extends Component {
                             <option value="2">2nd Meat</option>
                             <option value="3">Veggie</option>
                             <option value="4">Special Request</option>
-                            
+
                         </select>
                         <label></label>
                         <input
@@ -212,7 +221,7 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "referral_id")
                             }>
-                            
+
                             {this.props.organizations.map((item) => (
                                 <option key={item.id} value={item.id}>{item.referral_name}</option>
                             ))}
@@ -223,13 +232,26 @@ class IntakeForm extends Component {
                         <select
                             type="dropdown"
                             value={this.state.program_id}
-                            onChange={(event) => 
+                            onChange={(event) =>
                                 this.handleInputs(event, "program_id")
                             }>
                             {this.props.programs.map((item) => (
                                 <option key={item.id} value={item.id}>{item.program_name}</option>
                             ))}
-                            </select>
+                        </select>
+                        <br />
+                        <p>Route Assignment:
+                        </p>
+                        <select
+                            type="dropdown"
+                            value={this.state.route_id}
+                            onChange={(event) =>
+                                this.handleInputs(event, "route_id")
+                            }>
+                            {this.props.routes.map((item) => (
+                                <option key={item.id} value={item.id}>{item.route_name}</option>
+                            ))}
+                        </select>
                         <br />
                         <button className="Next Step" onClick={this.createDependent}>Next Step</button>
 
@@ -246,7 +268,8 @@ class IntakeForm extends Component {
 const mapStateToProps = (reduxState) => ({
     counties: reduxState.counties,
     organizations: reduxState.organizations,
-    programs: reduxState.programs
+    programs: reduxState.programs,
+    routes: reduxState.driverRoutes
 });
 
 
