@@ -83,11 +83,11 @@ class App extends Component {
               path="/orders"
               component={OrdersTable}
             />
-
             <ProtectedRoute
               exact
               path="/admin"
               component={AdminPage}
+            />
             <ProtectedRoute
               exact
               path="/drivers"

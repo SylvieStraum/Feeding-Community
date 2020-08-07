@@ -13,7 +13,6 @@ import driverDependents from './driverReducer'
 import driverRoutes from './routesReducer'
 import searchReducer from './searchReducer'
 import userList from './adminReducer'
-import routeDependents from './routeDependentsReducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -37,7 +36,6 @@ const rootReducer = combineReducers({
   driverRoutes, //sets the route names/assignments
   searchReducer, // contains search results
   userList, // contains list of users that can access app,
-  routeDependents, // contains list of dependents associated to each route
 });
 
 export default rootReducer;

@@ -5,7 +5,44 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* getTodaysOrders() {
     try {
         const responsePayload = yield axios.get(`/api/orders/today/`);
-        yield put({ type: 'SET_TODAYS_ORDERS' , payload: responsePayload});
+        // sets responsePayload as orders
+        console.log('responsePayload:', responsePayload)
+        let orders = responsePayload.data;
+        console.log('orders:', orders);
+        // create variables for totalOrders array
+        let meat = 0;
+        let fish = 0;
+        let veggie = 0;
+        let special = 0;
+        let total = 0;
+
+        // for loop that counts numbers for each meal type
+        for (let i = 0; i < orders.length; i++) {
+            const el = orders[i];
+            if (el.meal_choice === 1) {
+                meat = meat + el.number_of_meals
+            } else if (el.meal_choice === 2) {
+                fish = fish + el.number_of_meals
+            } else if (el.meal_choice === 3) {
+                veggie = veggie + el.number_of_meals
+            } else if (el.meal_choice === 4) {
+                special = special + el.number_of_meals
+            }
+            total = total + el.number_of_meals
+        }
+
+        // totals for each into totalsOrders
+        let totalOrders = {
+            meat: meat,
+            fish: fish,
+            veggie: veggie,
+            special: special,
+            total: total
+        }
+        let payload = {totalOrders: totalOrders, orders: orders}
+        console.log('payload:', payload)
+        
+        yield put({ type: 'SET_TODAYS_ORDERS' , payload: {totalOrders: totalOrders, orders: orders }});
     } catch (error) {
         console.log('Get orders saga error', error);
     }
@@ -30,7 +67,7 @@ function* getOrders(action) {
         }
         console.log('action.payload:', action.payload)
         yield put({
-            type: 'SET_RANGE_ORDERS',
+            type: 'SORT_ORDERS',
             payload: responsePayload
         });
     } catch (error) {
@@ -40,10 +77,15 @@ function* getOrders(action) {
 
 
 // put request to alter orders
-function* alterOrders(action) {
+function* alterOrder(action) {
     console.log(action.payload)
     try {
-        yield axios.put(`/api/orders/${action.payload.id}`, action.payload);
+        if(action.payload.id){
+            yield axios.put(`/api/orders/${action.payload.id}`, action.payload);
+        }
+        else {
+            yield axios.post(`/api/orders/`, action.payload);
+        }
         yield put({ type: 'GET_DATES_ORDERS'});
     } catch (error) {
         console.log('put saga request failed', error);
@@ -51,10 +93,10 @@ function* alterOrders(action) {
 }
 
 
-function* menuSaga() {
+function* ordersGetSaga() {
     yield takeEvery('GET_TODAYS_ORDERS', getTodaysOrders);
     yield takeEvery('GET_ORDERS', getOrders);
-    yield takeEvery('UPDATE_TODAYS_ORDERS', alterOrders);
+    yield takeEvery('UPDATE_ORDER', alterOrder);
 }
 
-export default menuSaga;
+export default ordersGetSaga;

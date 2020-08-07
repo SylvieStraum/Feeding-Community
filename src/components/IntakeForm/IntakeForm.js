@@ -180,15 +180,9 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "county_id")
                             }>
-
                             <option value="0">Select County</option>
                             {this.props.counties.map((item) => ( 
                                 <option value={item.id}>{item.county_name}</option>
-                            ))}
-                        </select>
-                        <br />
-                        <label for="Date of Birth">Date of Birth:</label>
-                                <option key={item.id} value={item.id}>{item.county_name}</option>
                             ))}
                         </select>
                         <br />
@@ -243,8 +237,6 @@ class IntakeForm extends Component {
                             }>
                             {this.props.organizations.map((item) => (
                                 <option disabled value="">-- Select Referral Organiztation --</option>
-                            {this.props.organizations.map((item, i) => (
-                                <option key={item.id} value={item.id}>{item.referral_name}</option>
                             ))}
                         </select>
                         <br />

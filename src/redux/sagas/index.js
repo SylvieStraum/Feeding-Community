@@ -7,8 +7,8 @@ import dependentSaga from './dependentSaga' // saga containing server communicat
 import infoSaga from './infoSaga' //contains misc orgs, counties, and associated programs
 import menuSaga from './menuSaga' // contains menu
 import ordersSaga from './ordersSaga' // contains orders
+import ordersSortSaga from './ordersSortSaga' // contains orders
 import driverSaga from './driverSaga' // requests for drivers
-//import orders from '../reducers/ordersTodayReducer';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -27,6 +27,7 @@ export default function* rootSaga() {
     infoSaga(),
     menuSaga(),
     ordersSaga(),
+    ordersSortSaga(),
     driverSaga()
   ]);
 }
