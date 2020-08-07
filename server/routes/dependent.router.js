@@ -93,16 +93,16 @@ router.put('/:id', rejectNotEditor, async (req, res) => {
                                 "annual_income", "phone_number",
                                 "building_address1", "building_address2", "zip_code", "county_id", "city",
                                 "special_request", "dietary_restrictions",
-                                "referral_id", "program_id", "document_signed")
+                                "referral_id", "program_id", "document_signed", "route_id")
                                 =
                                 ($1, $2, $3,
                                 $4, $5,
                                 $6, $7, $8, $9, $10,
                                 $11, $12,
-                                $13, $14, $15
+                                $13, $14, $15, $16
                                 )
-                            WHERE "id" = $16;`
-        const values1 = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.document_signed, req.params.id];
+                            WHERE "id" = $17;`
+        const values1 = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.document_signed, b.route_id, req.params.id];
         const sqlText2 = `UPDATE "current_meal"
                             SET("number_of_meals", "meal_choice") = ($1, $2)
                             WHERE "id" = $3;
