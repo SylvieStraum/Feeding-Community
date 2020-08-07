@@ -35,6 +35,7 @@ class OrdersItem extends Component {
 
     save = () => {
         this.editToggle();
+        
         this.props.dispatch({
             type: 'UPDATE_ORDER',
             payload: this.state
