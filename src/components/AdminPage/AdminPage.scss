@@ -1,3 +1,4 @@
+@import './src/index.scss';
 /**
 * AdminPage.js Styling
 **/
@@ -15,7 +16,7 @@
 .admin-form__button {
     display: block;
     margin: 0 auto;
-    background-color: #0f5f94;
+    background-color: $primary;
     color: white;
     border-radius: 10px;
     padding: 10px;
@@ -23,12 +24,12 @@
 
 .admin-list__container {
     margin: 50px 0 0 0;
-    background-color: lightgrey;
+    background-color: $grey;
 }
 
 .admin-list__title {
     text-align: center;
-    background-color:  #0f5f94;
+    background-color:  $primary;
     color: white;
     padding: 20px;
 }
@@ -48,7 +49,7 @@
 
 .admin-item__button {
     display: block;
-    background-color: #0f5f94;
+    background-color: $primary;
     color: white;
     border-radius: 10px;
     padding: 10px;
