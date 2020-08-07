@@ -31,7 +31,8 @@ CREATE TABLE "dependents"
     "dietary_restrictions" VARCHAR(1000),
     "referral_id" INT,
     "program_id" INT,
-    "document_signed" BOOLEAN DEFAULT FALSE
+    "document_signed" BOOLEAN DEFAULT FALSE,
+    "route_id" INT references "route"
 );
 
 -- should "number_of_meals" be tied to account or program?
@@ -81,22 +82,66 @@ ALTER TABLE "orders"
 	ADD CONSTRAINT date_dependent_int_unique
     	UNIQUE ("dependent_id", "date") ;
 
+CREATE TABLE "route"
+(
+    "id" SERIAL PRIMARY KEY,
+    "route_name" VARCHAR (200) UNIQUE NOT NULL,
+    "user_id" INT REFERENCES "user"
+);
+
 -- Insert for only the seven metro counties
 -- DO NOT INSERT THIS IF YOU INSTEAD WANT TO INSERT ALL COUNTIES
-INSERT INTO "county"("county_name")
-VALUES ('Anoka'),('Carver'),('Dakota'),('Hennepin'),('Scott'),('Ramsay'),('Washington'),('N/A');
+INSERT INTO "county"
+    ("county_name")
+VALUES
+    ('Anoka'),
+    ('Carver'),
+    ('Dakota'),
+    ('Hennepin'),
+    ('Scott'),
+    ('Ramsey'),
+    ('Washington'),
+    ('N/A');
 
 -- Insert for partner organizations to allow feeding communities to track who signed these people up
-INSERT INTO "referral" ("referral_name")
-VALUES ('Feeding Communities'),('Minneapolis Public Housing Agency'),('Commonbond Communities'),('Lakes Day Care'),('Ebyan ADC'), ('MN Senior Center'), ('Nurturing Hands Day Center'), ('Umatul Islam');
+INSERT INTO "referral"
+    ("referral_name")
+VALUES
+    ('Feeding Communities'),
+    ('Minneapolis Public Housing Agency'),
+    ('Commonbond Communities'),
+    ('Lakes Day Care'),
+    ('Ebyan ADC'),
+    ('MN Senior Center'),
+    ('Nurturing Hands Day Center'),
+    ('Umatul Islam');
 
 -- Insert for which delivery program they fall under based on qualificiations
-INSERT INTO "program" ("program_name", "default_no_meals")
-VALUES ('Ramsay County', 3),('Meals on Wheels', 1);
+INSERT INTO "program"
+    ("program_name", "default_no_meals")
+VALUES
+    ('Ramsey County', 3),
+    ('Meals on Wheels', 1);
 
 -- 
-INSERT INTO "menu" ("menu_description")
-VALUES ('Chicken or Beef'),('Fish'),('Veggie Only'),('Special Request');
+INSERT INTO "menu"
+    ("menu_description")
+VALUES
+    ('Chicken or Beef'),
+    ('Fish'),
+    ('Veggie Only'),
+    ('Special Request');
+
+--
+INSERT INTO "route"
+    ("route_name")
+VALUES
+    ('Driver 1'),
+    ('Driver 2'),
+    ('Driver 3'),
+    ('Driver 4'),
+    ('Driver 5'),
+    ('Driver 6');
 
 -- DO NOT INSERT UNLESS YOU WANT TO ADD ALL COUNTIES
 -- DO NOT INSERT IF YOU'VE ALREADAY INSERTED OTHER COUNTIES
@@ -142,12 +187,21 @@ RETURNING id )
 INSERT INTO "current_meal"
     ( "dependent_id", "number_of_meals", "meal_choice")
 SELECT insert1.id, 3, 4
-FROM insert1;  
+FROM insert1;
 
 
 -- Insert that copies current meals into orders table
 -- Run this after inserting a few people into db, can only be run once per day
+<<<<<<< HEAD
+INSERT INTO "orders"
+    ("date", "dependent_id", "number_of_meals", "meal_choice")
+SELECT current_timestamp, "dependent_id", "number_of_meals", "meal_choice"
+FROM "current_meal"
+ORDER BY "dependent_id" ASC
+;
+=======
 --INSERT INTO "orders" ("date", "dependent_id", "number_of_meals", "meal_choice")
 --SELECT current_timestamp, "dependent_id", "number_of_meals", "meal_choice" FROM "current_meal"
 --ORDER BY "dependent_id" ASC
 --;
+>>>>>>> master

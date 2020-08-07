@@ -21,6 +21,7 @@ import './App.scss';
 import Accounts from '../Accounts/Accounts';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import OrdersTable from '../OrdersTable/OrdersTable'
+import DriverView from '../DriverView/DriverView';
 //import SearchBar from '../SearchBar/SearchBar';
 // import SearchBar from '../SearchBar/SearchBar';
 
@@ -79,6 +80,12 @@ class App extends Component {
               exact
               path="/orders"
               component={OrdersTable}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/drivers"
+              component={DriverView}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
