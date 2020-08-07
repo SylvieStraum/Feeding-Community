@@ -182,7 +182,7 @@ class IntakeForm extends Component {
                             }>
                             <option value="0">Select County</option>
                             {this.props.counties.map((item) => ( 
-                                <option value={item.id}>{item.county_name}</option>
+                                <option key={item.id} value={item.id}>{item.county_name}</option>
                             ))}
                         </select>
                         <br />
