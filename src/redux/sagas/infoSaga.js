@@ -29,10 +29,20 @@ function* getPrograms() {
     }
 }
 
+function* getRoutes() {
+    try {
+        const responsePayload = yield axios.get(`/api/driver/routes`);
+        yield put({ type: 'SET_ROUTES' , payload: responsePayload});
+    } catch (error) {
+        console.log('error with GET routes saga', error);
+    }
+}
+
 function* infoSaga() {
  yield takeEvery('GET_COUNTIES', getCounties)
  yield takeEvery('GET_ORGS', getOrgs)
  yield takeEvery('GET_PROGRAMS', getPrograms)
+ yield takeEvery('GET_ROUTES', getRoutes)
 }
 
 export default infoSaga;

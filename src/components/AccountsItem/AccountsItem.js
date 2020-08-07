@@ -25,7 +25,7 @@ class AccountsItem extends Component {
         })
     }
 
-    // send PUT and toggles to uneditable state
+    // send PUT and toggles to non-editable state
     updateDependent = () => {
         console.log('update dependent', this.props.item)
 
@@ -35,7 +35,7 @@ class AccountsItem extends Component {
             payload: this.state
         });
 
-        // toggles to uneditable state
+        // toggles to non-editable state
         this.setState({
             edit: !this.state.edit
         })
@@ -65,7 +65,8 @@ class AccountsItem extends Component {
             dietary_restrictions: this.props.item.dietary_restrictions,
             referral_id: this.props.item.referral_id,
             program_id: this.props.item.program_id,
-            document_signed: this.props.item.document_signed
+            document_signed: this.props.item.document_signed,
+            route_id:this.props.item.route_id
         })
     }
 
@@ -122,6 +123,7 @@ class AccountsItem extends Component {
                             </>
                         }
                         </td>
+                        <td>{this.props.item.route_name}</td>
                         {/* this will conditionally render all information to inputs */}
                         <td><button onClick={this.toggleEdit}>Edit</button></td>
                     </tr>
@@ -140,7 +142,7 @@ class AccountsItem extends Component {
                         <td><select required value={this.state.county_id} type="dropdown" id={'county_id'} onChange={this.handleInput} >
                             <option value="0"></option>
                             {this.props.counties.map((item) => ( 
-                                <option value={item.id}>{item.county_name}</option>
+                                <option value={item.id} key={item.id}>{item.county_name}</option>
                             ))}
                         </select></td>
                         <td><input value={this.state.city} id={'city'} onChange={this.handleInput}/></td>
@@ -175,6 +177,12 @@ class AccountsItem extends Component {
                             <>N/A</>
                         } 
                         </td>
+                        <td><select type="dropdown" value={this.state.route_id} id={'route_id'} onChange={this.handleInput}>
+                            <option value="0"></option>
+                            {this.props.routes.map((item) => ( 
+                                <option value={item.id}>{item.route_name}</option>
+                            ))}
+                        </select></td>
                         {/* this will conditionally render all information to inputs */}
                         <td><button onClick={this.updateDependent}>Update</button><button onClick={this.cancelEdit}>Cancel</button></td>
                     </tr>
@@ -188,7 +196,8 @@ const mapStateToProps = (reduxState) => ({
     counties: reduxState.counties,
     organizations: reduxState.organizations,
     menu: reduxState.menu,
-    programs: reduxState.programs
+    programs: reduxState.programs,
+    routes: reduxState.driverRoutes
 });
 
 export default connect(mapStateToProps)(AccountsItem);

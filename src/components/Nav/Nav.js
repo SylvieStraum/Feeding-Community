@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import AdminDashboard  from '../AdminDashboard/AdminDashboard'
 import './Nav.scss';
 
 const Nav = (props) => (
@@ -31,6 +32,9 @@ const Nav = (props) => (
           </Link>
           <Link className="nav-link" to="/orders">
             Orders
+          </Link>
+          <Link className="nav-link" to="/drivers">
+            Drivers
           </Link>
           <LogOutButton className="nav-link" />
         </>

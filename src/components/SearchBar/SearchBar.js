@@ -79,7 +79,9 @@ class SearchBar extends Component {
   
   render() {
     return (
-        <div className="searchItems">
+        <div className="searchItems" style={{width:'100%'}}>
+         <div style={{float:'left'}}><h3>Search by:</h3></div> 
+        <div style={{float:'left'}}>   
           <input
             type="text"
             placeholder="First Name"
@@ -102,7 +104,7 @@ class SearchBar extends Component {
             type="dropdown"
             value={this.state.referralQuery}
             onChange={(event) => this.handleOnChange(event, 'referralQuery')}>
-            <option value="">Please select by organization</option>
+            <option value="">Referral Org</option>
             {this.props.referralQuery.map((item) => (
               <option key={item.id} value={item.id}>{item.referral_name}</option>
             ))}
@@ -111,12 +113,13 @@ class SearchBar extends Component {
             type="dropdown"
             value={this.state.programQuery}
             onChange={(event) => this.handleOnChange(event, 'programQuery')}>
-            <option value="">Please select by program</option>
+            <option value="">Program</option>
             {this.props.programQuery.map((item) => (
               <option key={item.id} value={item.id}>{item.program_name}</option>
             ))}
           </select>
-          <div className="searchBtn">
+          </div>
+          <div className="searchBtn" style={{float:'left'}}>
           <button onClick={() => this.searchDependents()}>search</button>
           <button onClick={this.resetDependents}>reset</button>
           </div>

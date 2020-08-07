@@ -26,11 +26,6 @@ class AdminPage extends Component {
         this.props.dispatch({type: 'GET_USERS'})
     }
 
-    // newAdmin = () => {
-    //     this.props.dispatch({type: 'POST_NEW_ADMIN' })
-    //     console.log('in post admin')
-    // }
-
     handleAdminChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
@@ -67,7 +62,6 @@ class AdminPage extends Component {
 
     render() {
         return (
-        
             <div>
                 <form class="formItem">
                     <fieldset>
@@ -99,9 +93,6 @@ class AdminPage extends Component {
                     }
                 </div>
             </div>
-        
-
-
         )//end return
     }//end
 }//end class
