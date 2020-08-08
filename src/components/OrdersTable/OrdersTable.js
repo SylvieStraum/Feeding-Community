@@ -72,7 +72,7 @@ class OrdersTable extends Component {
     //this will only fire off on page load when the reducer has nothing in it so the month table will populate
     this.props.range.length === 0 && this.props.dispatch({ type: 'GET_ORDERS', payload: { method: 'selectMonth', value: this.state.selectMonth } });
     return (
-      <div className="OrdersTable" style={{ textAlign: 'center', width: '70%', margin: 'auto' }}>
+      <div className="OrdersTable" style={{ textAlign: 'center', width: '90%', margin: 'auto' }}>
         {/* {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)} */}
         <form className="selection" >
           {this.state.selectMode ?
@@ -124,7 +124,7 @@ class OrdersTable extends Component {
                         // let meal_choice_id = (date[dateName[0]].meal_choice - 1)
                         // let meal_name = this.props.menu[meal_choice_id].menu_description
                         //console.log(dateName, date[dateName[0]], meal_name)
-                        return <OrdersItem key={dateKey} order={date[dateName[0]]} dependent_id={dep.dependent_id} id={dep.id}/>
+                        return <OrdersItem key={dateKey} order={date[dateName[0]]} dependent_id={dep.dependent_id} />
                       })}
                     </tr>
                   })

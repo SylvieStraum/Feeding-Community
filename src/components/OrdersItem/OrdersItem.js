@@ -8,6 +8,7 @@ class OrdersItem extends Component {
         number_of_meals: 0,
         meal_choice: 0,
         dependent_id: 0,
+        id: -1
     }
 
     componentDidMount(){
@@ -19,12 +20,8 @@ class OrdersItem extends Component {
             number_of_meals: this.props.order.number_of_meals,
             meal_choice: this.props.order.meal_choice,
             dependent_id: this.props.dependent_id,
+            id: this.props.order.id
         })
-        if(this.props.id){
-            this.setState({
-                id: this.props.id
-            })
-        }
     }
 
     editToggle = () =>{
@@ -34,10 +31,12 @@ class OrdersItem extends Component {
     }
 
     save = () => {
-        this.editToggle();
+        this.setState({
+            editMode: !this.state.editMode
+        })
         this.props.dispatch({
             type: 'UPDATE_ORDER',
-            payload: this.state
+            payload: {state: this.state, request: this.props.ordersRequest}
         });
     }
 
@@ -61,7 +60,7 @@ class OrdersItem extends Component {
                 {this.props.order.number_of_meals ?
                     this.state.editMode === true ?
                         <>
-                            <input class="ordersEditInput" onChange={this.handleInput} value={this.state.number_of_meals} id="number_of_meals"></input>
+                            <input className="ordersEditInput" onChange={this.handleInput} value={this.state.number_of_meals} id="number_of_meals"></input>
                             <button onClick={this.save}>Save</button>
                             <button onClick={this.cancel}>Cancel</button>
                         </>
@@ -76,7 +75,8 @@ class OrdersItem extends Component {
 }//end class
 
 const mapStateToProps = (reduxState) => ({
-    menu: reduxState.menu
+    menu: reduxState.menu,
+    ordersRequest: reduxState.ordersRequest
 });
 
 export default connect(mapStateToProps)(OrdersItem);

@@ -235,8 +235,9 @@ class IntakeForm extends Component {
                             onChange={(event) =>
                                 this.handleInputs(event, "referral_id")
                             }>
+                            <option disabled value="">-- Select Referral Organiztation --</option>
                             {this.props.organizations.map((item) => (
-                                <option disabled value="">-- Select Referral Organiztation --</option>
+                                <option value={item.id}>{item.referral_name}</option>
                             ))}
                         </select>
                         <br />
@@ -267,7 +268,7 @@ class IntakeForm extends Component {
                             ))}
                         </select>
                         <br />
-                        <button className="NextStep" onClick={this.createDependent}>Next Step</button>
+                        <button className="submit" onClick={this.createDependent}>Submit</button>
 
                     </form>
                 </div>
