@@ -44,22 +44,22 @@ function* sortOrders(action) {
                     endDate = el
                 } else if (el < startDate) {
                     startDate = el
-                    console.log('start:', startDate)
+                    // console.log('start:', startDate)
                 } else if (el > endDate) {
                     endDate = el
-                    console.log('end:', startDate)
+                    // console.log('end:', startDate)
                 }
             }
-            console.log('in Redux, startDate:', startDate, 'endDate:', endDate)
+            // console.log('in Redux, startDate:', startDate, 'endDate:', endDate)
             // sets current date to date type
             let currentDate = new Date(startDate);
             currentDate.setHours(1, 0, 0, 0)
-            console.log('currentDate:', currentDate);
+            // console.log('currentDate:', currentDate);
 
             // sets stop date to date type
             let stopDate = new Date(endDate);
             stopDate.setHours(1, 0, 0, 0)
-            console.log('stopDate:', stopDate);
+            // console.log('stopDate:', stopDate);
 
             // while loop to extract dates
             while (currentDate <= stopDate) {
@@ -72,7 +72,7 @@ function* sortOrders(action) {
                 currentDate.setDate(currentDate.getDate() + 1);
                 // console.log('in while, after itterate dateArray:',dateArray)
             }
-            console.log('dateArray:', dateArray)
+            // console.log('dateArray:', dateArray)
             return dateArray;
         } // END getDates function
 
@@ -129,7 +129,6 @@ function* sortOrders(action) {
 
                 // creates object that will be pushed into array with dependent
                 let depObj = {
-                    id: id,
                     dependent_id: dependent_id,
                     first_name: first_name,
                     last_name: last_name,
@@ -153,6 +152,7 @@ function* sortOrders(action) {
                     // establish both values outside of loop to be used when pushed into array
                     let meal_choice = null;
                     let number_of_meals = null;
+                    let id = null;
 
                     // for loop that checks if dependent had meal on that date
                     for (let mealIndex = 0; mealIndex < data.length; mealIndex++) {
@@ -166,11 +166,13 @@ function* sortOrders(action) {
                             // console.log(dataObj)
                             meal_choice = dataObj.meal_choice
                             number_of_meals = dataObj.number_of_meals
+                            id = dataObj.id
                         }
                     }
 
                     dateArray.push({
                         [currentDate]: {
+                            id: id,
                             number_of_meals: number_of_meals,
                             meal_choice: meal_choice
                         }
@@ -189,7 +191,7 @@ function* sortOrders(action) {
         let dateRange = getDates(action.payload.data);
         // console.log('dateRange:', dateRange );
         let orders = defineOutputArray(action.payload.data);
-        console.log('to send', [dateRange, orders])
+        // console.log('to send', [dateRange, orders])
 
 
         yield put({

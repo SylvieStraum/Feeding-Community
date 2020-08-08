@@ -273,11 +273,11 @@ router.put('/:id', rejectNotEditor, (req, res) => {
     const number_of_meals = req.body.number_of_meals
 
     const queryText = `UPDATE "orders" SET "number_of_meals" = $1
-                        WHERE "id" = $;
+                        WHERE "id" = $2;
                             ;`;
 
 
-    console.log('put request:,', queryText)
+    console.log('put request:,', queryText, number_of_meals, req.params.id)
     pool.query(queryText, [number_of_meals, req.params.id])
         .then((results) => {
             res.send(results);

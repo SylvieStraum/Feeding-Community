@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import "./AdminPage.css";
+import "./AdminPage.scss";
 
 class AdminItem extends Component {
 

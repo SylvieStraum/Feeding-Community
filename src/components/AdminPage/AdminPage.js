@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AdminItem from './AdminItem'
-import "./AdminPage.css";
+import "./AdminPage.scss";
 
 //import { actionChannel } from 'redux-saga/effects';
 
