@@ -86,8 +86,13 @@ CREATE TABLE "route"
 (
     "id" SERIAL PRIMARY KEY,
     "route_name" VARCHAR (200) UNIQUE NOT NULL,
-    "user_id" INT REFERENCES "user"
+    "user_id" INT UNIQUE
 );
+-- changed user_id to be unique to make display on the admin page more friendly
+-- should not keep this long term, instead fix admin page to not display duplicates
+-- but for presentation this will work as quick fix
+-- also dropped referencing user id as additional quick fix
+-- need to add cascading delete to delete route to make that work correctly
 
 -- Insert for only the seven metro counties
 -- DO NOT INSERT THIS IF YOU INSTEAD WANT TO INSERT ALL COUNTIES

@@ -3,17 +3,17 @@
 * AdminPage.js Styling
 **/
 
-.admin-form__input {
+.admin-form-input {
     min-width: 200px;
     display: block;
 }
 
-.admin-form__label {
+.admin-form-label {
     display: block;
     margin-bottom: 5px;
 }
 
-.admin-form__button {
+.admin-form-button {
     display: block;
     margin: 0 auto;
     background-color: $primary;
@@ -22,12 +22,12 @@
     padding: 10px;
 }
 
-.admin-list__container {
+.admin-list-container {
     margin: 50px 0 0 0;
     background-color: $grey;
 }
 
-.admin-list__title {
+.admin-list-title {
     text-align: center;
     background-color:  $primary;
     color: white;
@@ -38,19 +38,39 @@
 * AdminItem.js Styling
 **/
 
-.admin-item__container {
+.admin-item-container {
     margin: 25px;
     padding-bottom: 20px;
 }
 
-.admin-item__username {
+.admin-item-username {
     font-weight: normal;
 }
 
-.admin-item__button {
-    display: block;
-    background-color: $primary;
-    color: white;
-    border-radius: 10px;
-    padding: 10px;
+.admin-item-button {
+    padding: 12px 20px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.admin-item-button button:active {
+    box-shadow: 0 0 10px $primary;
+    background-color: darkgrey;
+}
+
+.admin-item-button button:hover {
+    background-color: rgba(189, 189, 189, 0.5);
+}
+
+.formItem input, .formItem select{
+    width: 50%;
+    min-width: min-content;
+    padding: 12px 16px;
+    margin: 8px 2px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-left: 25%;
 }
