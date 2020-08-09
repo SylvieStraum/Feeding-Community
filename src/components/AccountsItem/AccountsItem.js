@@ -107,7 +107,7 @@ class AccountsItem extends Component {
                         <td>{this.props.item.dietary_restrictions}</td>
                         <td>{this.props.item.referral_name}</td>
                         <td>{this.props.item.program_name}</td>
-                        {/* if program === ramsey county return a yes/no if else return empty */}
+                        {/* if program === ramsay county return a yes/no if else return empty */}
                         <td>
                         {this.props.item.program_id === 1 ?
                             <>

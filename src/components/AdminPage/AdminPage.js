@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import AdminItem from './AdminItem'
+import AdminItem from '../AdminItem/AdminItem'
 import "./AdminPage.scss";
-
-//import { actionChannel } from 'redux-saga/effects';
 
 class AdminPage extends Component {
 
     state = {
-        admin_username: '',
-        edit_admin: '',
-        new_admin: '',
-        current_selected_admin: '',
-        account_type: '',
+        account_type: 1,
         username: '',
-        password: ''
-        // account_type: ''
+        password: '',
+        route: 0
     }
 
     componentDidMount(){
@@ -26,7 +20,7 @@ class AdminPage extends Component {
         this.props.dispatch({type: 'GET_USERS'})
     }
 
-    handleAdminChange = (event) => {
+    handleInput = (event) => {
         this.setState({
             [event.target.id]: event.target.value
         })
@@ -35,7 +29,12 @@ class AdminPage extends Component {
     addNewAdmin = (event) => {
         this.props.dispatch({
             type: 'POST_NEW_ADMIN',
-            payload: {username: this.state.username, password: this.state.password, account_type: this.state.account_type}
+            payload: {
+                username: this.state.username,
+                password: this.state.password,
+                account_type: this.state.account_type,
+                route: this.state.route
+            }
         })
         this.setState({
             new_admin: '',
@@ -66,28 +65,32 @@ class AdminPage extends Component {
                 <form class="formItem">
                     <fieldset>
                         <legend>Create New Admin</legend>
-                        <label className="admin-form__label" for="username">Username:</label>
-                        <input className="admin-form__input" value = {this.state.username} id="username" onChange = {this.handleAdminChange} type = 'text' placeholder = 'username' />
-                        <label className="admin-form__label" for="password">Password:</label>
-                        <input className="admin-form__input" value = {this.state.password} id="password" onChange = {this.handleAdminChange} type = 'password' placeholder = 'password' />
-                        <label className="admin-form__label" for="account_type">Account Type:</label>
-                        <select className="admin-form__input" name="account_type" id="account_type" onChange= {this.handleAdminChange}>
-                            <option value="1">Drivers</option>
-                            <option value="5">Editors</option>
-                            <option value="8">Over Night</option>
+                        <label className="admin-form-label" for="username">Username:</label>
+                        <input className="admin-form-input" value = {this.state.username} id="username" onChange={this.handleInput} type="text" placeholder ="Input Username" />
+                        <label className="admin-form-label" for="password">Password:</label>
+                        <input className="admin-form-input" value = {this.state.password} id="password" onChange={this.handleInput} type="text" placeholder="Input Password" />
+                        <label className="admin-form-label" for="account_type">Account Type:</label>
+                        <select className="admin-form-input" name="account_type" id="account_type" onChange={this.handleInput}>
+                            <option value="1">Driver</option>
+                            <option value="5">Editor</option>
                             <option value="10">Admin</option>
                         </select>
                         <br />
-                        <button className="admin-form__button" onClick = {this.addNewAdmin}>Add Admin</button>
+                        <button className="admin-form-button" onClick={this.addNewAdmin}>Add Admin</button>
                     </fieldset>
                 </form>
-                <div className="admin-list__container">
-                    <h2 className="admin-list__title">Current Admin</h2>
+                <div className="admin-list-container">
+                    <h2 className="admin-list-title">Current Admin</h2>
                     {this.props.userList.map((user) => {
                         if(user.id === this.props.user.id) {
                             return false
                         } 
-                        return (<AdminItem key={user.id} user={user} />)
+                        else if(user.id === null){
+                            return false
+                        }
+                        else{
+                            return (<AdminItem key={user.id} user={user} />)
+                        }
                             
                     })
                     }
@@ -103,12 +106,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(AdminPage)
-
-{/* <input type='radio' value={user.id} id={index} name="teams" onChange={(event) => this.selectedAdmin(event)} />
-                        <label htmlFor={index}>{user.username}</label>
-                        <input onChange = {(event) => this.editAdmin(event)} type= 'text' placeholder = 'Admin'></input>
-                        <button onClick = {() => this.submitChange(user.id)}>Edit Team</button>
-                        <button onClick = {() => this.deleteAdmin(user.id)}>Delete Team</button>
-                        <button onClick={this.handleClick}>Admin Home</button>
-                        <br></br>  
-                        </div>  */};

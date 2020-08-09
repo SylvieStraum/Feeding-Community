@@ -17,6 +17,7 @@ class IntakeForm extends Component {
         date_of_birth: '',
         special_request: '',
         dietary_restrictions: '',
+        number_of_meals: 1,
         route_id: 1,
         meal_choice: 1,
         referral_id: 1,
@@ -85,18 +86,21 @@ class IntakeForm extends Component {
             [typeOf]: event.target.value
         })
 
-    //     if (typeOf === 'meal_choice' && event.target.value === '5'){
-    //         console.log('special request')
-    //         this.setState({
-    //             special_request_toggle: true
-    //         })
-    //     } else {
-    //     this.setState({
-    //         special_request_toggle: false
-    //     })
+        if (typeOf === 'program_id'){
+            if(event.target.value === 1){
+                this.setState({
+                    number_of_meals: 3
+                })
+            }
+            else if(event.target.value === 2){
+                this.setState({
+                    number_of_meals: 1
+                })
+            }
+            
+        }
+    }
 
-    // }
-}
 
     render() {
         return (

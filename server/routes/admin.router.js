@@ -6,8 +6,9 @@ const encryptLib = require('../modules/encryption');
 
 //GET ROUTE to return all accounts
 router.get('/', rejectNotAdmin, (req, res) => {
-        const queryText = `SELECT * FROM "user"
-                            ORDER BY "id" ASC;`;
+        const queryText = `SELECT "user"."id" AS "id", "username", "password", "account_type", "route"."id" AS "route_id", "route_name", "user_id" FROM "user"
+                            FULL JOIN "route" ON "user"."id" = "route"."user_id"
+                            ORDER BY "user"."id" ASC;`;
 
         pool.query(queryText)
             .then((result) => {
@@ -46,39 +47,41 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
 
     let actionType = req.body.actionType
     let queryText = ``;
-    let values = new Array;
+    let values = [];
     let id = req.params.id;
     let password = '';
     let username = '';
     let account_type = '';
+    let route_id = 0;
     console.log('body:', req.body, 'id:', id)
-    if(actionType === 'updatePassword'){
+    if (actionType === 'editPassword') {
         password = encryptLib.encryptPassword(req.body.password);
         queryText = `UPDATE "user"
                         SET "password" = $1
                         WHERE "id" = $2;`
-        values.push(password, id);
+        values = [password, id];
     }
-    else if(actionType === 'updateUsername'){
+    else if (actionType === 'editUsername') {
         username = req.body.username;
         queryText = `UPDATE "user"
                         SET "username" = $1
                         WHERE "id" = $2;`
-        values.push(username, id);
+        values = [username, id];
     }
-    else if(actionType === 'changeAccountType'){
+    else if (actionType === 'editAccountType') {
         account_type = req.body.account_type
         queryText = `UPDATE "user"
                         SET "account_type" = $1
                         WHERE "id" = $2;`
-        values.push(account_type, id);
+        values = [account_type, id];
     }
-    else if(actionType === 'changeRoute'){
+    else if (actionType === 'editRoute') {
         account_type = req.body.account_type
+        route_id = req.body.route_id
         queryText = `UPDATE "route"
                         SET "user_id" = $1
                         WHERE "id" = $2;`
-        values.push(user_id, id);
+        values = [user_id, route_id];
     }
 
     console.log('put request, values:', values)
