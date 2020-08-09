@@ -19,14 +19,19 @@ const Nav = (props) => (
         {props.user.id ? 'Home' : 'Login / Register'}
       </Link>
       {/* Show the link to the info page and the logout button if the user is logged in */}
-      {props.user.id && (
+      {props.user.account_type === 1 && (
         <>
-          <Link className="nav-link" to="/admin">
-            Admin
+          <Link className="nav-link" to="/intake">
+            Intake Form
           </Link>
-          <Link className="nav-link" to="/info">
-            Info Page
+          <Link className="nav-link" to="/drivers">
+            Current Route
           </Link>
+          <LogOutButton className="nav-link" />
+        </>
+      )}
+      {props.user.account_type === 5 && (
+        <>
           <Link className="nav-link" to="/accounts">
             Accounts
           </Link>
@@ -37,7 +42,24 @@ const Nav = (props) => (
             Orders
           </Link>
           <Link className="nav-link" to="/drivers">
-            Drivers
+            Current Route
+          </Link>
+          <LogOutButton className="nav-link" />
+        </>
+      )}
+      {props.user.account_type === 10 && (
+        <>
+          <Link className="nav-link" to="/accounts">
+            Accounts
+          </Link>
+          <Link className="nav-link" to="/intake">
+            Intake Form
+          </Link>
+          <Link className="nav-link" to="/orders">
+            Orders
+          </Link>
+          <Link className="nav-link" to="/drivers">
+            Current Route
           </Link>
           <Link className="nav-link" to="/admin">
             Admin
