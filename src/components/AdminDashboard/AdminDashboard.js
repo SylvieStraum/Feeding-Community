@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import './AdminDashboard.scss';
+import AdminPage from '../AdminPage/AdminPage';
 
 class AdminDashboard extends Component {
     // Renders the entire AdminDashboard on the DOM
@@ -49,6 +50,7 @@ class AdminDashboard extends Component {
                     </>
                     }
                 </div>
+                <AdminPage />
             </div>
         );//end return
     }//end render
