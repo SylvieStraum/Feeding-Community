@@ -81,7 +81,7 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
         queryText = `UPDATE "route"
                         SET "user_id" = $1
                         WHERE "id" = $2;`
-        values = [user_id, route_id];
+        values = [id, route_id];
     }
 
     console.log('put request, values:', values)

@@ -16,7 +16,7 @@ class AdminItem extends Component {
     }
 
     componentDidMount(){
-        this.assignState()
+        this.assignState();
     }
 
     assignState = () => {
@@ -24,8 +24,12 @@ class AdminItem extends Component {
             id: this.props.user.id,
             username: this.props.user.username,
             account_type: this.props.user.account_type,
-            route: this.props.user.route
+            route_id: this.props.user.route_id
         })
+    }
+
+    getRoutes = () => {
+        this.props.dispatch({type: 'GET_ROUTES'})
     }
 
     editToggleTrue = (event) => {
@@ -63,7 +67,7 @@ class AdminItem extends Component {
               username: this.state.username,
               password: this.state.password,
               account_type: this.state.account_type,
-              route: this.state.route
+              route_id: this.state.route_id
           }
         }) 
         this.editToggleFalse(event.target.id);
@@ -90,30 +94,30 @@ class AdminItem extends Component {
                     <p>Type: Admin</p>
                     }
                     {this.props.user.account_type === 1 &&
-                    <p>Route {this.props.user.route_name}</p>
+                    <p>Route {this.props.user.route_id}</p>
                     }
                     {/*  edit for password */}
                     { this.state.editPassword === true ?
-                        <>
+                        <div>
                             <label>New Password</label>
                             <input value={this.state.password} onChange={this.handleInput} id="password" placeholder="New Password"></input>
                             <br />
                             <button className="admin-item-button" onClick={this.submitChange} id="editPassword">Save</button>
                             <button className="admin-item-button" onClick={this.cancel} id="editPassword">Cancel</button>
-                        </>
+                        </div>
                         :
                         <button className="admin-item-button" onClick={this.editToggleTrue} id="editPassword">Reset Password</button>
                     }
 
                     {/* edit for username */}
                     { this.state.editUsername === true ?
-                        <>
+                        <div>
                             <label>Change Username</label>
                             <input value={this.state.username} onChange={this.handleInput} id="username" placeholder="Change Username"></input>
                             <br />
                             <button className="admin-item-button" onClick={this.submitChange} id="editUsername">Save</button>
                             <button className="admin-item-button" onClick={this.cancel} id="editUsername">Cancel</button>
-                        </>
+                        </div>
                         :
                         <button className="admin-item-button" onClick={this.editToggleTrue} id="editUsername">Change Username</button>
                     }
@@ -121,7 +125,7 @@ class AdminItem extends Component {
 
                     {/* edit for account type */}
                     { this.state.editAccountType === true ?
-                        <>
+                        <div>
                             <label>Change Account Type</label>
                             <select className="admin-form-input" name="account_type" id="account_type" onChange={this.handleInput} value={this.state.account_type}>
                                 <option value="1">Driver</option>
@@ -131,7 +135,7 @@ class AdminItem extends Component {
                             <br />
                             <button className="admin-item-button" onClick={this.submitChange} id="editAccountType">Save</button>
                             <button className="admin-item-button" onClick={this.cancel} id="editAccountType">Cancel</button>
-                        </>
+                        </div>
                         :
                         <button className="admin-item-button" onClick={this.editToggleTrue} id="editAccountType">Change Account Type</button>
                     }
@@ -139,13 +143,18 @@ class AdminItem extends Component {
 
                     {/* drop down for route selection */}
                     { this.state.editRoute === true ?
-                            <>
+                            <div>  
                                 <label>Change Route</label>
-                                <input value={this.state.password} onChange={this.handleInput} id="route_id" placeholder=""></input>
+                                <select className="admin-form-input" name="route_id" id="route_id" type="dropdown" onChange={this.handleInput} value={this.state.route_id}>
+                                    <option value="0" >Remove Driver From Route</option>
+                                    {this.props.driverRotues.map((route) =>
+                                    <option value={route.id} key={route.id}>Route: {route.id}</option>
+                                    )}
+                                </select>
                                 <br />
                                 <button className="admin-item-button" onClick={this.submitChange} id="editRoute">Save</button>
                                 <button className="admin-item-button" onClick={this.cancel} id="editRoute">Cancel</button>
-                            </>
+                            </div>
                             :
                             <button className="admin-item-button" onClick={this.editToggleTrue} id="editRoute">Change Route</button>
                     }
@@ -159,8 +168,9 @@ class AdminItem extends Component {
     }//end render
 }//end class
 
-const mapStateToProps = state => ({
-    userList: state.userList
+const mapStateToProps = (reduxState) => ({
+    userList: reduxState.userList,
+    driverRotues: reduxState.driverRoutes
 });
 
 export default connect(mapStateToProps)(AdminItem);

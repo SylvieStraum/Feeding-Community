@@ -6,7 +6,7 @@ import "./AdminPage.scss";
 class AdminPage extends Component {
 
     state = {
-        account_type: 1,
+        account_type: 0,
         username: '',
         password: '',
         route: 0
@@ -14,10 +14,14 @@ class AdminPage extends Component {
 
     componentDidMount(){
         this.userGet();
+        this.getRoutes();
     }
 
     userGet = () => {
         this.props.dispatch({type: 'GET_USERS'})
+    }
+    getRoutes = () => {
+        this.props.dispatch({type: 'GET_ROUTES'})
     }
 
     handleInput = (event) => {
@@ -42,26 +46,10 @@ class AdminPage extends Component {
     }
     
 
-    editAdmin = (event) => {
-        this.setState({
-            edit_admin: event.target.value
-        })
-        console.log(this.state.edit_admin)
-    }
-
-    submitChange = (id) => {
-        this.props.dispatch({type: 'UPDATE_ADMIN', payload: {id: id, username: this.state.edit_admin}})
-    }
-
-    selectedAdmin = (event) => {
-        this.setState({
-            current_selected_admin: event.target.value
-        })
-    }
-
     render() {
         return (
             <div>
+                {console.log(this.state)}
                 <form class="formItem">
                     <fieldset>
                         <legend>Create New Admin</legend>
@@ -70,11 +58,23 @@ class AdminPage extends Component {
                         <label className="admin-form-label" for="password">Password:</label>
                         <input className="admin-form-input" value = {this.state.password} id="password" onChange={this.handleInput} type="text" placeholder="Input Password" />
                         <label className="admin-form-label" for="account_type">Account Type:</label>
-                        <select className="admin-form-input" name="account_type" id="account_type" onChange={this.handleInput}>
+                        <select className="admin-form-input" name="account_type" id="account_type" onChange={this.handleInput} value={this.state.account_type}>
+                            <option value="0" disabled>Select Account Type</option>
                             <option value="1">Driver</option>
                             <option value="5">Editor</option>
                             <option value="10">Admin</option>
                         </select>
+                        
+                        {/* {this.state.account_type === "1" &&
+                        <>
+                        <label className="admin-form-label" for="route_id">Account Type:</label>
+                        <select className="admin-form-input" name="route_id" id="route_id" onChange={this.handleInput}>
+                            <option value="0" disabled>Select Route</option>
+                            {this.props.driverRotues.map((route) => <option value={route.id} key={route.id}>Route: {route.id}</option>
+                        )}
+                        </select>
+                        </>
+                        } */}
                         <br />
                         <button className="admin-form-button" onClick={this.addNewAdmin}>Add Admin</button>
                     </fieldset>
@@ -100,9 +100,10 @@ class AdminPage extends Component {
     }//end
 }//end class
 
-const mapStateToProps = state => ({
-    userList: state.userList,
-    user: state.user
+const mapStateToProps = (reduxState) => ({
+    userList: reduxState.userList,
+    user: reduxState.user,
+    driverRotues: reduxState.driverRoutes
 });
 
 export default connect(mapStateToProps)(AdminPage)
