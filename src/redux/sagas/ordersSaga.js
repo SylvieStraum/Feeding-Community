@@ -67,6 +67,10 @@ function* getOrders(action) {
         }
         console.log('action.payload:', action.payload)
         yield put({
+            type: 'SET_ORDERS_REQUEST',
+            payload: action.payload
+        })
+        yield put({
             type: 'SORT_ORDERS',
             payload: responsePayload
         });
@@ -80,13 +84,13 @@ function* getOrders(action) {
 function* alterOrder(action) {
     console.log(action.payload)
     try {
-        if(action.payload.id){
-            yield axios.put(`/api/orders/${action.payload.id}`, action.payload);
+        if(action.payload.id === -1){
+            yield axios.post(`/api/orders/`, action.payload.state);
         }
         else {
-            yield axios.post(`/api/orders/`, action.payload);
+            yield axios.put(`/api/orders/${action.payload.state.id}`, action.payload.state);
         }
-        yield put({ type: 'GET_DATES_ORDERS'});
+        yield put({ type: 'GET_ORDERS' , payload: action.payload.request});
     } catch (error) {
         console.log('put saga request failed', error);
     }

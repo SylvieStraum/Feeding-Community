@@ -35,7 +35,8 @@ router.get('/', rejectNotDriver, (req, res) => {
 
 
 router.get('/routes', rejectNotDriver, (req, res) => {
-    sqlText = `SELECT * FROM route;`
+    sqlText = `SELECT * FROM route
+                    ORDER BY "id" ASC;`
     pool.query(sqlText)
         .then((result) => {
             console.log('in GET driver routes')
