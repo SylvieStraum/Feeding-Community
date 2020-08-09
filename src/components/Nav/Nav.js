@@ -61,9 +61,9 @@ const Nav = (props) => (
           <Link className="nav-link" to="/drivers">
             Current Route
           </Link>
-          <Link className="nav-link" to="/admin">
+          {/* <Link className="nav-link" to="/admin">
             Admin
-          </Link>
+          </Link> */}
           <LogOutButton className="nav-link" />
         </>
       )}
