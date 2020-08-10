@@ -28,12 +28,18 @@ class AccountsItem extends Component {
     // send PUT and toggles to non-editable state
     updateDependent = () => {
         console.log('update dependent', this.props.item)
+        let searchState = false
+        if (this.props.searchReducer !== []){
+            searchState = true
+        }
 
         // sends dispatch with put information
         this.props.dispatch({
             type: 'UPDATE_DEPENDENT',
-            payload: this.state
-        });
+            payload: {
+                    dependent: this.state,
+                    searchState: searchState
+        }});
 
         // toggles to non-editable state
         this.setState({
@@ -197,7 +203,8 @@ const mapStateToProps = (reduxState) => ({
     organizations: reduxState.organizations,
     menu: reduxState.menu,
     programs: reduxState.programs,
-    routes: reduxState.driverRoutes
+    routes: reduxState.driverRoutes,
+    searchReducer: reduxState.searchReducer
 });
 
 export default connect(mapStateToProps)(AccountsItem);

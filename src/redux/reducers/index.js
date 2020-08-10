@@ -12,6 +12,7 @@ import ordersRange from './ordersRangeReducer'
 import driverDependents from './driverReducer'
 import driverRoutes from './routesReducer'
 import searchReducer from './searchReducer'
+import searchStoreReducer from './searchStoreReducer'
 import userList from './adminReducer'
 import ordersRequest from './ordersRequestReducer'
 
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   driverDependents, //sets dependents for drivers
   driverRoutes, //sets the route names/assignments
   searchReducer, // contains search results
+  searchStoreReducer, // contains search results
   userList, // contains list of users that can access app,
   ordersRequest, // contains the order range last request, for easy recall when altering orders
 });
