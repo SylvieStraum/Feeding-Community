@@ -26,7 +26,7 @@ class AdminDashboard extends Component {
     render() {
         return (
             <div className="AdminDashboard">
-                <div className="dashboardItem">
+                <div>
                     {/* this will eventually have a string interpolation with the current date */}
                     <h2>Admin Dashboard {this.state.date}</h2>
                 </div>

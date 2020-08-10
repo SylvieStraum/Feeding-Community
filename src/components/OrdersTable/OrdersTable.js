@@ -73,6 +73,9 @@ class OrdersTable extends Component {
     this.props.range.length === 0 && this.props.dispatch({ type: 'GET_ORDERS', payload: { method: 'selectMonth', value: this.state.selectMonth } });
     return (
       <div className="OrdersTable" style={{ textAlign: 'center', width: '90%', margin: 'auto' }}>
+        <div>
+          <h1>ORDERS</h1>
+        </div>
         {/* {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)} */}
         <form className="selection" >
           {this.state.selectMode ?
@@ -105,35 +108,35 @@ class OrdersTable extends Component {
           <thead>
             <tr>
               <th>Name {console.log(this.props.menu)}</th>
-                    {this.props.range[0] &&
-                    this.props.range[0].map((date) => 
-                      <th key={date}>{date}</th>
-                    )
-                    }
+              {this.props.range[0] &&
+                this.props.range[0].map((date) =>
+                  <th key={date}>{date}</th>
+                )
+              }
             </tr>
           </thead>
-            <tbody>
-                {this.props.range[1] &&
-                  this.props.range[1].map((dep) => {
-                    return <tr key={dep.dependent_id}>
-                      <td>{dep.first_name} {dep.last_name}</td>
-                      {dep.dates.map((date) => {
-                        let dateName = Object.keys(date)
-                        let number_of_meals = date[dateName[0]].number_of_meals
-                        let dateKey = dateName[0] + '-' + dep.first_name
-                        // let meal_choice_id = (date[dateName[0]].meal_choice - 1)
-                        // let meal_name = this.props.menu[meal_choice_id].menu_description
-                        //console.log(dateName, date[dateName[0]], meal_name)
-                        return <OrdersItem key={dateKey} order={date[dateName[0]]} dependent_id={dep.dependent_id} />
-                      })}
-                    </tr>
-                  })
-                  }
-                </tbody>
-              </table>
-            </div>
-        );//end return
-    }//end render
+          <tbody>
+            {this.props.range[1] &&
+              this.props.range[1].map((dep) => {
+                return <tr key={dep.dependent_id}>
+                  <td>{dep.first_name} {dep.last_name}</td>
+                  {dep.dates.map((date) => {
+                    let dateName = Object.keys(date)
+                    let number_of_meals = date[dateName[0]].number_of_meals
+                    let dateKey = dateName[0] + '-' + dep.first_name
+                    // let meal_choice_id = (date[dateName[0]].meal_choice - 1)
+                    // let meal_name = this.props.menu[meal_choice_id].menu_description
+                    //console.log(dateName, date[dateName[0]], meal_name)
+                    return <OrdersItem key={dateKey} order={date[dateName[0]]} dependent_id={dep.dependent_id} />
+                  })}
+                </tr>
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+    );//end return
+  }//end render
 }
 
 const mapStateToProps = (reduxState) => ({
