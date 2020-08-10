@@ -105,9 +105,7 @@ class IntakeForm extends Component {
     render() {
         return (
             <div className="intakeForm">
-                <div className="header">
-                    <h1>Intake Form</h1>
-                </div>
+                <h2>Intake Form</h2>
                 {/* <p>Enter client information form</p> */}
                 <div>
                     <form class="formItem" onSubmit={this.createDependent}>

@@ -74,7 +74,7 @@ class OrdersTable extends Component {
     return (
       <div className="OrdersTable" style={{ textAlign: 'center', width: '90%', margin: 'auto' }}>
         <div>
-          <h1>ORDERS</h1>
+          <h2>Orders</h2>
         </div>
         {/* {console.log(this.props.range, this.state.selectDay, this.state.selectMonth)} */}
         <form className="selection" >

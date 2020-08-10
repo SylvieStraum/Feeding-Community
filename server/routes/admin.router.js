@@ -43,7 +43,7 @@ router.post('/register/', rejectNotAdmin, (req, res) => {
 });//END POST ROUTE to create account
 
 //PUT ROUTE to change all menu items
-router.put('/:id', rejectNotAdmin, (req, res) => {
+router.put('/:id', rejectNotAdmin, async (req, res) => {
 
     let actionType = req.body.actionType
     let queryText = ``;
@@ -83,15 +83,42 @@ router.put('/:id', rejectNotAdmin, (req, res) => {
                         WHERE "id" = $2;`
         values = [id, route_id];
     }
-
-    console.log('put request, values:', values)
-    pool.query(queryText, values)
-        .then((results) => {
-            res.send("Update user successful");
-        }).catch((error) => {
-            console.log(error);
+    if (actionType === 'editRoute'){
+        const connection = await pool.connect();
+        try {
+            await connection.query('BEGIN;');
+            const selectSQL = `SELECT "id" FROM "route"
+                                WHERE "user_id" = $1;`
+            
+            const deleteSQL = `UPDATE "route"
+                                    SET "user_id" = null
+	                                WHERE "id" = $1;`;
+            const toRemove = await connection.query(selectSQL, [id]);
+            if (toRemove.rows[0] !== undefined) {
+                await connection.query(deleteSQL, [toRemove.rows[0].id]);
+            }
+            await connection.query(queryText, values);
+            await connection.query('COMMIT;');
+            res.sendStatus(200);
+        } catch (error) {
+            await connection.query('ROLLBACK;');
+            console.log('Error with updating dependent info', error)
             res.sendStatus(500);
-        })
+        } finally {
+            connection.release();
+        }
+    }   
+    else {
+        console.log('put request, values:', values)
+        pool.query(queryText, values)
+            .then((results) => {
+                res.send("Update user successful");
+            }).catch((error) => {
+                console.log(error);
+                res.sendStatus(500);
+            })
+    }
+
 }); //END PUT ROUTE
 
 // DELETE Route

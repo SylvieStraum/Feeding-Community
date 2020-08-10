@@ -61,7 +61,7 @@ class AdminPage extends Component {
                         <select className="admin-form-input" name="account_type" id="account_type" onChange={this.handleInput} value={this.state.account_type}>
                             <option value="0" disabled>Select Account Type</option>
                             <option value="1">Driver</option>
-                            <option value="5">Editor</option>
+                            {/* <option value="5">Editor</option> */}
                             <option value="10">Admin</option>
                         </select>
                         
@@ -80,7 +80,7 @@ class AdminPage extends Component {
                     </fieldset>
                 </form>
                 <div className="admin-list-container">
-                    <h2 className="admin-list-title">Current Admin</h2>
+                    <h2>Current Admin</h2>
                     {this.props.userList.map((user) => {
                         if(user.id === this.props.user.id) {
                             return false
