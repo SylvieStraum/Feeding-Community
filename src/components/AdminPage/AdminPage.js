@@ -80,7 +80,7 @@ class AdminPage extends Component {
                     </fieldset>
                 </form>
                 <div className="admin-list-container">
-                    <h2 className="admin-list-title">Current Admin</h2>
+                    <h2>Current Admin</h2>
                     {this.props.userList.map((user) => {
                         if(user.id === this.props.user.id) {
                             return false

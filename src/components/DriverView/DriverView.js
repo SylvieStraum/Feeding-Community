@@ -25,9 +25,7 @@ class DriverView extends Component {
     render() {
         return (
             <div className="Accounts">
-                <div className="accountItems">
-                    <h2>ROUTE</h2>
-                </div>
+                    <h2>Route</h2>
                 <div className="accountItems driverTable">
                     <table>
                         {/* <caption>Clients</caption> */}

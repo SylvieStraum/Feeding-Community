@@ -39,10 +39,7 @@ class Accounts extends Component {
   render() {
     return (
       <div className="Accounts">
-        <div className="accountItems">
-          <h2>ACCOUNTS</h2>
-          {/* <p>List of all accounts, you can edit within any row.</p> */}
-        </div>
+        <h2>Accounts</h2>
         <div className="accountItems acctTable">
         <div className='search'>
           <SearchBar 
