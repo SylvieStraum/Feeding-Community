@@ -2,15 +2,29 @@
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+    border-radius: 4px;
 }
 th, td {
     padding: 5px;
     text-align: left;
 }
 th {
-    background-color: lightgrey;
+    background-color: $grey;
 }
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+    
+}
+tr:hover {
+  background-color: $grey;
+}
+
 h2 {
+    margin-left: 45%;
+    // margin-right: 45%;
     color: $secondary;
 }
 .accountItems{
@@ -18,4 +32,10 @@ h2 {
 }
 .acctTable{
     max-width: 90%;
+}
+
+.driverTable{
+    max-width: 40%;
+    margin-left: 30%;
+    margin-right: 30%;
 }
