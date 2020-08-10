@@ -3,10 +3,10 @@
     display: inline-block;
 }
 .searchItems input, .searchItems select, .OrdersTable input{
-    width: 16%;
+    width: 18%;
     min-width: min-content;
-    padding: 12px 16px;
-    margin: 8px 2px;
+    padding: 12px 12px;
+    margin: 4px 2px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -18,11 +18,15 @@
 .searchBtn button, .OrdersTable button{
     // box-sizing: border-box;
     padding: 12px 20px;
-    margin: 8px;
+    margin: 8px 4px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
-
+.inputs{
+    margin: 0px;
+    padding: 0px;
+    width: 70%
+}
 .searchBtn :active, .OrdersTable button:active{
    box-shadow:0 0 10px $primary ;
    background-color: darkgrey;
@@ -35,4 +39,7 @@
 }
 .OrdersTable a:hover{
     color: $primary
+}
+.inline{
+    display: inline-block;
 }

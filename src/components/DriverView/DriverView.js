@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DriverViewItems from '../DriverViewItems/DriverViewItems';
-import '../Accounts/Accounts.scss';
+import './DriverView.scss';
 
 class DriverView extends Component {
     // Renders the entire DriverView on the DOM

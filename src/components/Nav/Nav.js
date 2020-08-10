@@ -7,7 +7,7 @@ import './Nav.scss';
 
 const Nav = (props) => (
   <div className="nav">
-    <Link to="/home">
+    <Link to="/intake">
       <img src="images/feedingcommunitywhite-501706b0bf803ec56edaa0832a85fed3.png" className="logo" alt="logo in nav"></img>
       {/* <h2 className="nav-title"></h2> */}
     </Link>
@@ -41,9 +41,6 @@ const Nav = (props) => (
           <Link className="nav-link" to="/orders">
             Orders
           </Link>
-          <Link className="nav-link" to="/drivers">
-            Current Route
-          </Link>
           <LogOutButton className="nav-link" />
         </>
       )}
@@ -57,9 +54,6 @@ const Nav = (props) => (
           </Link> */}
           <Link className="nav-link" to="/orders">
             Orders
-          </Link>
-          <Link className="nav-link" to="/drivers">
-            Current Route
           </Link>
           <Link className="nav-link" to="/admin">
             Admin

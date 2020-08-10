@@ -1,0 +1,56 @@
+@import './src/index.scss';
+
+.ordersTable {
+    max-width: 1200px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: scroll;
+}
+.ordersTable th, td {
+    padding: 8px 6px;
+    text-align: left;
+    min-width: 120px;
+}
+
+#selection{
+    max-width: 1200px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+#exportCSV{
+    text-align: center;
+    margin: 10px auto;
+    width: 260px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#orders-wrapper{
+    text-align: 'center';
+}
+
+.table-wrapper {
+    position: relative;
+}
+
+.table-scroll {
+    margin: auto;
+    width: 95%;
+    height: 60%;
+    overflow: auto;
+}
+
+.table-wrapper table {
+    width: 100%;
+    height: 60%;
+}
+.rangeBtn{
+    margin: 0px 10px;
+}
+.ordersTDP{
+    display: inline;
+}
