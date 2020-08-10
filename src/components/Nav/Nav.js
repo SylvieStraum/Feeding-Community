@@ -12,18 +12,18 @@ const Nav = (props) => (
       {/* <h2 className="nav-title"></h2> */}
     </Link>
     <div className="nav-right">
-      <Link className="nav-link" to="/home">
+      <Link className="nav-link" to="/intake">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Home' : 'Login / Register'}
+        {props.user.id ? 'Intake Form' : 'Login / Register'}
       </Link>
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.account_type === 1 && (
         <>
-          <Link className="nav-link" to="/intake">
+          {/* <Link className="nav-link" to="/intake">
             Intake Form
-          </Link>
+          </Link> */}
           <Link className="nav-link" to="/drivers">
             Current Route
           </Link>
@@ -35,9 +35,9 @@ const Nav = (props) => (
           <Link className="nav-link" to="/accounts">
             Accounts
           </Link>
-          <Link className="nav-link" to="/intake">
+          {/* <Link className="nav-link" to="/intake">
             Intake Form
-          </Link>
+          </Link> */}
           <Link className="nav-link" to="/orders">
             Orders
           </Link>
@@ -52,18 +52,18 @@ const Nav = (props) => (
           <Link className="nav-link" to="/accounts">
             Accounts
           </Link>
-          <Link className="nav-link" to="/intake">
+          {/* <Link className="nav-link" to="/intake">
             Intake Form
-          </Link>
+          </Link> */}
           <Link className="nav-link" to="/orders">
             Orders
           </Link>
           <Link className="nav-link" to="/drivers">
             Current Route
           </Link>
-          <Link className="nav-link" to="/admin">
+          {/* <Link className="nav-link" to="/admin">
             Admin
-          </Link>
+          </Link> */}
           <LogOutButton className="nav-link" />
         </>
       )}
