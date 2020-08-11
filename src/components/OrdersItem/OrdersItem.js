@@ -61,8 +61,8 @@ class OrdersItem extends Component {
                     this.state.editMode === true ?
                         <>
                             <input className="ordersEditInput" onChange={this.handleInput} value={this.state.number_of_meals} id="number_of_meals"></input>
-                            <button onClick={this.save}>Save</button>
-                            <button onClick={this.cancel}>Cancel</button>
+                            <button onClick={this.save} className="ordersEditButton">Save</button>
+                            <button onClick={this.cancel} className="ordersEditButton">Cancel</button>
                         </>
                         :
                         this.props.order.number_of_meals > 0 ?

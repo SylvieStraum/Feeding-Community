@@ -2,7 +2,7 @@
 .searchItems{
     display: inline-block;
 }
-.searchItems input, .searchItems select, .OrdersTable input{
+.searchItems input, .searchItems select{
     width: 18%;
     min-width: min-content;
     padding: 12px 12px;
@@ -15,7 +15,7 @@
 .searchItems{
     text-align: center;
 }
-.searchBtn button, .OrdersTable button{
+.searchBtn button{
     // box-sizing: border-box;
     padding: 12px 20px;
     margin: 8px 4px;
@@ -27,11 +27,11 @@
     padding: 0px;
     width: 70%
 }
-.searchBtn :active, .OrdersTable button:active{
+.searchBtn :active{
    box-shadow:0 0 10px $primary ;
    background-color: darkgrey;
 }
-.searchBtn :hover,.OrdersTable button:hover {
+.searchBtn :hover{
     background-color: rgba(189, 189, 189, 0.5);
 }
 .OrdersTable a{

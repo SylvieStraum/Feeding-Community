@@ -61,3 +61,23 @@ h2 {
   text-align: center;
   color: $secondary;
 }
+
+.table-wrapper {
+  position: relative;
+}
+
+.table-scroll {
+  margin: auto;
+  width: 95%;
+  height: 60%;
+  overflow: auto;
+}
+
+.table-wrapper table {
+  width: 100%;
+  height: 60%;
+}
+
+.rangeBtn {
+  margin: 0px 10px;
+}

@@ -109,7 +109,7 @@ class OrdersTable extends Component {
         </div>
         <div className="table-wrapper">
           <div className="table-scroll">
-            <table className="OrdersTable">
+            <table className="ordersTable">
               <thead>
                 <tr>
                   <th>Name {console.log(this.props.menu)}</th>
