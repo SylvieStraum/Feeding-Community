@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DriverViewItems from '../DriverViewItems/DriverViewItems';
-import '../Accounts/Accounts.scss';
+import './DriverView.scss';
 
 class DriverView extends Component {
     // Renders the entire DriverView on the DOM
@@ -37,6 +37,7 @@ class DriverView extends Component {
                                 <th>City</th>
                                 <th>Zip Code</th>
                                 <th>Meal Type</th>
+                                <th>Number of Meals</th>
                                 <th>Meal Notes</th>
                                 {/* <th>Qualified Program</th> */}
                                 <th>Signed</th>

@@ -40,7 +40,6 @@ class Accounts extends Component {
     return (
       <div className="Accounts">
         <h2>Accounts</h2>
-        <div className="accountItems acctTable">
         <div className='search'>
           <SearchBar 
           referralQuery={this.props.reduxState.organizations} 
@@ -50,7 +49,9 @@ class Accounts extends Component {
           </SearchBar>
           {/* <SearchAddress dependents={this.props.reduxState.allDependents}/> */}
         </div>
-          <table>
+        <div className="table-wrapper">
+          <div className="table-scroll">
+          <table className="accounts">
             <thead>
               <tr>
                 <th>Name</th>
@@ -83,8 +84,9 @@ class Accounts extends Component {
               }
             </tbody>
           </table>
+          </div>
         </div>
-      </div>
+        </div>
     );//end return
   }//end render
 }//end class

@@ -46,6 +46,7 @@ router.get('/today/', rejectNotEditor, (req, res) => {
 
     const queryText = `SELECT * FROM "orders"
                         WHERE "date" = $1
+                        ORDER BY "date" ASC, "dependent_id" ASC
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
@@ -67,6 +68,7 @@ router.get('/day/:id', rejectNotEditor, (req, res) => {
     const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
                         JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
                         WHERE "date" = $1
+                        ORDER BY "date" ASC, "dependent_id" ASC
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
@@ -89,6 +91,7 @@ router.get('/month/:id', rejectNotEditor, (req, res) => {
     const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
                         JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
                         WHERE "date"::text LIKE $1
+                        ORDER BY "date" ASC, "dependent_id" ASC
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
@@ -111,6 +114,7 @@ router.get('/year/', rejectNotEditor, (req, res) => {
     const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
                         JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
                         WHERE "date"::text LIKE $1
+                        ORDER BY "date" ASC, "dependent_id" ASC
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
@@ -204,7 +208,7 @@ router.get('/dates/', rejectNotEditor, (req, res) => {
             }
             // query text added for last input if more than a single date requested
             else if(index === input.length){
-                queryText = queryText.concat(` OR "date" = ${'$' + index} ORDER BY "dependent_id" ASC, "date" ASC;`)
+                queryText = queryText.concat(` OR "date" = ${'$' + index} ORDER BY "date" ASC, "dependent_id" ASC;`)
             }
             // query text added for any input that isn't first or last for more than a single date
             else{

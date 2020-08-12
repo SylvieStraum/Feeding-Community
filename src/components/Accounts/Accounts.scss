@@ -4,9 +4,11 @@ table, th, td {
     border-collapse: collapse;
     border-radius: 4px;
 }
-th, td {
+.accounts th, 
+.accounts td {
     padding: 5px;
     text-align: left;
+    min-width: 150px;
 }
 th {
     background-color: $grey;
@@ -21,16 +23,12 @@ tr {
 tr:hover {
   background-color: $grey;
 }
-
-.accountItems{
-    margin-left: 5%;
-}
-.acctTable{
-    max-width: 90%;
+.accounts{
+    margin: 0px;
+    width: 100%;
 }
 
-.driverTable{
-    max-width: 40%;
-    margin-left: 30%;
-    margin-right: 30%;
+.search{
+    width: 98%;
+    margin: auto;
 }

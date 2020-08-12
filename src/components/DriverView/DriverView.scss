@@ -1,0 +1,19 @@
+@import './src/index.scss';
+.driverTable {
+    max-width: 1000px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.driverTable td, 
+.driverTable th {
+    padding: 8px;
+    max-width: 120px;
+}
+.driverTable td:nth-child(2), 
+.driverTable th:nth-child(2) 
+.driverTable td:nth-child(3), 
+.driverTable th:nth-child(3) {
+    padding: 8px;
+    width: 140px;
+}

@@ -1,0 +1,91 @@
+@import './src/index.scss';
+
+.ordersTable {
+    text-align: center;
+    max-width: 1200px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: scroll;
+}
+
+.ordersTable th,
+.ordersTable td {
+    padding: 12px 8px;
+    min-width: 120px;
+    text-align: center;
+    min-width: 150px;
+}
+.ordersTable td:nth-child(1),
+.ordersTable th:first-child {
+    text-align: left;
+}
+
+#selection{
+    max-width: 1200px;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+#exportCSV{
+    text-align: center;
+    margin: 10px auto;
+    width: 260px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.ordersEditInput{
+    width: 30px;
+    text-align: center;
+    padding: 4px;
+    margin: 4px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+.ordersEditButton {
+    padding: 4px;
+    margin: 4px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+.ordersEditButton:active {
+    box-shadow: 0 0 10px $primary;
+    background-color: darkgrey;
+}
+.ordersEditButton:hover {
+    background-color: rgba(189, 189, 189, 0.5);
+}
+#orders-wrapper{
+    text-align: 'center';
+}
+
+.ordersTDP{
+    display: inline;
+}
+
+.OrdersTable input {
+    padding: 8px;
+    margin: 4px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.OrdersTable button {
+    // box-sizing: border-box;
+    padding: 8px 10px;
+    margin: 8px 4px;
+    border: 1px solid #ccc;
+    border-radius: px;
+}
+.OrdersTable button:active {
+    box-shadow: 0 0 10px $primary;
+    background-color: darkgrey;
+}
+
+.OrdersTable button:hover {
+    background-color: rgba(189, 189, 189, 0.5);
+}
