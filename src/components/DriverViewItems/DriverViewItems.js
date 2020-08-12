@@ -13,6 +13,7 @@ class DriverViewItems extends Component {
                     <td>{this.props.item.city}</td>                   
                     <td>{this.props.item.zip_code}</td>
                     <td>{this.props.item.menu_description}</td>                    
+                    <td>{this.props.item.number_of_meals}</td>                    
                     <td>{this.props.item.meal_choice === 4 ?
                             <>
                             {this.props.item.special_request}
