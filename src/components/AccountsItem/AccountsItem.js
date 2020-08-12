@@ -104,7 +104,7 @@ class AccountsItem extends Component {
                         <td>{this.props.item.phone_number}</td>
                         <td>{dateOfBirth}</td>
                         {/* address td will be a concatenated string of building_address 1 and 2 */}
-                        <td>{this.props.item.building_address1} {this.props.item.building_address2}</td>
+                        <td>{this.props.item.building_address1} <br/> {this.props.item.building_address2}</td>
                         <td>{this.props.item.zip_code}</td>
                         <td>{this.props.item.county_name}</td>
                         <td>{this.props.item.city}</td>

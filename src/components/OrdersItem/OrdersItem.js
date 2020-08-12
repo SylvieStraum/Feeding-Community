@@ -57,15 +57,18 @@ class OrdersItem extends Component {
     render() {
     return (
         <td>
-                {this.props.order.number_of_meals ?
+                {this.props.order.number_of_meals >= 0 ?
                     this.state.editMode === true ?
                         <>
                             <input className="ordersEditInput" onChange={this.handleInput} value={this.state.number_of_meals} id="number_of_meals"></input>
-                            <button onClick={this.save}>Save</button>
-                            <button onClick={this.cancel}>Cancel</button>
+                            <button onClick={this.save} className="ordersEditButton">Save</button>
+                            <button onClick={this.cancel} className="ordersEditButton">Cancel</button>
                         </>
                         :
-                        <p onClick={this.editToggle}>Amount: {this.props.order.number_of_meals}</p>
+                        this.props.order.number_of_meals > 0 ?
+                        <p onClick={this.editToggle}  className="ordersTDP">Meals: {this.props.order.number_of_meals}</p>
+                        :
+                        <p onClick={this.editToggle}  className="ordersTDP">{this.props.order.number_of_meals}</p>
                     :
                     <></>
                 }

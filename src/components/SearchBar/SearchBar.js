@@ -79,9 +79,9 @@ class SearchBar extends Component {
   
   render() {
     return (
-        <div className="searchItems" style={{width:'100%'}}>
-         <div style={{float:'left'}}><h3>Search by:</h3></div> 
-        <div style={{float:'left'}}>   
+        <div className="searchItems" >
+         <h3 className="inline">Search by:</h3>
+        <div className="inline inputs">   
           <input
             type="text"
             placeholder="First Name"
@@ -119,7 +119,7 @@ class SearchBar extends Component {
             ))}
           </select>
           </div>
-          <div className="searchBtn" style={{float:'left'}}>
+          <div className="searchBtn inline">
           <button onClick={() => this.searchDependents()}>search</button>
           <button onClick={this.resetDependents}>reset</button>
           </div>

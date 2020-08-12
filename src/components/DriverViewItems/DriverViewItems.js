@@ -9,10 +9,11 @@ class DriverViewItems extends Component {
                 <tr>
                     <td>{this.props.item.first_name} {this.props.item.last_name}</td>
                     <td>{this.props.item.phone_number}</td>
-                    <td>{this.props.item.building_address1} {this.props.item.building_address2}</td> 
+                    <td>{this.props.item.building_address1}<br /> {this.props.item.building_address2}</td> 
                     <td>{this.props.item.city}</td>                   
                     <td>{this.props.item.zip_code}</td>
                     <td>{this.props.item.menu_description}</td>                    
+                    <td>{this.props.item.number_of_meals}</td>                    
                     <td>{this.props.item.meal_choice === 4 ?
                             <>
                             {this.props.item.special_request}
