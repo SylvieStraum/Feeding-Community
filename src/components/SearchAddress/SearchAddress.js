@@ -17,7 +17,7 @@ class SearchAddress extends Component {
     }
 
     searchAddresses = () => {
-        console.log('searching:', this.state.address)
+        // console.log('searching:', this.state.address)
         let address = this.state.address
         // let address1 = this.state.building_address1        
         // let address2 = this.state.building_address2

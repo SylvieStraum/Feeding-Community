@@ -12,7 +12,6 @@ router.get('/', rejectNotAdmin, (req, res) => {
 
         pool.query(queryText)
             .then((result) => {
-                console.log(`GET database request successful`);
                 res.send(result.rows);
             })
             .catch((error) => {
@@ -27,8 +26,6 @@ router.post('/register/', rejectNotAdmin, (req, res) => {
     const password = encryptLib.encryptPassword(req.body.password);
     const username = req.body.username;
     const account_type = req.body.account_type;
-
-    console.log("password:", password, "username:", username, "account_type:" , account_type);
 
     const queryText = `INSERT INTO "user"
                             ("username", "password", "account_type")
@@ -53,7 +50,6 @@ router.put('/:id', rejectNotAdmin, async (req, res) => {
     let username = '';
     let account_type = '';
     let route_id = 0;
-    console.log('body:', req.body, 'id:', id)
     if (actionType === 'editPassword') {
         password = encryptLib.encryptPassword(req.body.password);
         queryText = `UPDATE "user"
@@ -109,7 +105,6 @@ router.put('/:id', rejectNotAdmin, async (req, res) => {
         }
     }   
     else {
-        console.log('put request, values:', values)
         pool.query(queryText, values)
             .then((results) => {
                 res.send("Update user successful");
@@ -125,14 +120,12 @@ router.put('/:id', rejectNotAdmin, async (req, res) => {
 router.delete('/:id', rejectNotAdmin, (req, res) => {
     
     let id = req.params.id; // id of the thing to delete
-    console.log('Delete route called with id of', id);
     
     let queryText = ` DELETE FROM "user"
                         WHERE id = $1;`;
 
     pool.query(queryText, [id])
         .then((result) => {
-            console.log(`User ${id} has been deleted`);
             res.sendStatus(200);
         })
         .catch((err) => {

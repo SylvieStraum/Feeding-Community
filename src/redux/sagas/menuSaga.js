@@ -13,7 +13,6 @@ function* getMenu() {
 
 // put request to alter menu
 function* alterMenu(action) {
-    console.log(action.payload)
     try {
         yield axios.put(`/api/menu/${action.payload.id}`, action.payload);
         yield put({ type: 'GET_MENU'});

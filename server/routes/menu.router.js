@@ -12,7 +12,6 @@ router.get('/', rejectNotDriver, (req, res) => {
     `
     pool.query(sqlText)
     .then(result=>{
-        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{
@@ -32,7 +31,6 @@ router.put('/', rejectNotAdmin, (req, res) => {
 
     pool.query(sqlText, values)
     .then(result=>{
-        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{
@@ -44,7 +42,6 @@ router.put('/', rejectNotAdmin, (req, res) => {
 //PUT ROUTE to change all menu items
 router.put('/all/', rejectNotAdmin, (req, res) => {
 
-    console.log('body:', req.body)
     const queryText = `UPDATE "menu" AS m
                             SET  "description" = c."description"
                             FROM (VALUES
@@ -53,7 +50,6 @@ router.put('/all/', rejectNotAdmin, (req, res) => {
                             WHERE c."id" = m."id" ;`;
 
     const values = [req.body.option1, req.body.option2, req.body.veggie];
-    console.log('put request, values:', values)
     pool.query(queryText, values)
         .then((results) => {
             res.send(results);

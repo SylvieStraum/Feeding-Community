@@ -38,12 +38,12 @@ class AdminDashboard extends Component {
                     <h2>Admin Dashboard {this.state.date}</h2>
                 </div>
                 <div className="mealBox dashboardItem">
-                    {console.log(this.props.today)}
+                    {/* {console.log(this.props.today)} */}
                     {/* this will have a map of reduxState with meal totals */}
                     {this.props.today.totalOrders ?
                     <p>
                     {
-                        console.log(this.props.today.totalOrders)
+                        // console.log(this.props.today.totalOrders)
                     }
                     Meat: {this.props.today.totalOrders.meat} &emsp; Fish: {this.props.today.totalOrders.fish} &emsp; Veggie: {this.props.today.totalOrders.veggie} &emsp; Special Requests: {this.props.today.totalOrders.special} &emsp; Total: {this.props.today.totalOrders.total} 
                     </p>

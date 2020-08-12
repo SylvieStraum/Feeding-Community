@@ -52,7 +52,7 @@ class AdminItem extends Component {
     }
 
     deleteAdmin = (event) => {
-        console.log('in delete user', event.target.id);
+        // console.log('in delete user', event.target.id);
         let user = event.target.id
         Swal.fire({
             title: 'Are you sure?',
@@ -110,7 +110,7 @@ class AdminItem extends Component {
         return (
             <div className="admin-item-container">
                 <div>
-                    {console.log(this.state)}
+                    {/* {console.log(this.state)} */}
                     <h3>Username: <span className="admin-item-username">{this.props.user.username}</span></h3>
                     {this.props.user.account_type === 1 &&
                         <p>Type: Driver</p>

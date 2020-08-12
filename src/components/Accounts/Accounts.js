@@ -25,7 +25,6 @@ class Accounts extends Component {
   }
 
   componentDidMount() {
-    console.log('component did mount')
     //dispatch call to GET all dependents
     this.props.dispatch({ type: 'GET_ALL_DEPENDENTS' });
     this.props.dispatch({type: 'GET_COUNTIES'});
