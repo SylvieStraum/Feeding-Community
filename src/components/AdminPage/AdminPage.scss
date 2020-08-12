@@ -2,6 +2,15 @@
 /**
 * AdminPage.js Styling
 **/
+.admin-input-box{
+    background-color: #e5e8ea;
+    max-width: 56%;
+    max-height: 1200px;
+    margin: 20px auto;
+    padding: 2%;
+    border-radius: 2px;
+}
+
 
 .admin-form-input {
     min-width: 200px;
@@ -25,6 +34,7 @@
 .admin-list-container {
     margin: 50px 0 0 0;
     background-color: $grey;
+    padding: 10px;
 }
 
 .admin-list-title {
@@ -63,14 +73,14 @@
     background-color: rgba(189, 189, 189, 0.5);
 }
 
-.formItem input, .formItem select{
-    width: 50%;
+.admin-input-box input,
+.admin-input-box select {
+    width: 90%;
     min-width: min-content;
     padding: 12px 16px;
-    margin: 8px 2px;
-    display: inline-block;
+    margin: 0px auto;
+    display: block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin-left: 25%;
 }

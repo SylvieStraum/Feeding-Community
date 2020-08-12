@@ -39,6 +39,7 @@ function* getTodaysOrders() {
             special: special,
             total: total
         }
+        
         let payload = {totalOrders: totalOrders, orders: orders}
         console.log('payload:', payload)
         

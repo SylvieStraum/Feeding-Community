@@ -87,14 +87,14 @@ class IntakeForm extends Component {
         })
 
         if (typeOf === 'program_id'){
-            if(event.target.value === 1){
+            if(event.target.value === "1"){
                 this.setState({
-                    number_of_meals: 3
+                    number_of_meals: this.props.programs[0].default_no_meals
                 })
             }
-            else if(event.target.value === 2){
+            else if(event.target.value === "2"){
                 this.setState({
-                    number_of_meals: 1
+                    number_of_meals: this.props.programs[1].default_no_meals
                 })
             }
             
@@ -108,6 +108,7 @@ class IntakeForm extends Component {
                 <h2>Intake Form</h2>
                 {/* <p>Enter client information form</p> */}
                 <div>
+                    {console.log(this.state)}
                     <form class="formItem" onSubmit={this.createDependent}>
                         <p>Please enter client information below</p>
                         <label></label>
