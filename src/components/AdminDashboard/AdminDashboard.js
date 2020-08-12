@@ -8,7 +8,7 @@ class AdminDashboard extends Component {
     state = ({
         date: ''
     })
-
+    
     async componentDidMount() {
         //dispatch to get todays orders
         await this.props.dispatch({ type: 'GET_TODAYS_ORDERS' });
@@ -22,11 +22,18 @@ class AdminDashboard extends Component {
             date: date
         })
     }
+    saveOrders = () => {
+        
+        // sends dispatch with put information
+        this.props.dispatch({
+            type: 'POST_TODAYS_ORDERS'
+        });
+    }
     
     render() {
         return (
             <div className="AdminDashboard">
-                <div>
+                <div className="dashboardItem">
                     {/* this will eventually have a string interpolation with the current date */}
                     <h2>Admin Dashboard {this.state.date}</h2>
                 </div>
@@ -38,7 +45,7 @@ class AdminDashboard extends Component {
                     {
                         console.log(this.props.today.totalOrders)
                     }
-                    Meat: {this.props.today.totalOrders.meat} Fish: {this.props.today.totalOrders.fish} Veggie: {this.props.today.totalOrders.veggie} Special Requests: {this.props.today.totalOrders.special} Total: {this.props.today.totalOrders.total} 
+                    Meat: {this.props.today.totalOrders.meat} &emsp; Fish: {this.props.today.totalOrders.fish} &emsp; Veggie: {this.props.today.totalOrders.veggie} &emsp; Special Requests: {this.props.today.totalOrders.special} &emsp; Total: {this.props.today.totalOrders.total} 
                     </p>
                     :
                     <>
@@ -48,6 +55,13 @@ class AdminDashboard extends Component {
                     Special Requests:
                     Total:
                     </>
+                    }
+                </div>
+                <div className="dashboardItem">
+                    { this.props.today.orders === [] ?
+                        <button disabled className="submit">Add Orders for Today</button>
+                        :
+                        <button onClick={this.saveOrders} className="submit">Add Orders for Today</button>
                     }
                 </div>
                 <AdminPage />

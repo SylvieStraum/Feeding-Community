@@ -50,7 +50,7 @@ class AdminPage extends Component {
         return (
             <div>
                 {console.log(this.state)}
-                <form class="formItem">
+                <form class="admin-input-box">
                     <fieldset>
                         <legend>Create New Admin</legend>
                         <label className="admin-form-label" for="username">Username:</label>

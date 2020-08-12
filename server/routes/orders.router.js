@@ -260,7 +260,6 @@ router.post('/save-day-back-up/', rejectNotAdmin, (req, res) => {
                         ORDER BY "dependent_id" ASC
                         ;`;
 
-
     console.log('put request:,', queryText)
     pool.query(queryText)
         .then((results) => {
@@ -269,6 +268,7 @@ router.post('/save-day-back-up/', rejectNotAdmin, (req, res) => {
             console.log(error);
             res.sendStatus(500);
         })
+        
 }); //END POST ROUTE
 
 //PUT ROUTE to save adjust data in a day

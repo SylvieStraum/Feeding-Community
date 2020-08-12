@@ -39,6 +39,7 @@ function* getTodaysOrders() {
             special: special,
             total: total
         }
+        
         let payload = {totalOrders: totalOrders, orders: orders}
         console.log('payload:', payload)
         
@@ -95,12 +96,22 @@ function* alterOrder(action) {
         console.log('put saga request failed', error);
     }
 }
+// pos request to add todays orders
+function* postOrders(action) {
+    try {
+        yield axios.post(`/api/orders/save-day-back-up/`);
+        yield put({ type: 'GET_TODAYS_ORDERS'});
+    } catch (error) {
+        console.log('put saga request failed', error);
+    }
+}
 
 
 function* ordersGetSaga() {
     yield takeEvery('GET_TODAYS_ORDERS', getTodaysOrders);
     yield takeEvery('GET_ORDERS', getOrders);
     yield takeEvery('UPDATE_ORDER', alterOrder);
+    yield takeEvery('POST_TODAYS_ORDERS', postOrders);
 }
 
 export default ordersGetSaga;

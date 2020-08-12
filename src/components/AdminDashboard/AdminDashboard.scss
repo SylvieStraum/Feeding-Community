@@ -4,15 +4,32 @@
     /* justify-content: center; */
     /* margin: 50px; */
 /* } */
+
 .dashboardItem{
-    margin-left: 40%;
+    text-align: center;
 }
+
 .mealBox {
     border: 1px solid black;
     border-collapse: collapse;
-    width: 30%;
+    width: 60%;
     min-width: 200px;
     border-radius: 3px;
     margin:auto;
     text-align: center;
+}
+.submit {
+    // box-sizing: border-box;
+    padding: 12px 20px;
+    margin: 8px 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.submit button:active {
+    box-shadow: 0 0 10px $primary;
+    background-color: darkgrey;
+}
+
+.submit button:hover {
+    background-color: rgba(189, 189, 189, 0.5);
 }
