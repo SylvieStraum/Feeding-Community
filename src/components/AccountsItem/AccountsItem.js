@@ -8,14 +8,13 @@ class AccountsItem extends Component {
     }
 
     cancelEdit = () => {
-        console.log('cancelling edit')
         this.setState({
             edit: !this.state.edit
         })
     }
     // PUT request
     editDependent = () => {
-        console.log('edit dependent:', this.props.item) //this will target the specific dependent clicked
+        // console.log('edit dependent:', this.props.item) //this will target the specific dependent clicked
 
     }
     // toggles to editable state
@@ -27,7 +26,7 @@ class AccountsItem extends Component {
 
     // send PUT and toggles to non-editable state
     updateDependent = () => {
-        console.log('update dependent', this.props.item)
+        // console.log('update dependent', this.props.item)
         let searchState = false
         if (this.props.searchReducer !== []) {
             searchState = true

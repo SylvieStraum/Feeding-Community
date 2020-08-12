@@ -49,7 +49,7 @@ class AdminPage extends Component {
     render() {
         return (
             <div>
-                {console.log(this.state)}
+                {/* {console.log(this.state)} */}
                 <form class="formItem">
                     <fieldset>
                         <legend>Create New Admin</legend>

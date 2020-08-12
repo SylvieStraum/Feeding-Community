@@ -12,7 +12,6 @@ router.get('/counties', rejectNotDriver,(req, res) => {
     `
     pool.query(sqlText)
     .then(result=>{
-        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{
@@ -28,7 +27,6 @@ router.get('/org', rejectNotDriver,(req, res) => {
     `
     pool.query(sqlText)
     .then(result=>{
-        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{
@@ -44,7 +42,6 @@ router.get('/program', rejectNotDriver,(req, res) => {
     `
     pool.query(sqlText)
     .then(result=>{
-        console.log('in dependent get information')
         res.send(result.rows)
     })
     .catch(err=>{

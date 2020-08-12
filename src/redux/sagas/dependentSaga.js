@@ -5,7 +5,6 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* getAllDependents() {
     try {
         const responsePayload = yield axios.get(`/api/dependent`);
-        console.log(responsePayload)
         yield put({ type: 'SET_ALL_DEPENDENTS' , payload: responsePayload});
     } catch (error) {
         console.log('Get all saga error', error);
@@ -15,7 +14,6 @@ function* getAllDependents() {
 function* getAllDependentsSearched(action) {
     try {
         const responsePayload = yield axios.get(`/api/dependent`);
-        console.log(responsePayload)
         yield put({ type: 'SET_ALL_DEPENDENTS' , payload: responsePayload});
         let result = []
         //console.log('result:', result);
@@ -48,7 +46,6 @@ function* newDependent(action) {
 
 // put request to alter dependent information
 function* alterDependent(action) {
-    console.log(action.payload)
     try {
         yield axios.put(`/api/dependent/${action.payload.dependent.id}`, action.payload.dependent);
         if (action.payload.searchState === true){
@@ -64,7 +61,6 @@ function* alterDependent(action) {
 
 //delete request to delete dependent from table, may not be needed.
 function* deleteDependent(action) {
-    console.log(action.payload)
     try {
         yield axios.delete(`/api/dependent/${action.payload}`);
         yield put({ type: 'GET_ALL_DEPENDENTS'});

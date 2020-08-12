@@ -34,24 +34,24 @@ class SearchBar extends Component {
     this.state.firstName ?
       result = result.filter(item => item.first_name.toUpperCase().includes(firstName.toUpperCase()))
       :
-      console.log('no firstname')
+      console.log('')
     this.state.lastName ?
       result = result.filter(item => item.last_name.toUpperCase().includes(lastName.toUpperCase()))
       :
-      console.log('no lastname ')
+      console.log('')
     this.state.address ?
       result = result.filter(item => item.building_address1.toUpperCase().includes(address.toUpperCase()))
       :
-      console.log('no address ')
+      console.log('')
     this.state.referralQuery ?
       result = result.filter(item => item.referral_id === Number(referralQuery))
       :
-      console.log('no organization')
+      console.log('')
 
     this.state.programQuery ?
       result = result.filter(item => item.program_id === Number(programQuery))
       :
-      console.log('no program')
+      console.log('')
     if (result.length === 0) {
       Swal.fire({
         title: 'Sorry, no one matches that search!',

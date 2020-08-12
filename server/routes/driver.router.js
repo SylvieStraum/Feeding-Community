@@ -24,7 +24,6 @@ router.get('/', rejectNotDriver, (req, res) => {
                                 ;`;
         pool.query(queryText, [req.user.id])
         .then((result) => {
-            console.log(`GET driver database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -39,7 +38,6 @@ router.get('/routes', rejectNotDriver, (req, res) => {
                     ORDER BY "id" ASC;`
     pool.query(sqlText)
         .then((result) => {
-            console.log('in GET driver routes')
             res.send(result.rows)
         })
         .catch((err) => {

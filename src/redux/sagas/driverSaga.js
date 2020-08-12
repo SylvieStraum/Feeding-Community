@@ -10,7 +10,6 @@ function* driverSaga() {
 function* getDriverDependents() {
     try {
         const responsePayload = yield axios.get(`/api/driver`);
-        console.log(responsePayload)
         yield put({ type: 'SET_DRIVER_DEPENDENTS' , payload: responsePayload});
     } catch (error) {
         console.log('error with GET driver saga', error);

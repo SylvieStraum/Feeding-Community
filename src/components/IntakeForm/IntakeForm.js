@@ -108,7 +108,7 @@ class IntakeForm extends Component {
                 <h2>Intake Form</h2>
                 {/* <p>Enter client information form</p> */}
                 <div>
-                    <form class="formItem" onSubmit={this.createDependent}>
+                    <form className="formItem" onSubmit={this.createDependent}>
                         <p>Please enter client information below</p>
                         <label></label>
                         <input
@@ -175,7 +175,6 @@ class IntakeForm extends Component {
                         <label></label>
                         <select
                             required
-                            type="text"
                             value={this.state.county_id}
                             placeholder="select county"
                             type="dropdown"
@@ -239,7 +238,7 @@ class IntakeForm extends Component {
                             }>
                             <option disabled value="">-- Select Referral Organiztation --</option>
                             {this.props.organizations.map((item) => (
-                                <option value={item.id}>{item.referral_name}</option>
+                                <option key={item.id} value={item.id}>{item.referral_name}</option>
                             ))}
                         </select>
                         <br />

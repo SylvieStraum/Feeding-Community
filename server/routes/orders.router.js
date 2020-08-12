@@ -13,7 +13,6 @@ router.get('/', rejectNotEditor, (req, res) => {
                         ORDER BY "date" ASC;`;
     pool.query(queryText)
         .then((result) => {
-            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -28,7 +27,6 @@ router.get('/today/', rejectNotEditor, (req, res) => {
 
     let today = new Date();
     let date = '';
-    console.log('today:', today)
     if (today.getMonth() < 10) {
         if (today.getDate() < 10) {
             date = today.getFullYear() + '-0' + (today.getMonth() + 1) + '-0' + today.getDate();
@@ -42,7 +40,6 @@ router.get('/today/', rejectNotEditor, (req, res) => {
             date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         }
     }
-    console.log('date:' , date);
 
     const queryText = `SELECT * FROM "orders"
                         WHERE "date" = $1
@@ -50,7 +47,6 @@ router.get('/today/', rejectNotEditor, (req, res) => {
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
-            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -63,7 +59,6 @@ router.get('/today/', rejectNotEditor, (req, res) => {
 router.get('/day/:id', rejectNotEditor, (req, res) => {
 
     let date = req.params.id
-    console.log('date:' , date);
 
     const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
                         JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
@@ -72,7 +67,6 @@ router.get('/day/:id', rejectNotEditor, (req, res) => {
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
-            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -86,7 +80,6 @@ router.get('/month/:id', rejectNotEditor, (req, res) => {
 
     let date = `%${req.params.id}%`
 
-    console.log(date);
 
     const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
                         JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
@@ -95,7 +88,6 @@ router.get('/month/:id', rejectNotEditor, (req, res) => {
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
-            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -109,7 +101,6 @@ router.get('/year/', rejectNotEditor, (req, res) => {
 
     let date = `%${req.body.date}%`
 
-    console.log(date);
 
     const queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
                         JOIN "dependents" ON "orders"."dependent_id" = "dependents"."id"
@@ -118,7 +109,6 @@ router.get('/year/', rejectNotEditor, (req, res) => {
                         ;`;
     pool.query(queryText, [date])
         .then((result) => {
-            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -183,7 +173,7 @@ router.get('/dates/', rejectNotEditor, (req, res) => {
     
     // runs getDates function and sets dates to dates variable
     let dates = getDates(req.query.startDate, req.query.endDate);
-    console.log('dates', dates);
+
     
     // sets initial part of query text
     let queryText = `SELECT "orders"."id" AS "id", "date", "dependent_id", "number_of_meals", "meal_choice", "first_name", "last_name", "building_address1", "building_address2" FROM "orders"
@@ -218,11 +208,9 @@ router.get('/dates/', rejectNotEditor, (req, res) => {
     }
     // runs function queryDefine
     queryDefine(dates);
-    console.log(queryText);
 
     pool.query(queryText, dates)
         .then((result) => {
-            console.log(`GET database request successful`, result.rows);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -241,7 +229,6 @@ router.post('/save-day/', rejectNotOvernight, (req, res) => {
                         ;`;
 
     
-    console.log('put request:,', queryText)
     pool.query(queryText)
         .then((results) => {
             res.send(results);
@@ -261,7 +248,6 @@ router.post('/save-day-back-up/', rejectNotAdmin, (req, res) => {
                         ;`;
 
 
-    console.log('put request:,', queryText)
     pool.query(queryText)
         .then((results) => {
             res.send(results);
@@ -281,7 +267,6 @@ router.put('/:id', rejectNotEditor, (req, res) => {
                             ;`;
 
 
-    console.log('put request:,', queryText, number_of_meals, req.params.id)
     pool.query(queryText, [number_of_meals, req.params.id])
         .then((results) => {
             res.send(results);

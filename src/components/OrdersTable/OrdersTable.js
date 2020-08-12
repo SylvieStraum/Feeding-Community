@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import menu from '../../redux/reducers/menuReducer';
 import ExportCsv from '../ExportCsv/ExportCsv';
 import OrdersItem from '../OrdersItem/OrdersItem';
 import './OrdersTable.scss';
@@ -82,18 +81,18 @@ class OrdersTable extends Component {
           {this.state.selectMode ?
             <>
               <button onClick={this.changeInputState} className="rangeBtn">Switch to Range search</button>
-              <label for="selectDay"> Get Day: </label>
+              <label htmlFor="selectDay"> Get Day: </label>
               <input type="date" id="selectDay" value={this.state.selectDay} onChange={this.handleSelect}></input>
-              <label for="rangeButton"></label>
-              <label for="selectMonth"> Get Month: </label>
+              <label htmlFor="rangeButton"></label>
+              <label htmlFor="selectMonth"> Get Month: </label>
               <input type="month" id="selectMonth" value={this.state.selectMonth} onChange={this.handleSelect} ></input>
             </>
             :
             <>
               <button onClick={this.changeInputState} className="rangeBtn">Switch to Month/Day search</button>
-              <label for="startDate"> Start Date:</label>
+              <label htmlFor="startDate"> Start Date:</label>
               <input type="date" id="startDate" value={this.state.startDate} onChange={this.handleInput}></input>
-              <label for="endDate"> End Date:</label>
+              <label htmlFor="endDate"> End Date:</label>
               <input type="date" id="endDate" value={this.state.endDate} onChange={this.handleInput}></input>
               <button id="rangeSubmit" onClick={this.handleSelect}>Get Range</button>
 
@@ -112,7 +111,7 @@ class OrdersTable extends Component {
             <table className="ordersTable">
               <thead>
                 <tr>
-                  <th>Name {console.log(this.props.menu)}</th>
+                  <th>Name</th>
                   {this.props.range[0] &&
                     this.props.range[0].map((date) =>
                       <th key={date}>{date}</th>
