@@ -65,6 +65,7 @@ class Accounts extends Component {
                 <th>Dietary Restrictions</th>
                 <th>Referral Organization</th>
                 <th>Qualified Program</th>
+                <th>Number of Meals</th>
                 <th>Signed</th>
                 <th>Route Assignment</th>
                 <th>Edit</th>

@@ -25,7 +25,7 @@ class DriverViewItems extends Component {
                         }</td>
                     {/* <td>{this.props.item.program_name}</td> */}
                     <td>
-                        {this.props.item.program_id === 1 ?
+                        {this.props.item.program_id == 2 ?
                             <>
                             {this.props.item.document_signed === true ?
                             <>Signed</>
@@ -35,7 +35,10 @@ class DriverViewItems extends Component {
                             </>
                             :
                             <>
-                                N/A 
+                                N/A
+                                {
+                                    console.log(this.props.item)
+                                }
                             </>
                         } </td>
                     {/* <td>{this.props.item.route_name}</td> */}

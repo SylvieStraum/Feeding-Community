@@ -71,7 +71,8 @@ class AccountsItem extends Component {
             referral_id: this.props.item.referral_id,
             program_id: this.props.item.program_id,
             document_signed: this.props.item.document_signed,
-            route_id: this.props.item.route_id
+            route_id: this.props.item.route_id,
+            number_of_meals: this.props.item.number_of_meals
         })
     }
 
@@ -112,9 +113,10 @@ class AccountsItem extends Component {
                         <td>{this.props.item.dietary_restrictions}</td>
                         <td>{this.props.item.referral_name}</td>
                         <td>{this.props.item.program_name}</td>
+                        <td>{this.props.item.number_of_meals}</td>
                         {/* if program === ramsay county return a yes/no if else return empty */}
                         <td>
-                            {this.props.item.program_id === 1 ?
+                            {this.props.item.program_id === 2 ?
                                 <>
                                     {this.props.item.document_signed === true ?
                                         <>Signed</>
@@ -171,8 +173,14 @@ class AccountsItem extends Component {
                                 <option value={item.id}>{item.program_name}</option>
                             ))}
                         </select></td>
+                        <td> <select type="dropdown" value={this.state.number_of_meals} id={'number_of_meals'} onChange={this.handleInput}>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select></td>
                         <td>
-                            {this.state.program_id === 1 ?
+                            {this.state.program_id === 2 ?
                                 <select type="dropdown" value={this.state.document_signed} id={'document_signed'} onChange={this.handleInput}>
                                     <option ></option>
                                     <option value="true">Signed</option>
