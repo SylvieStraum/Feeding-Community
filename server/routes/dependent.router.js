@@ -17,7 +17,6 @@ router.get('/', rejectNotEditor, (req, res) => {
                                 ;`;
     pool.query(queryText)
         .then((result) => {
-            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -28,7 +27,6 @@ router.get('/', rejectNotEditor, (req, res) => {
 
 // GET ROUTE for selecting single user info
 router.get('/:id', rejectNotEditor, (req, res) => {
-    console.log(req.params.id)
     const queryText = `SELECT "dependents"."id", "first_name", "last_name", "date_of_birth", "annual_income", "phone_number", "building_address1", "building_address2", "zip_code", "county_id", "county_name", "city", "special_request", "document_signed", "dietary_restrictions", "referral_id", "program_id", "referral_name", "program_name", "number_of_meals", "meal_choice", "menu_description" FROM "dependents"
                                 JOIN "county" ON "dependents"."county_id" = "county"."id"
                                 JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
@@ -38,7 +36,6 @@ router.get('/:id', rejectNotEditor, (req, res) => {
                         WHERE "dependents"."id" = $1`;
     pool.query(queryText, [req.params.id])
         .then((result) => {
-            console.log(`GET database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -50,7 +47,7 @@ router.get('/:id', rejectNotEditor, (req, res) => {
 //POST ROUTE add new dependent
 router.post('/', rejectNotDriver, (req, res) => {
     const b = req.body
-    console.log('body:', b)
+
     const queryText = `WITH insert1 AS (
                         INSERT INTO "dependents"
                         ( "first_name", "last_name", "date_of_birth", 
@@ -71,7 +68,6 @@ router.post('/', rejectNotDriver, (req, res) => {
                         SELECT insert1.id, $17, $18
                         FROM insert1;  `;
     const values = [b.first_name, b.last_name, b.date_of_birth, b.annual_income, b.phone_number, b.building_address1, b.building_address2, b.zip_code, b.county_id, b.city, b.special_request, b.dietary_restrictions, b.referral_id, b.program_id, b.document_signed, b.route_id, b.number_of_meals, b.meal_choice];
-    console.log('post request, values:', values)
     pool.query(queryText, values)
         .then((results) => {
             res.send(results);
@@ -84,7 +80,6 @@ router.post('/', rejectNotDriver, (req, res) => {
 //PUT ROUTE to adjust all account info
 router.put('/:id', rejectNotEditor, async (req, res) => {
     const b = req.body;
-    console.log('body:', req.body, 'params:', req.params.id);
     const connection = await pool.connect();
     try {
         await connection.query('BEGIN;');
@@ -108,8 +103,6 @@ router.put('/:id', rejectNotEditor, async (req, res) => {
                             WHERE "id" = $3;
                             `;
         const values2 = [b.number_of_meals, b.meal_choice, req.params.id];
-        console.log(sqlText1, values1);
-        console.log(sqlText2, values2);
         await connection.query(sqlText1, values1);
         await connection.query(sqlText2, values2);
         await connection.query('COMMIT;');

@@ -8,14 +8,13 @@ class AccountsItem extends Component {
     }
 
     cancelEdit = () => {
-        console.log('cancelling edit')
         this.setState({
             edit: !this.state.edit
         })
     }
     // PUT request
     editDependent = () => {
-        console.log('edit dependent:', this.props.item) //this will target the specific dependent clicked
+        // console.log('edit dependent:', this.props.item) //this will target the specific dependent clicked
 
     }
     // toggles to editable state
@@ -27,9 +26,9 @@ class AccountsItem extends Component {
 
     // send PUT and toggles to non-editable state
     updateDependent = () => {
-        console.log('update dependent', this.props.item)
+        // console.log('update dependent', this.props.item)
         let searchState = false
-        if (this.props.searchReducer !== []){
+        if (this.props.searchReducer !== []) {
             searchState = true
         }
 
@@ -37,10 +36,10 @@ class AccountsItem extends Component {
         this.props.dispatch({
             type: 'UPDATE_DEPENDENT',
             payload: {
-                    dependent: this.state,
-                    searchState: searchState
-        }});
-
+                dependent: this.state,
+                searchState: searchState
+            }
+        });
         // toggles to non-editable state
         this.setState({
             edit: !this.state.edit
@@ -48,12 +47,12 @@ class AccountsItem extends Component {
     }
 
     // sets state on component mount
-    componentDidMount(){
+    componentDidMount() {
         this.sendToState();
     }
 
     // gets props data and updates state with data to allow for editing
-    sendToState(){
+    sendToState() {
         this.setState({
             id: this.props.item.id,
             first_name: this.props.item.first_name,
@@ -72,7 +71,8 @@ class AccountsItem extends Component {
             referral_id: this.props.item.referral_id,
             program_id: this.props.item.program_id,
             document_signed: this.props.item.document_signed,
-            route_id:this.props.item.route_id
+            route_id: this.props.item.route_id,
+            number_of_meals: this.props.item.number_of_meals
         })
     }
 
@@ -113,21 +113,22 @@ class AccountsItem extends Component {
                         <td>{this.props.item.dietary_restrictions}</td>
                         <td>{this.props.item.referral_name}</td>
                         <td>{this.props.item.program_name}</td>
+                        <td>{this.props.item.number_of_meals}</td>
                         {/* if program === ramsay county return a yes/no if else return empty */}
                         <td>
-                        {this.props.item.program_id === 1 ?
-                            <>
-                            {this.props.item.document_signed === true ?
-                            <>Signed</>
-                            :
-                            <>Not Signed</>
+                            {this.props.item.program_id === 2 ?
+                                <>
+                                    {this.props.item.document_signed === true ?
+                                        <>Signed</>
+                                        :
+                                        <>Not Signed</>
+                                    }
+                                </>
+                                :
+                                <>
+                                    N/A
+                            </>
                             }
-                            </>
-                            :
-                            <>
-                                N/A 
-                            </>
-                        }
                         </td>
                         <td>{this.props.item.route_name}</td>
                         {/* this will conditionally render all information to inputs */}
@@ -136,56 +137,62 @@ class AccountsItem extends Component {
                     :
                     <tr>
                         {/* need to add last name to toggle value */}
-                        <td><input value={this.state.first_name} id={'first_name'} onChange={this.handleInput}/>
-                        <input value={this.state.last_name} id={'last_name'} onChange={this.handleInput}/></td>
-                        <td><input value={this.state.phone_number} id={'phone_number'} onChange={this.handleInput}/></td>
-                        <td><input value={this.state.date_of_birth} id={'date_of_birth'} onChange={this.handleInput}/></td>
+                        <td><input value={this.state.first_name} id={'first_name'} onChange={this.handleInput} />
+                            <input value={this.state.last_name} id={'last_name'} onChange={this.handleInput} /></td>
+                        <td><input value={this.state.phone_number} id={'phone_number'} onChange={this.handleInput} /></td>
+                        <td><input value={this.state.date_of_birth} id={'date_of_birth'} onChange={this.handleInput} /></td>
                         {/* address value will need to be a concatenated string of building_address 1 and 2 */}
-                        <td><input value={this.state.building_address1} id={'building_address1'} onChange={this.handleInput}/>
-                        <input value={this.state.building_address2} id={'building_address2'} onChange={this.handleInput}/></td>
-                        <td><input value={this.state.zip_code} id={'zip_code'} onChange={this.handleInput}/></td>
+                        <td><input value={this.state.building_address1} id={'building_address1'} onChange={this.handleInput} />
+                            <input value={this.state.building_address2} id={'building_address2'} onChange={this.handleInput} /></td>
+                        <td><input value={this.state.zip_code} id={'zip_code'} onChange={this.handleInput} /></td>
                         {/* dropdown for county type */}
                         <td><select required value={this.state.county_id} type="dropdown" id={'county_id'} onChange={this.handleInput} >
                             <option value="0"></option>
-                            {this.props.counties.map((item) => ( 
+                            {this.props.counties.map((item) => (
                                 <option value={item.id} key={item.id}>{item.county_name}</option>
                             ))}
                         </select></td>
-                        <td><input value={this.state.city} id={'city'} onChange={this.handleInput}/></td>
-                        <td><input value={this.state.special_request} id={'special_request'} onChange={this.handleInput}/></td>
+                        <td><input value={this.state.city} id={'city'} onChange={this.handleInput} /></td>
+                        <td><input value={this.state.special_request} id={'special_request'} onChange={this.handleInput} /></td>
                         <td> <select type="dropdown" value={this.state.meal_choice} id={'meal_choice'} onChange={this.handleInput}>
                             <option value="0"></option>
-                            {this.props.menu.map((item) => ( 
+                            {this.props.menu.map((item) => (
                                 <option value={item.id}>{item.menu_description}</option>
                             ))}
                         </select></td>
-                        <td><input value={this.state.dietary_restrictions} id={'dietary_restrictions'} onChange={this.handleInput}/></td>
+                        <td><input value={this.state.dietary_restrictions} id={'dietary_restrictions'} onChange={this.handleInput} /></td>
                         <td> <select type="dropdown" value={this.state.referral_id} id={'referral_id'} onChange={this.handleInput}>
                             <option value="0"></option>
-                            {this.props.organizations.map((item) => ( 
+                            {this.props.organizations.map((item) => (
                                 <option value={item.id}>{item.referral_name}</option>
                             ))}
                         </select></td>
                         <td> <select type="dropdown" value={this.state.program_id} id={'program_id'} onChange={this.handleInput}>
                             <option value="0"></option>
-                            {this.props.programs.map((item) => ( 
+                            {this.props.programs.map((item) => (
                                 <option value={item.id}>{item.program_name}</option>
                             ))}
                         </select></td>
+                        <td> <select type="dropdown" value={this.state.number_of_meals} id={'number_of_meals'} onChange={this.handleInput}>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select></td>
                         <td>
-                        {this.state.program_id === 1 ?
-                            <select type="dropdown" value={this.state.document_signed} id={'document_signed'} onChange={this.handleInput}>
-                                <option ></option>
-                                <option value="true">Signed</option>
-                                <option value="false">Not Signed</option>  
-                            </select>
-                            :
-                            <>N/A</>
-                        } 
+                            {this.state.program_id === 2 ?
+                                <select type="dropdown" value={this.state.document_signed} id={'document_signed'} onChange={this.handleInput}>
+                                    <option ></option>
+                                    <option value="true">Signed</option>
+                                    <option value="false">Not Signed</option>
+                                </select>
+                                :
+                                <>N/A</>
+                            }
                         </td>
                         <td><select type="dropdown" value={this.state.route_id} id={'route_id'} onChange={this.handleInput}>
                             <option value="0"></option>
-                            {this.props.routes.map((item) => ( 
+                            {this.props.routes.map((item) => (
                                 <option value={item.id}>{item.route_name}</option>
                             ))}
                         </select></td>

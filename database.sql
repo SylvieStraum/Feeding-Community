@@ -125,8 +125,8 @@ VALUES
 INSERT INTO "program"
     ("program_name", "default_no_meals")
 VALUES
-    ('Ramsey County', 3),
-    ('Meals on Wheels', 1);
+    ('Meals on Wheels', 1),
+    ('Ramsey County', 3);
 
 -- 
 INSERT INTO "menu"

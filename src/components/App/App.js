@@ -24,7 +24,6 @@ import './App.scss';
 import Accounts from '../Accounts/Accounts';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import OrdersTable from '../OrdersTable/OrdersTable'
-import AdminPage from '../AdminPage/AdminPage';
 import DriverView from '../DriverView/DriverView';
 
 //import SearchBar from '../SearchBar/SearchBar';

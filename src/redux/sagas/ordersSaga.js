@@ -6,9 +6,7 @@ function* getTodaysOrders() {
     try {
         const responsePayload = yield axios.get(`/api/orders/today/`);
         // sets responsePayload as orders
-        console.log('responsePayload:', responsePayload)
         let orders = responsePayload.data;
-        console.log('orders:', orders);
         // create variables for totalOrders array
         let meat = 0;
         let fish = 0;
@@ -41,8 +39,6 @@ function* getTodaysOrders() {
         }
         
         let payload = {totalOrders: totalOrders, orders: orders}
-        console.log('payload:', payload)
-        
         yield put({ type: 'SET_TODAYS_ORDERS' , payload: {totalOrders: totalOrders, orders: orders }});
     } catch (error) {
         console.log('Get orders saga error', error);
@@ -66,7 +62,6 @@ function* getOrders(action) {
             
             responsePayload = yield axios.get(`/api/orders/dates/?startDate=${range.startDate}:01:00:00&endDate=${range.endDate}:01:00:00`);
         }
-        console.log('action.payload:', action.payload)
         yield put({
             type: 'SET_ORDERS_REQUEST',
             payload: action.payload
@@ -83,7 +78,6 @@ function* getOrders(action) {
 
 // put request to alter orders
 function* alterOrder(action) {
-    console.log(action.payload)
     try {
         if(action.payload.id === -1){
             yield axios.post(`/api/orders/`, action.payload.state);

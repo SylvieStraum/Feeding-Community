@@ -12,7 +12,7 @@ const { rejectNotDriver } = require('../modules/driver-authentication-middleware
 
 // GET ROUTE for selecting all users associated with specific route
 router.get('/', rejectNotDriver, (req, res) => {
-    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "phone_number", "building_address1", "building_address2", "zip_code", "city", "special_request", "document_signed", "number_of_meals", "meal_choice", "menu_description", "route_id", "route_name" FROM "dependents"
+    const queryText = `SELECT "dependents"."id", "first_name", "last_name", "phone_number", "building_address1", "building_address2", "zip_code", "city", "special_request", "document_signed", "number_of_meals", "meal_choice", "menu_description", "route_id", "route_name", "dependents"."program_id" FROM "dependents"
                                 JOIN "county" ON "dependents"."county_id" = "county"."id"
                                 JOIN "referral" ON "dependents"."referral_id" = "referral"."id"
                                 JOIN "program" ON "dependents"."program_id" = "program"."id"
@@ -24,7 +24,6 @@ router.get('/', rejectNotDriver, (req, res) => {
                                 ;`;
         pool.query(queryText, [req.user.id])
         .then((result) => {
-            console.log(`GET driver database request successful`);
             res.send(result.rows);
         })
         .catch((error) => {
@@ -39,7 +38,6 @@ router.get('/routes', rejectNotDriver, (req, res) => {
                     ORDER BY "id" ASC;`
     pool.query(sqlText)
         .then((result) => {
-            console.log('in GET driver routes')
             res.send(result.rows)
         })
         .catch((err) => {

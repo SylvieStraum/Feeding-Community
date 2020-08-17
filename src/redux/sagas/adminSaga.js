@@ -16,7 +16,6 @@ function* userGet() {
 
 // POST for adding new Admin
 function* newAdmin(action) {
-    console.log('action.payload', action.payload)
     try {
         yield axios.post(`/api/admin/register/`, action.payload);
         yield put({
@@ -29,7 +28,6 @@ function* newAdmin(action) {
 
 // PUT request to alter user information
 function* alterAdmin(action) {
-    console.log(action.payload)
     try {
         yield axios.put(`/api/admin/${action.payload.id}`, action.payload);
         yield put({
@@ -42,7 +40,6 @@ function* alterAdmin(action) {
 
 // DELETE for removing user accounts
 function* deleteAdmin(action) {
-    console.log(action.payload)
     try {
         yield axios.delete(`/api/admin/${action.payload.id}`);
         yield put({

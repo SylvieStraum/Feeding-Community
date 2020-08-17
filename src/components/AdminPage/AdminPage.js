@@ -49,8 +49,7 @@ class AdminPage extends Component {
     render() {
         return (
             <div>
-                {console.log(this.state)}
-                <form class="admin-input-box">
+                <form className="admin-input-box">
                     <fieldset>
                         <legend>Create New Admin</legend>
                         <label className="admin-form-label" for="username">Username:</label>
@@ -61,7 +60,7 @@ class AdminPage extends Component {
                         <select className="admin-form-input" name="account_type" id="account_type" onChange={this.handleInput} value={this.state.account_type}>
                             <option value="0" disabled>Select Account Type</option>
                             <option value="1">Driver</option>
-                            {/* <option value="5">Editor</option> */}
+                            <option value="5">Editor</option>
                             <option value="10">Admin</option>
                         </select>
                         
